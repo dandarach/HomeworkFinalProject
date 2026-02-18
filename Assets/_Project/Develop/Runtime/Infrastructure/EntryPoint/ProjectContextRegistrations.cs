@@ -43,7 +43,8 @@ namespace Assets._Project.Develop.Runtime.Infrastructure.EntryPoint
             return new ConfigsProviderService(resourcesConfigsLoader);
         }
 
-        private static ResourcesAssetsLoader CreateResourcesAssetsLoader(DIContainer c) => new ResourcesAssetsLoader();
+        private static ResourcesAssetsLoader CreateResourcesAssetsLoader(DIContainer c)
+            => new ResourcesAssetsLoader();
 
         private static CoroutinesPerformer CreateCoroutinesPerformer(DIContainer c)
         {

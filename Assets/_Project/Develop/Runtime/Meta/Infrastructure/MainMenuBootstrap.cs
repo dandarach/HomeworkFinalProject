@@ -2,6 +2,7 @@
 using Assets._Project.Develop.Runtime.Configs;
 using Assets._Project.Develop.Runtime.Configs.Gameplay;
 using Assets._Project.Develop.Runtime.Gameplay.Infrastructure;
+using Assets._Project.Develop.Runtime.Gameplay.InputSystem;
 using Assets._Project.Develop.Runtime.Infrastructure;
 using Assets._Project.Develop.Runtime.Infrastructure.DI;
 using Assets._Project.Develop.Runtime.Utilities.ConfigsManagement;
@@ -16,6 +17,7 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure
         private DIContainer _container;
         private MenuConfig _menuConfig;
         private LevelConfigs _levelConfigs;
+        private MainMenuInputHandler _input;
         
         private bool _isRunning = false;
 
@@ -35,6 +37,8 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure
             _menuConfig = configsProviderService.GetConfig<MenuConfig>();
             _levelConfigs = configsProviderService.GetConfig<LevelConfigs>();
 
+            _input = _container.Resolve<MainMenuInputHandler>();
+
             yield break;
         }
 
@@ -49,9 +53,9 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure
             if (_isRunning == false)
                 return;
 
-            if (Input.GetKeyDown(_menuConfig.SelectNumbersGameModeKey))
+            if (_input.GetKeyDown(_menuConfig.SelectNumbersGameModeKey))
                 SwitchToGameplay(new GameplayInputArgs(_levelConfigs.GetLevelConfig(GameplayMode.Digits)));
-            else if (Input.GetKeyDown(_menuConfig.SelectLettersGameModeKey))
+            else if (UnityEngine.Input.GetKeyDown(_menuConfig.SelectLettersGameModeKey))
                 SwitchToGameplay(new GameplayInputArgs(_levelConfigs.GetLevelConfig(GameplayMode.Letters)));
         }
 

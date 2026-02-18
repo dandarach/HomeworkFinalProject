@@ -2,6 +2,7 @@
 using System.Collections;
 using Assets._Project.Develop.Runtime.Infrastructure;
 using Assets._Project.Develop.Runtime.Infrastructure.DI;
+using Assets._Project.Develop.Runtime.Utilities.ConfigsManagement;
 using Assets._Project.Develop.Runtime.Utilities.CoroutinesManagement;
 using Assets._Project.Develop.Runtime.Utilities.SceneManagement;
 using UnityEngine;
@@ -12,6 +13,9 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
     {
         private DIContainer _container;
         private GameplayInputArgs _inputArgs;
+        private GameplayProcess _gameplayCycle;
+
+        private bool _isRunning = false;
 
         public override void ProcessRegistrations(DIContainer container, IInputSceneArgs sceneArgs = null)
         {
@@ -29,16 +33,25 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
         {
             Debug.Log($"Gameplay mode symbols: '{_inputArgs.Symbols}', SymbolsToGuess: {_inputArgs.SymbolsToGuess}");
 
+            _gameplayCycle = _container.Resolve<GameplayProcess>();
+            
             yield break;
         }
 
         public override void Run()
         {
             Debug.Log("Gameplay scene start");
+            
+            _gameplayCycle.Run();
+            
+            _isRunning = true;
         }
 
         private void Update()
         {
+            if (_isRunning == false)
+                return;
+
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 SceneSwitcherService sceneSwitcherService = _container.Resolve<SceneSwitcherService>();
