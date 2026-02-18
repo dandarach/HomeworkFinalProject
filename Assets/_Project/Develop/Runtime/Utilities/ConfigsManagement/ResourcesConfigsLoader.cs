@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Assets._Project.Develop.Runtime.Gameplay.Configs;
+using Assets._Project.Develop.Runtime.Configs;
 using Assets._Project.Develop.Runtime.Utilities.AssetsManagement;
 using UnityEngine;
 
@@ -14,7 +14,7 @@ namespace Assets._Project.Develop.Runtime.Utilities.ConfigsManagement
         private readonly Dictionary<Type, string> _configsResourcesPaths = new()
         {
             { typeof(MenuConfig), "Configs/MenuConfig" },
-            { typeof(GameConfig), "Configs/GameConfig" }
+            //{ typeof(GameConfig), "Configs/GameConfig" }
         };
 
         public ResourcesConfigsLoader(ResourcesAssetsLoader resources)

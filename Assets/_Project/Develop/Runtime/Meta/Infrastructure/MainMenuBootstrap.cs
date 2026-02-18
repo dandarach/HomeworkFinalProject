@@ -1,5 +1,5 @@
 ﻿using System.Collections;
-using Assets._Project.Develop.Runtime.Gameplay.Configs;
+using Assets._Project.Develop.Runtime.Configs;
 using Assets._Project.Develop.Runtime.Gameplay.Infrastructure;
 using Assets._Project.Develop.Runtime.Infrastructure;
 using Assets._Project.Develop.Runtime.Infrastructure.DI;
@@ -14,7 +14,7 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure
     {
         private DIContainer _container;
         private MenuConfig _menuConfig;
-        private GameConfig _gameConfig;
+        //private GameConfig _gameConfig;
         
         private bool _isRunning = false;
 
@@ -29,7 +29,7 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure
         {
             Debug.Log("Main Menu scene initialization");
             _menuConfig = _container.Resolve<ConfigsProviderService>().GetConfig<MenuConfig>();
-            _gameConfig = _container.Resolve<ConfigsProviderService>().GetConfig<GameConfig>();
+            //_gameConfig = _container.Resolve<ConfigsProviderService>().GetConfig<GameConfig>();
 
             yield break;
         }
@@ -45,10 +45,10 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure
             if (_isRunning == false)
                 return;
 
-            if (Input.GetKeyDown(_menuConfig.SelectNumbersGameModeKey))
-                SwitchToGameplay(new GameplayInputArgs(_gameConfig.NumbersList, _gameConfig.SymbolsCount));
-            else if (Input.GetKeyDown(_menuConfig.SelectLettersGameModeKey))
-                SwitchToGameplay(new GameplayInputArgs(_gameConfig.LettersList, _gameConfig.SymbolsCount));
+            //if (Input.GetKeyDown(_menuConfig.SelectNumbersGameModeKey))
+                //SwitchToGameplay(new GameplayInputArgs(_gameConfig.NumbersList, _gameConfig.SymbolsCount));
+            //else if (Input.GetKeyDown(_menuConfig.SelectLettersGameModeKey))
+                //SwitchToGameplay(new GameplayInputArgs(_gameConfig.LettersList, _gameConfig.SymbolsCount));
         }
 
         private void SwitchToGameplay(GameplayInputArgs inputArgs)

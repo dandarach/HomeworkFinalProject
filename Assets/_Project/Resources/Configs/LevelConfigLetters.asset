@@ -10,8 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 48865b44b466ab0449273fbe7bf122a6, type: 3}
-  m_Name: GameConfig
+  m_Name: LevelConfigLetters
   m_EditorClassIdentifier: 
-  <NumbersList>k__BackingField: 0123456789
-  <LettersList>k__BackingField: ABCDEFGH
-  <SymbolsCount>k__BackingField: 5
+  <Symbols>k__BackingField: ABCDEFGH
+  <SymbolsToGuess>k__BackingField: 3
