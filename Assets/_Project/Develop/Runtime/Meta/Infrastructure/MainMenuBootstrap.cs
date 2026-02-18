@@ -6,6 +6,7 @@ using Assets._Project.Develop.Runtime.Infrastructure.DI;
 using Assets._Project.Develop.Runtime.Utilities.ConfigsManagement;
 using Assets._Project.Develop.Runtime.Utilities.CoroutinesManagement;
 using Assets._Project.Develop.Runtime.Utilities.SceneManagement;
+using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 
 namespace Assets._Project.Develop.Runtime.Meta.Infrastructure
@@ -14,6 +15,7 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure
     {
         private DIContainer _container;
         private bool _isRunning = false;
+        private GameConfig _gameConfig;
 
         public override void ProcessRegistrations(DIContainer container, IInputSceneArgs sceneArgs = null)
         {
@@ -33,8 +35,7 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure
         {
             Debug.Log("Main Menu scene start");
 
-            GameConfig config = _container.Resolve<ConfigsProviderService>().GetConfig<GameConfig>();
-            Debug.LogWarning(config.NumbersList);
+            _gameConfig = _container.Resolve<ConfigsProviderService>().GetConfig<GameConfig>();
 
             _isRunning = true;
         }
@@ -45,9 +46,9 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure
                 return;
 
             if (Input.GetKeyDown(KeyCode.Alpha1))
-                SwitchToGameplay(new GameplayInputArgs(GameplayMode.Numbers));
+                SwitchToGameplay(new GameplayInputArgs(_gameConfig.NumbersList, _gameConfig.SymbolsCount));
             else if (Input.GetKeyDown(KeyCode.Alpha2))
-                SwitchToGameplay(new GameplayInputArgs(GameplayMode.Letters));
+                SwitchToGameplay(new GameplayInputArgs(_gameConfig.LettersList, _gameConfig.SymbolsCount));
         }
 
         private void SwitchToGameplay(GameplayInputArgs inputArgs)

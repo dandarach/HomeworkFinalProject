@@ -27,7 +27,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
 
         public override IEnumerator Initialize()
         {
-            Debug.Log($"Gameplay mode is '{_inputArgs.GameplayMode}'");
+            Debug.Log($"Gameplay mode is '{_inputArgs.Symbols}'");
 
             yield break;
         }
