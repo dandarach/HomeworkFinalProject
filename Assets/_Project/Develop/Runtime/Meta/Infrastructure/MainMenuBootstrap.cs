@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using Assets._Project.Develop.Runtime.Configs;
+using Assets._Project.Develop.Runtime.Configs.Gameplay;
 using Assets._Project.Develop.Runtime.Gameplay.Infrastructure;
 using Assets._Project.Develop.Runtime.Infrastructure;
 using Assets._Project.Develop.Runtime.Infrastructure.DI;
@@ -14,7 +15,7 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure
     {
         private DIContainer _container;
         private MenuConfig _menuConfig;
-        //private GameConfig _gameConfig;
+        private LevelConfigs _levelConfigs;
         
         private bool _isRunning = false;
 
@@ -28,8 +29,11 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure
         public override IEnumerator Initialize()
         {
             Debug.Log("Main Menu scene initialization");
-            _menuConfig = _container.Resolve<ConfigsProviderService>().GetConfig<MenuConfig>();
-            //_gameConfig = _container.Resolve<ConfigsProviderService>().GetConfig<GameConfig>();
+
+            ConfigsProviderService configsProviderService = _container.Resolve<ConfigsProviderService>();
+
+            _menuConfig = configsProviderService.GetConfig<MenuConfig>();
+            _levelConfigs = configsProviderService.GetConfig<LevelConfigs>();
 
             yield break;
         }
@@ -45,10 +49,10 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure
             if (_isRunning == false)
                 return;
 
-            //if (Input.GetKeyDown(_menuConfig.SelectNumbersGameModeKey))
-                //SwitchToGameplay(new GameplayInputArgs(_gameConfig.NumbersList, _gameConfig.SymbolsCount));
-            //else if (Input.GetKeyDown(_menuConfig.SelectLettersGameModeKey))
-                //SwitchToGameplay(new GameplayInputArgs(_gameConfig.LettersList, _gameConfig.SymbolsCount));
+            if (Input.GetKeyDown(_menuConfig.SelectNumbersGameModeKey))
+                SwitchToGameplay(new GameplayInputArgs(_levelConfigs.GetLevelConfig(GameplayMode.Digits)));
+            else if (Input.GetKeyDown(_menuConfig.SelectLettersGameModeKey))
+                SwitchToGameplay(new GameplayInputArgs(_levelConfigs.GetLevelConfig(GameplayMode.Letters)));
         }
 
         private void SwitchToGameplay(GameplayInputArgs inputArgs)

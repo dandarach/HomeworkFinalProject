@@ -1,16 +1,17 @@
-﻿using Assets._Project.Develop.Runtime.Utilities.SceneManagement;
+﻿using Assets._Project.Develop.Runtime.Configs.Gameplay;
+using Assets._Project.Develop.Runtime.Utilities.SceneManagement;
 
 namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
 {
     public class GameplayInputArgs : IInputSceneArgs
     {
-        public GameplayInputArgs(string symbols, int symbolsCount)
+        public GameplayInputArgs(LevelConfig config)
         {
-            Symbols = symbols;
-            SymbolsCount = symbolsCount;
+            Symbols = config.Symbols;
+            SymbolsToGuess = config.SymbolsToGuess;
         }
 
         public string Symbols { get; }
-        public int SymbolsCount { get; }
+        public int SymbolsToGuess { get; }
     }
 }
