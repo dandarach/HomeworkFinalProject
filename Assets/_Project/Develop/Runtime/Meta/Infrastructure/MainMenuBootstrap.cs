@@ -1,7 +1,9 @@
 ﻿using System.Collections;
+using Assets._Project.Develop.Runtime.Gameplay.Configs;
 using Assets._Project.Develop.Runtime.Gameplay.Infrastructure;
 using Assets._Project.Develop.Runtime.Infrastructure;
 using Assets._Project.Develop.Runtime.Infrastructure.DI;
+using Assets._Project.Develop.Runtime.Utilities.ConfigsManagement;
 using Assets._Project.Develop.Runtime.Utilities.CoroutinesManagement;
 using Assets._Project.Develop.Runtime.Utilities.SceneManagement;
 using UnityEngine;
@@ -30,6 +32,10 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure
         public override void Run()
         {
             Debug.Log("Main Menu scene start");
+
+            GameConfig config = _container.Resolve<ConfigsProviderService>().GetConfig<GameConfig>();
+            Debug.LogWarning(config.NumbersList);
+
             _isRunning = true;
         }
 

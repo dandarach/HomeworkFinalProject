@@ -684,7 +684,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.6964086, b: 0, a: 1}
+  m_Color: {r: 0.5900631, g: 0, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -718,18 +718,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &4621910202897033731
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8233518156007946323}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f62688c7459c78541a681264ce5d0ddf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &5615181074707838112
 GameObject:
   m_ObjectHideFlags: 0
@@ -833,9 +821,8 @@ GameObject:
   - component: {fileID: 6615567005084764369}
   - component: {fileID: 5631102412880389011}
   - component: {fileID: 4511239590261549371}
-  - component: {fileID: 4621910202897033731}
   m_Layer: 0
-  m_Name: StandardLoadingScreen
+  m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
