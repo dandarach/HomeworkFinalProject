@@ -13,6 +13,7 @@ namespace Assets._Project.Develop.Runtime.Utilities.ConfigsManagement
 
         private readonly Dictionary<Type, string> _configsResourcesPaths = new()
         {
+            { typeof(MenuConfig), "Configs/MenuConfig" },
             { typeof(GameConfig), "Configs/GameConfig" }
         };
 
