@@ -11,6 +11,7 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure
     public class MainMenuBootstrap : SceneBootstrap
     {
         private DIContainer _container;
+        private bool _isRunning = false;
 
         public override void ProcessRegistrations(DIContainer container, IInputSceneArgs sceneArgs = null)
         {
@@ -29,16 +30,25 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure
         public override void Run()
         {
             Debug.Log("Main Menu scene start");
+            _isRunning = true;
         }
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.F))
-            {
-                SceneSwitcherService sceneSwitcherService = _container.Resolve<SceneSwitcherService>();
-                ICoroutinesPerformer coroutinesPerformer = _container.Resolve<ICoroutinesPerformer>();
-                coroutinesPerformer.StartPerform(sceneSwitcherService.ProcessSwitchTo(Scenes.Gameplay, new GameplayInputArgs(2)));
-            }
+            if (_isRunning == false)
+                return;
+
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+                SwitchToGameplay(new GameplayInputArgs(GameplayMode.Numbers));
+            else if (Input.GetKeyDown(KeyCode.Alpha2))
+                SwitchToGameplay(new GameplayInputArgs(GameplayMode.Letters));
+        }
+
+        private void SwitchToGameplay(GameplayInputArgs inputArgs)
+        {
+            SceneSwitcherService sceneSwitcherService = _container.Resolve<SceneSwitcherService>();
+            ICoroutinesPerformer coroutinesPerformer = _container.Resolve<ICoroutinesPerformer>();
+            coroutinesPerformer.StartPerform(sceneSwitcherService.ProcessSwitchTo(Scenes.Gameplay, inputArgs));
         }
     }
 }

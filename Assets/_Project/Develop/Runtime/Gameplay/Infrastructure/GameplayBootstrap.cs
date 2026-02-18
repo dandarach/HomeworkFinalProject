@@ -27,9 +27,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
 
         public override IEnumerator Initialize()
         {
-            Debug.Log($"You are on the level {_inputArgs.LevelNumber}");
-
-            Debug.Log("Gameplay scene initialization");
+            Debug.Log($"Gameplay mode is '{_inputArgs.GameplayMode}'");
 
             yield break;
         }
@@ -41,7 +39,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.F))
+            if (Input.GetKeyDown(KeyCode.Space))
             {
                 SceneSwitcherService sceneSwitcherService = _container.Resolve<SceneSwitcherService>();
                 ICoroutinesPerformer coroutinesPerformer = _container.Resolve<ICoroutinesPerformer>();

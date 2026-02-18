@@ -4,11 +4,11 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
 {
     public class GameplayInputArgs : IInputSceneArgs
     {
-        public GameplayInputArgs(int levelNumber)
+        public GameplayInputArgs(GameplayMode gameplayMode)
         {
-            LevelNumber = levelNumber;
+            GameplayMode = gameplayMode;
         }
 
-        public int LevelNumber { get; }
+        public GameplayMode GameplayMode { get; }
     }
 }
