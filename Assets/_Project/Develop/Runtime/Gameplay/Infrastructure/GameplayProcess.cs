@@ -21,7 +21,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
         public void Run()
         {
             Debug.LogWarning("GameplayProcess.Run");
-            OnWin?.Invoke();
+            OnDefeat?.Invoke();
         }
 
         public void Dispose()

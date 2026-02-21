@@ -47,24 +47,17 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
             _gameplayProcess.OnWin += OnGameWin;
             _gameplayProcess.OnDefeat += OnGameDefeat;
 
+            _gameState = GameState.Running;
             _gameplayProcess.Run();
-
-            //_gameState = GameState.Running;
         }
 
         private void Update()
         {
-            Debug.Log(_gameState);
-
             if (_gameState == GameState.Running)
                 return;
 
-            Debug.Log("*");
-
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                Debug.Log("-space-");
-
                 if (_gameState == GameState.Win)
                     SwitchToMainMenu();
 
