@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Symbols>k__BackingField: ABCDEFGH
   <SymbolsToGuess>k__BackingField: 3
+  <RestartGameKey>k__BackingField: 32

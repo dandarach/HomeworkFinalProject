@@ -5,15 +5,18 @@ using Assets._Project.Develop.Runtime.Infrastructure.DI;
 using Assets._Project.Develop.Runtime.Utilities.CoroutinesManagement;
 using Assets._Project.Develop.Runtime.Utilities.SceneManagement;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
 {
     public class GameplayBootstrap : SceneBootstrap
     {
+        private const string RestartGameMessage = "TO RESTART THE GAME";
+        private const string GoToMainMenuMessage = "FOR MAIN MENU";
+
         private DIContainer _container;
         private GameplayInputArgs _inputArgs;
         private GameplayProcess _gameplayProcess;
+        private KeyCode _restartGameKey;
 
         private GameState _gameState;
 
@@ -25,6 +28,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
                 throw new ArgumentException($"{nameof(sceneArgs)} is not match with {typeof(GameplayInputArgs)} type");
 
             _inputArgs = gameplayInputArgs;
+            _restartGameKey = gameplayInputArgs.RestartGameKey;
 
             GameplayContextRegistration.Process(_container);
         }
@@ -55,7 +59,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
             if (_gameState == GameState.Running)
                 return;
 
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(_restartGameKey))
             {
                 if (_gameState == GameState.Win)
                     SwitchToMainMenu();
@@ -83,6 +87,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
         private void OnGameWin()
         {
             Debug.LogWarning("*** WIN ***");
+            Debug.LogWarning($"PRESS {_restartGameKey} {GoToMainMenuMessage}");
 
             OnGameEnded();
             _gameState = GameState.Win;
@@ -91,6 +96,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
         private void OnGameDefeat()
         {
             Debug.LogWarning("*** DEFEAT ***");
+            Debug.LogWarning($"PRESS {_restartGameKey} {RestartGameMessage}");
 
             OnGameEnded();
             _gameState = GameState.Defeat;

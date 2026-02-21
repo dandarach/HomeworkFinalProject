@@ -36,9 +36,10 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
 
         }
 
-        private void OnStringValidationEnd(bool validationResult)
+        private void OnStringValidationEnd(bool validationResult, string enteredString)
         {
             _validator.OnStringValidate -= OnStringValidationEnd;
+            Debug.Log($"You entered: {enteredString}");
 
             if (validationResult)
                 OnWin?.Invoke();

@@ -1,16 +1,22 @@
 ﻿using System;
+using Assets._Project.Develop.Runtime.Gameplay.Infrastructure.InputSystem;
 using UnityEngine;
 
 namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
 {
     public class StringValidator
     {
-        public event Action<bool> OnStringValidate;
+        public event Action<bool, string> OnStringValidate;
 
         private string _inputString;
         private string _stringToMatch;
-
+        private IGameplayInput _input;
         private bool _isRunning = false;
+
+        public StringValidator(IGameplayInput input)
+        {
+            _input = input;
+        }
 
         public void Run(string stringToMatch)
         {
@@ -24,7 +30,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
             if (_isRunning == false)
                 return;
 
-            _inputString += Input.inputString;
+            _inputString += _input.SelectedSymbol;
             Check();
         }
 
@@ -40,7 +46,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
         private void OnValidationEnd(bool result)
         {
             _isRunning = false;
-            OnStringValidate?.Invoke(result);
+            OnStringValidate?.Invoke(result, _inputString);
         }
     }
 }

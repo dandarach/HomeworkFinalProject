@@ -1,7 +1,5 @@
-﻿using Assets._Project.Develop.Runtime.Configs;
-using Assets._Project.Develop.Runtime.Configs.Gameplay;
+﻿using Assets._Project.Develop.Runtime.Gameplay.Infrastructure.InputSystem;
 using Assets._Project.Develop.Runtime.Infrastructure.DI;
-using Assets._Project.Develop.Runtime.Utilities.ConfigsManagement;
 using UnityEngine;
 
 namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
@@ -14,10 +12,15 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
 
             container.RegisterAsSingle(CreateStringGenerator);
 
-            container.RegisterAsSingle(CreateStringChecker);
+            container.RegisterAsSingle(CreateStringValidator);
             
             container.RegisterAsSingle(CreateGameplayProcess);
+            
+            container.RegisterAsSingle(CreateGameplayInput);
         }
+
+        private static IGameplayInput CreateGameplayInput(DIContainer c)
+            => new GameplayInput();
 
         private static GameplayProcess CreateGameplayProcess(DIContainer c)
         {
@@ -30,7 +33,11 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
         private static StringGenerator CreateStringGenerator(DIContainer c)
             => new StringGenerator();
 
-        private static StringValidator CreateStringChecker(DIContainer c)
-            => new StringValidator();
+        private static StringValidator CreateStringValidator(DIContainer c)
+        {
+            IGameplayInput input = c.Resolve<IGameplayInput>();
+            
+            return new StringValidator(input);
+        }
     }
 }
