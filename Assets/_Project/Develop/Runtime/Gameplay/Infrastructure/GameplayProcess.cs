@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections;
-using Assets._Project.Develop.Runtime.Infrastructure;
-using Assets._Project.Develop.Runtime.Infrastructure.DI;
-using Assets._Project.Develop.Runtime.Utilities.CoroutinesManagement;
-using Assets._Project.Develop.Runtime.Utilities.SceneManagement;
 using UnityEngine;
 
 namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
@@ -13,19 +8,33 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
         public event Action OnWin;
         public event Action OnDefeat;
 
-        public GameplayProcess()
+        private StringGenerator _generator;
+        private StringChecker _checker;
+        private GameManager _manager;
+
+        public GameplayProcess(StringGenerator generator, StringChecker checker, GameManager manager)
         {
-            Debug.LogWarning("GameplayProcess");
+            _generator = generator;
+            _checker = checker;
+            _manager = manager;
         }
 
         public void Run()
         {
-            Debug.LogWarning("GameplayProcess.Run");
-            OnDefeat?.Invoke();
+            string generatedString = _generator.Generate();
+            Debug.LogWarning($"*** Generated string: {generatedString}");
+
+            _checker.Initialize(generatedString);
+        }
+
+        public void Update()
+        {
+            _checker.Check();
         }
 
         public void Dispose()
         {
+
         }
     }
 }

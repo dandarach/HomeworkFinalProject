@@ -53,6 +53,8 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
 
         private void Update()
         {
+            _gameplayProcess?.Update();
+
             if (_gameState == GameState.Running)
                 return;
 

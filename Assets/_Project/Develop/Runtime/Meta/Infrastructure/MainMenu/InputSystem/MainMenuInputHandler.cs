@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Assets._Project.Develop.Runtime.Utilities.InputSystem
+namespace Assets._Project.Develop.Runtime.Meta.Infrastructure.MainMenu.InputSystem
 {
     public class MainMenuInputHandler : IMainMenuInput
     {

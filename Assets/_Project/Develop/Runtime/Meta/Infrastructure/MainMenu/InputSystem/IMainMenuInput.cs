@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Assets._Project.Develop.Runtime.Utilities.InputSystem
+namespace Assets._Project.Develop.Runtime.Meta.Infrastructure.MainMenu.InputSystem
 {
     public interface IMainMenuInput
     {

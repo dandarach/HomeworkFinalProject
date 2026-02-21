@@ -5,11 +5,11 @@ using Assets._Project.Develop.Runtime.Infrastructure;
 using Assets._Project.Develop.Runtime.Infrastructure.DI;
 using Assets._Project.Develop.Runtime.Utilities.ConfigsManagement;
 using Assets._Project.Develop.Runtime.Utilities.CoroutinesManagement;
-using Assets._Project.Develop.Runtime.Utilities.InputSystem;
+using Assets._Project.Develop.Runtime.Meta.Infrastructure.MainMenu.InputSystem;
 using Assets._Project.Develop.Runtime.Utilities.SceneManagement;
 using UnityEngine;
 
-namespace Assets._Project.Develop.Runtime.Meta.Infrastructure
+namespace Assets._Project.Develop.Runtime.Meta.Infrastructure.MainMenu
 {
     public class MainMenuBootstrap : SceneBootstrap
     {
