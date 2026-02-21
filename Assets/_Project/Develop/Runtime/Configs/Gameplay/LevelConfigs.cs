@@ -12,6 +12,5 @@ namespace Assets._Project.Develop.Runtime.Configs.Gameplay
 
         public LevelConfig GetLevelConfig(GameplayMode gameplayMode)
             => _configs.First(config => config.GameplayMode == gameplayMode).LevelConfig;
-
     }
 }

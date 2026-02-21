@@ -8,8 +8,8 @@ namespace Assets._Project.Develop.Runtime.Configs
     public class MenuConfig : ScriptableObject
     {
         [field: Header("Keyboard Settings")]
-        [field: SerializeField] public KeyCode SelectDigitsGameModeKey { get; private set; }
-        [field: SerializeField] public KeyCode SelectLettersGameModeKey { get; private set; }
+        [field: SerializeField] public KeyCode DigitsGameModeKey { get; private set; }
+        [field: SerializeField] public KeyCode LettersGameModeKey { get; private set; }
         [field: SerializeField] public KeyCode RestartGameKey { get; private set; }
     }
 }

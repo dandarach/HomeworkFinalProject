@@ -4,8 +4,9 @@ using UnityEngine;
 
 namespace Assets._Project.Develop.Runtime.Utilities.InputSystem
 {
-    public interface IInput
+    public interface IMainMenuInput
     {
-        KeyCode InputKey { get; }
+        bool DigitsGameModeSelected { get; }
+        bool LettersGameModeSelected { get; }
     }
 }

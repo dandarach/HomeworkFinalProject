@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2f6074f4623cc84cbc0609924e85a5c, type: 3}
   m_Name: MenuConfig
   m_EditorClassIdentifier: 
-  <SelectNumbersGameModeKey>k__BackingField: 49
-  <SelectLettersGameModeKey>k__BackingField: 50
+  <DigitsGameModeKey>k__BackingField: 49
+  <LettersGameModeKey>k__BackingField: 50
   <RestartGameKey>k__BackingField: 32

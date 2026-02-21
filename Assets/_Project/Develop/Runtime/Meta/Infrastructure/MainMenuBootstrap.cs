@@ -2,11 +2,11 @@
 using Assets._Project.Develop.Runtime.Configs;
 using Assets._Project.Develop.Runtime.Configs.Gameplay;
 using Assets._Project.Develop.Runtime.Gameplay.Infrastructure;
-using Assets._Project.Develop.Runtime.Gameplay.InputSystem;
 using Assets._Project.Develop.Runtime.Infrastructure;
 using Assets._Project.Develop.Runtime.Infrastructure.DI;
 using Assets._Project.Develop.Runtime.Utilities.ConfigsManagement;
 using Assets._Project.Develop.Runtime.Utilities.CoroutinesManagement;
+using Assets._Project.Develop.Runtime.Utilities.InputSystem;
 using Assets._Project.Develop.Runtime.Utilities.SceneManagement;
 using UnityEngine;
 
@@ -53,9 +53,9 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure
             if (_isRunning == false)
                 return;
 
-            if (_input.GetKeyDown(_menuConfig.SelectNumbersGameModeKey))
+            if (_input.DigitsGameModeSelected)
                 SwitchToGameplay(new GameplayInputArgs(_levelConfigs.GetLevelConfig(GameplayMode.Digits)));
-            else if (UnityEngine.Input.GetKeyDown(_menuConfig.SelectLettersGameModeKey))
+            else if (_input.LettersGameModeSelected)
                 SwitchToGameplay(new GameplayInputArgs(_levelConfigs.GetLevelConfig(GameplayMode.Letters)));
         }
 
