@@ -2,23 +2,15 @@
 {
     public class StringGenerator
     {
-        private char[] _characters;
-        private int _length;
-
-        public StringGenerator(string symbols, int length)
+        public string Generate(string symbols, int length)
         {
-            _characters = symbols.ToCharArray();
-            _length = length;
-        }
-
-        public string Generate()
-        {
+            char[] characters = symbols.ToCharArray();
             string randomString = "";
 
-            for (int i = 0; i < _length; i++)
+            for (int i = 0; i < length; i++)
             {
-                int index = UnityEngine.Random.Range(0, _characters.Length);
-                randomString += _characters[index];
+                int index = UnityEngine.Random.Range(0, characters.Length);
+                randomString += characters[index];
             }
 
             return randomString;

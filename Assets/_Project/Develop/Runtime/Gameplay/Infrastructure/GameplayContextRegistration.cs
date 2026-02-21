@@ -8,7 +8,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
 {
     public class GameplayContextRegistration
     {
-        public static void Process(DIContainer container, GameplayInputArgs args)
+        public static void Process(DIContainer container)
         {
             Debug.Log("Services registration process on the Gamplay scene");
 
@@ -16,31 +16,21 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
 
             container.RegisterAsSingle(CreateStringChecker);
             
-            container.RegisterAsSingle(CreateGameManager);
-            
             container.RegisterAsSingle(CreateGameplayProcess);
         }
 
         private static GameplayProcess CreateGameplayProcess(DIContainer c)
         {
             StringGenerator generator = c.Resolve<StringGenerator>();
-            StringChecker checker = c.Resolve<StringChecker>();
-            GameManager manager = c.Resolve<GameManager>();
+            StringValidator checker = c.Resolve<StringValidator>();
 
-            return new GameplayProcess(generator, checker, manager);
+            return new GameplayProcess(generator, checker);
         }
 
         private static StringGenerator CreateStringGenerator(DIContainer c)
-        {
-            LevelConfig config = c.Resolve<ConfigsProviderService>().GetConfig<LevelConfig>();
-            
-            return new StringGenerator(config.Symbols, config.SymbolsToGuess);
-        }
+            => new StringGenerator();
 
-        private static StringChecker CreateStringChecker(DIContainer c)
-            => new StringChecker();
-
-        private static GameManager CreateGameManager(DIContainer c)
-            => new GameManager();
+        private static StringValidator CreateStringChecker(DIContainer c)
+            => new StringValidator();
     }
 }

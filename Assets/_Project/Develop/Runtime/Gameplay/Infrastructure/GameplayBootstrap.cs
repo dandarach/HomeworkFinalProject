@@ -26,15 +26,14 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
 
             _inputArgs = gameplayInputArgs;
 
-            GameplayContextRegistration.Process(_container, gameplayInputArgs);
+            GameplayContextRegistration.Process(_container);
         }
 
         public override IEnumerator Initialize()
         {
             Debug.Log($"Gameplay mode symbols: '{_inputArgs.Symbols}', SymbolsToGuess: {_inputArgs.SymbolsToGuess}");
 
-            //_gameplayProcess = _container.Resolve<GameplayProcess>();
-            
+            _gameplayProcess = _container.Resolve<GameplayProcess>();
             yield break;
         }
 
@@ -42,13 +41,11 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
         {
             Debug.Log("Gameplay scene start");
 
-            _gameplayProcess = _container.Resolve<GameplayProcess>();
-
             _gameplayProcess.OnWin += OnGameWin;
             _gameplayProcess.OnDefeat += OnGameDefeat;
 
             _gameState = GameState.Running;
-            _gameplayProcess.Run();
+            _gameplayProcess.Run(_inputArgs);
         }
 
         private void Update()

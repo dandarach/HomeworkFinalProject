@@ -9,32 +9,41 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
         public event Action OnDefeat;
 
         private StringGenerator _generator;
-        private StringChecker _checker;
-        private GameManager _manager;
+        private StringValidator _validator;
 
-        public GameplayProcess(StringGenerator generator, StringChecker checker, GameManager manager)
+        public GameplayProcess(StringGenerator generator, StringValidator validator)
         {
             _generator = generator;
-            _checker = checker;
-            _manager = manager;
+            _validator = validator;
         }
 
-        public void Run()
+        public void Run(GameplayInputArgs inputArgs)
         {
-            string generatedString = _generator.Generate();
+            string generatedString = _generator.Generate(inputArgs.Symbols, inputArgs.SymbolsToGuess);
             Debug.LogWarning($"*** Generated string: {generatedString}");
 
-            _checker.Initialize(generatedString);
+            _validator.OnStringValidate += OnStringValidationEnd;
+            _validator.Run(generatedString);
         }
 
         public void Update()
         {
-            _checker.Check();
+            _validator.Update();
         }
 
         public void Dispose()
         {
 
+        }
+
+        private void OnStringValidationEnd(bool validationResult)
+        {
+            _validator.OnStringValidate -= OnStringValidationEnd;
+
+            if (validationResult)
+                OnWin?.Invoke();
+            else
+                OnDefeat?.Invoke();
         }
     }
 }
