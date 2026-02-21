@@ -2,10 +2,10 @@
 using System.Collections;
 using Assets._Project.Develop.Runtime.Infrastructure;
 using Assets._Project.Develop.Runtime.Infrastructure.DI;
-using Assets._Project.Develop.Runtime.Utilities.ConfigsManagement;
 using Assets._Project.Develop.Runtime.Utilities.CoroutinesManagement;
 using Assets._Project.Develop.Runtime.Utilities.SceneManagement;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
 {
@@ -13,9 +13,9 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
     {
         private DIContainer _container;
         private GameplayInputArgs _inputArgs;
-        private GameplayProcess _gameplayCycle;
+        private GameplayProcess _gameplayProcess;
 
-        private bool _isRunning = false;
+        private GameState _gameState;
 
         public override void ProcessRegistrations(DIContainer container, IInputSceneArgs sceneArgs = null)
         {
@@ -33,7 +33,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
         {
             Debug.Log($"Gameplay mode symbols: '{_inputArgs.Symbols}', SymbolsToGuess: {_inputArgs.SymbolsToGuess}");
 
-            _gameplayCycle = _container.Resolve<GameplayProcess>();
+            //_gameplayProcess = _container.Resolve<GameplayProcess>();
             
             yield break;
         }
@@ -41,23 +41,75 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
         public override void Run()
         {
             Debug.Log("Gameplay scene start");
-            
-            _gameplayCycle.Run();
-            
-            _isRunning = true;
+
+            _gameplayProcess = _container.Resolve<GameplayProcess>();
+
+            _gameplayProcess.OnWin += OnGameWin;
+            _gameplayProcess.OnDefeat += OnGameDefeat;
+
+            _gameplayProcess.Run();
+
+            //_gameState = GameState.Running;
         }
 
         private void Update()
         {
-            if (_isRunning == false)
+            Debug.Log(_gameState);
+
+            if (_gameState == GameState.Running)
                 return;
+
+            Debug.Log("*");
 
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                SceneSwitcherService sceneSwitcherService = _container.Resolve<SceneSwitcherService>();
-                ICoroutinesPerformer coroutinesPerformer = _container.Resolve<ICoroutinesPerformer>();
-                coroutinesPerformer.StartPerform(sceneSwitcherService.ProcessSwitchTo(Scenes.MainMenu));
+                Debug.Log("-space-");
+
+                if (_gameState == GameState.Win)
+                    SwitchToMainMenu();
+
+                if (_gameState == GameState.Defeat)
+                    RestartGame();
             }
+        }
+
+        private void SwitchToMainMenu()
+        {
+            Debug.Log("Switch to Main Menu");
+
+            SceneSwitcherService sceneSwitcherService = _container.Resolve<SceneSwitcherService>();
+            ICoroutinesPerformer coroutinesPerformer = _container.Resolve<ICoroutinesPerformer>();
+            coroutinesPerformer.StartPerform(sceneSwitcherService.ProcessSwitchTo(Scenes.MainMenu));
+        }
+
+        private void RestartGame()
+        {
+            Debug.Log("RestartGame");
+            Run();
+        }
+
+        private void OnGameWin()
+        {
+            Debug.LogWarning("*** WIN ***");
+
+            OnGameEnded();
+            _gameState = GameState.Win;
+        }
+
+        private void OnGameDefeat()
+        {
+            Debug.LogWarning("*** DEFEAT ***");
+
+            OnGameEnded();
+            _gameState = GameState.Defeat;
+        }
+
+        private void OnGameEnded()
+        {
+            _gameplayProcess.OnWin -= OnGameWin;
+            _gameplayProcess.OnDefeat -= OnGameDefeat;
+
+            _gameplayProcess.Dispose();
         }
     }
 }

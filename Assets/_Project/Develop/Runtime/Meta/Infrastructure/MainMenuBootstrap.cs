@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using Assets._Project.Develop.Runtime.Configs;
 using Assets._Project.Develop.Runtime.Configs.Gameplay;
 using Assets._Project.Develop.Runtime.Gameplay.Infrastructure;
 using Assets._Project.Develop.Runtime.Infrastructure;
@@ -15,9 +14,8 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure
     public class MainMenuBootstrap : SceneBootstrap
     {
         private DIContainer _container;
-        private MenuConfig _menuConfig;
         private LevelConfigs _levelConfigs;
-        private MainMenuInputHandler _input;
+        private IMainMenuInput _input;
         
         private bool _isRunning = false;
 
@@ -34,7 +32,6 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure
 
             ConfigsProviderService configsProviderService = _container.Resolve<ConfigsProviderService>();
 
-            _menuConfig = configsProviderService.GetConfig<MenuConfig>();
             _levelConfigs = configsProviderService.GetConfig<LevelConfigs>();
 
             _input = _container.Resolve<MainMenuInputHandler>();
