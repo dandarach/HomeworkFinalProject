@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using Assets._Project.Develop.Runtime.Configs.Gameplay;
 using Assets._Project.Develop.Runtime.Gameplay.Infrastructure;
 using Assets._Project.Develop.Runtime.Infrastructure;
 using Assets._Project.Develop.Runtime.Infrastructure.DI;
@@ -7,6 +6,7 @@ using Assets._Project.Develop.Runtime.Utilities.ConfigsManagement;
 using Assets._Project.Develop.Runtime.Utilities.CoroutinesManagement;
 using Assets._Project.Develop.Runtime.Meta.Infrastructure.MainMenu.InputSystem;
 using Assets._Project.Develop.Runtime.Utilities.SceneManagement;
+using Assets._Project.Develop.Runtime.Meta.Configs;
 using UnityEngine;
 
 namespace Assets._Project.Develop.Runtime.Meta.Infrastructure.MainMenu

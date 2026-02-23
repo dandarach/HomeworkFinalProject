@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace Assets._Project.Develop.Runtime.Configs.Gameplay
+namespace Assets._Project.Develop.Runtime.Meta.Configs
 {
     [CreateAssetMenu(menuName = "Configs/Gameplay/LevelConfigs", fileName = "LevelConfigs")]
     public class LevelConfigs : ScriptableObject

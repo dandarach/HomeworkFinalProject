@@ -1,7 +1,7 @@
-﻿using Assets._Project.Develop.Runtime.Configs;
-using Assets._Project.Develop.Runtime.Infrastructure.DI;
+﻿using Assets._Project.Develop.Runtime.Infrastructure.DI;
 using Assets._Project.Develop.Runtime.Utilities.ConfigsManagement;
 using Assets._Project.Develop.Runtime.Meta.Infrastructure.MainMenu.InputSystem;
+using Assets._Project.Develop.Runtime.Meta.Configs;
 using UnityEngine;
 
 namespace Assets._Project.Develop.Runtime.Meta.Infrastructure

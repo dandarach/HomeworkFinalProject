@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Assets._Project.Develop.Runtime.Configs
+namespace Assets._Project.Develop.Runtime.Meta.Configs
 {
     [CreateAssetMenu(menuName = "Configs/Gameplay/MenuConfig", fileName = "MenuConfig")]
     public class MenuConfig : ScriptableObject

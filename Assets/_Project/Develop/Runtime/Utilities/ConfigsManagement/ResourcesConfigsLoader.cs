@@ -1,8 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Assets._Project.Develop.Runtime.Configs;
-using Assets._Project.Develop.Runtime.Configs.Gameplay;
+using Assets._Project.Develop.Runtime.Meta.Configs;
 using Assets._Project.Develop.Runtime.Utilities.AssetsManagement;
 using UnityEngine;
 

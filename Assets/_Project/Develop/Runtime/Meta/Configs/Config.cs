@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Assets._Project.Develop.Runtime.Configs.Gameplay
+namespace Assets._Project.Develop.Runtime.Meta.Configs
 {
     [Serializable]
     public class Config
