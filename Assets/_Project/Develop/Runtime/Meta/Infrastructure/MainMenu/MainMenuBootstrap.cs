@@ -1,12 +1,9 @@
 ﻿using System.Collections;
-using Assets._Project.Develop.Runtime.Gameplay.Infrastructure;
 using Assets._Project.Develop.Runtime.Infrastructure;
 using Assets._Project.Develop.Runtime.Infrastructure.DI;
+using Assets._Project.Develop.Runtime.Meta.GameModeChoose;
 using Assets._Project.Develop.Runtime.Utilities.ConfigsManagement;
-using Assets._Project.Develop.Runtime.Utilities.CoroutinesManagement;
-using Assets._Project.Develop.Runtime.Meta.InputSystem;
 using Assets._Project.Develop.Runtime.Utilities.SceneManagement;
-using Assets._Project.Develop.Runtime.Meta.Configs;
 using UnityEngine;
 
 namespace Assets._Project.Develop.Runtime.Meta.Infrastructure.MainMenu
@@ -14,9 +11,8 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure.MainMenu
     public class MainMenuBootstrap : SceneBootstrap
     {
         private DIContainer _container;
-        private LevelConfigs _levelConfigs;
-        private IMainMenuInput _input;
-        
+        private IGameModeChooseService _gameModeChooseService;
+
         private bool _isRunning = false;
 
         public override void ProcessRegistrations(DIContainer container, IInputSceneArgs sceneArgs = null)
@@ -32,9 +28,7 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure.MainMenu
 
             ConfigsProviderService configsProviderService = _container.Resolve<ConfigsProviderService>();
 
-            _levelConfigs = configsProviderService.GetConfig<LevelConfigs>();
-
-            _input = _container.Resolve<MainMenuInputHandler>();
+            _gameModeChooseService = _container.Resolve<IGameModeChooseService>();
 
             yield break;
         }
@@ -50,17 +44,7 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure.MainMenu
             if (_isRunning == false)
                 return;
 
-            if (_input.DigitsGameModeSelected)
-                SwitchToGameplay(new GameplayInputArgs(_levelConfigs.GetLevelConfig(GameplayMode.Digits)));
-            else if (_input.LettersGameModeSelected)
-                SwitchToGameplay(new GameplayInputArgs(_levelConfigs.GetLevelConfig(GameplayMode.Letters)));
-        }
-
-        private void SwitchToGameplay(GameplayInputArgs inputArgs)
-        {
-            SceneSwitcherService sceneSwitcherService = _container.Resolve<SceneSwitcherService>();
-            ICoroutinesPerformer coroutinesPerformer = _container.Resolve<ICoroutinesPerformer>();
-            coroutinesPerformer.StartPerform(sceneSwitcherService.ProcessSwitchTo(Scenes.Gameplay, inputArgs));
+            _gameModeChooseService.Update();
         }
     }
 }
