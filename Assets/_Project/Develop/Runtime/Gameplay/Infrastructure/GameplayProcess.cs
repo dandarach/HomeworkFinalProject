@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using Assets._Project.Develop.Runtime.Features.StringServices;
 
 namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
 {

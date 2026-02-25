@@ -1,4 +1,4 @@
-﻿namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure.InputSystem
+﻿namespace Assets._Project.Develop.Runtime.Gameplay.InputSystem
 {
     public interface IGameplayInput
     {

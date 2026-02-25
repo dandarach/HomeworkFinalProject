@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure.InputSystem
+namespace Assets._Project.Develop.Runtime.Gameplay.InputSystem
 {
     public class GameplayInput : IGameplayInput
     {

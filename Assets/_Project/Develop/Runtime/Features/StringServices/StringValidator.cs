@@ -1,8 +1,8 @@
 ﻿using System;
-using Assets._Project.Develop.Runtime.Gameplay.Infrastructure.InputSystem;
+using Assets._Project.Develop.Runtime.Gameplay.InputSystem;
 using UnityEngine;
 
-namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
+namespace Assets._Project.Develop.Runtime.Features.StringServices
 {
     public class StringValidator
     {

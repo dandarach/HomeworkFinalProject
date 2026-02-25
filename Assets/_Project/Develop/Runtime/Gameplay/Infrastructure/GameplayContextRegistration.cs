@@ -1,5 +1,6 @@
-﻿using Assets._Project.Develop.Runtime.Gameplay.Infrastructure.InputSystem;
+﻿using Assets._Project.Develop.Runtime.Gameplay.InputSystem;
 using Assets._Project.Develop.Runtime.Infrastructure.DI;
+using Assets._Project.Develop.Runtime.Features.StringServices;
 using UnityEngine;
 
 namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
