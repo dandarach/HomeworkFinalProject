@@ -1,0 +1,16 @@
+﻿using System;
+using System.Collections.Generic;
+
+namespace Assets._UnityAdvantureProject.Develop.Runtime.Utilities.DataManagement.KeyStorage
+{
+    public class MapDataKeyStorage : IDataKeysStorage
+    {
+        private readonly Dictionary<Type, string> Keys = new Dictionary<Type, string>()
+        {
+            { typeof(PlayerData), "PlayerData" }
+        };
+
+        public string GetKeyFor<TData>() where TData : ISaveData
+            => Keys[typeof(TData)];
+    }
+}

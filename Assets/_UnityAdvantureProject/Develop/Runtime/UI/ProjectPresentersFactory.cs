@@ -1,0 +1,32 @@
+﻿using Assets._UnityAdvantureProject.Develop.Runtime.Configs.Meta.Wallet;
+using Assets._UnityAdvantureProject.Develop.Runtime.Infrastructure.DI;
+using Assets._UnityAdvantureProject.Develop.Runtime.Meta.Features.Wallet;
+using Assets._UnityAdvantureProject.Develop.Runtime.UI.CommonViews;
+using Assets._UnityAdvantureProject.Develop.Runtime.UI.Wallet;
+using Assets._UnityAdvantureProject.Develop.Runtime.Utilities.ConfigsManagement;
+using Assets._UnityAdvantureProject.Develop.Runtime.Utilities.Reactive;
+
+namespace Assets._UnityAdvantureProject.Develop.Runtime.UI
+{
+    public class ProjectPresentersFactory
+    {
+        private readonly DIContainer _container;
+
+        public ProjectPresentersFactory(DIContainer container)
+        {
+            _container = container;
+        }
+
+        public CurrencyPresenter CreateCurrencyPresenter(
+            IconTextView view,
+            IReadonlyVariable<int> currency,
+            CurrencyTypes currencyType)
+        {
+            return new CurrencyPresenter(
+                currency,
+                currencyType,
+                _container.Resolve<ConfigsProviderService>().GetConfig<CurrencyIconsConfig>(),
+                view);
+        }
+    }
+}

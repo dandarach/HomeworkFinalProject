@@ -1,0 +1,16 @@
+﻿using System.Collections;
+using Assets._UnityAdvantureProject.Develop.Runtime.Infrastructure.DI;
+using Assets._UnityAdvantureProject.Develop.Runtime.Utilities.SceneManagement;
+using UnityEngine;
+
+namespace Assets._UnityAdvantureProject.Develop.Runtime.Infrastructure
+{
+    public abstract class SceneBootstrap : MonoBehaviour
+    {
+        public abstract void ProcessRegistrations(DIContainer container, IInputSceneArgs sceneArgs = null);
+
+        public abstract IEnumerator Initialize();
+
+        public abstract void Run();
+    }
+}
