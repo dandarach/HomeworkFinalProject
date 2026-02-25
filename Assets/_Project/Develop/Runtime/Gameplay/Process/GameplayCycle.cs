@@ -8,9 +8,12 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Process
 {
     public class GameplayCycle : IGameplayCycle
     {
-        private readonly GameplayProcess _gameplayProcess;
-        private readonly SceneSwitcherService _sceneSwitcher;
-        private readonly ICoroutinesPerformer _coroutinesPerformer;
+        private const string RestartGameMessage = "TO RESTART THE GAME";
+        private const string GoToMainMenuMessage = "FOR MAIN MENU";
+
+        private GameplayProcess _gameplayProcess;
+        private SceneSwitcherService _sceneSwitcher;
+        private ICoroutinesPerformer _coroutinesPerformer;
 
         private GameplayInputArgs _inputArgs;
         private GameState _gameState;
@@ -66,7 +69,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Process
         private void OnWin()
         {
             Debug.LogWarning("*** WIN ***");
-            Debug.LogWarning($"PRESS {_restartGameKey} {GoToMainMenuMessage}");
+            Debug.LogWarning($"PRESS {_inputArgs.RestartGameKey} {GoToMainMenuMessage}");
             _gameState = GameState.Win;
             OnGameEnded();
         }
@@ -74,7 +77,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Process
         private void OnDefeat()
         {
             Debug.LogWarning("*** DEFEAT ***");
-            Debug.LogWarning($"PRESS {_restartGameKey} {RestartGameMessage}");
+            Debug.LogWarning($"PRESS {_inputArgs.RestartGameKey} {RestartGameMessage}");
             _gameState = GameState.Defeat;
             OnGameEnded();
         }
