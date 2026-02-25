@@ -9,18 +9,15 @@ namespace Assets._Project.Develop.Runtime.Meta.GameModeChoose
     public class GameModeChooseService : IGameModeChooseService
     {
         private IMainMenuInput _input;
-        private LevelConfigs _levelConfigs;
         private SceneSwitcherService _sceneSwitcher;
         private ICoroutinesPerformer _coroutinesPerformer;
 
         public GameModeChooseService(
             IMainMenuInput input,
-            LevelConfigs levelConfigs,
             SceneSwitcherService sceneSwitcher,
             ICoroutinesPerformer coroutinesPerformer)
             {
                 _input = input;
-                _levelConfigs = levelConfigs;
                 _sceneSwitcher = sceneSwitcher;
                 _coroutinesPerformer = coroutinesPerformer;
             }
@@ -41,10 +38,7 @@ namespace Assets._Project.Develop.Runtime.Meta.GameModeChoose
 
         private void SwitchToGameplay(GameplayMode mode)
         {
-            LevelConfig levelConfig = _levelConfigs.GetLevelConfig(mode);
-            GameplayInputArgs args = new GameplayInputArgs(levelConfig);
-
-            _coroutinesPerformer.StartPerform(_sceneSwitcher.ProcessSwitchTo(Scenes.Gameplay, args));
+            _coroutinesPerformer.StartPerform(_sceneSwitcher.ProcessSwitchTo(Scenes.Gameplay, new GameplayInputArgs(mode)));
         }
     }
 }

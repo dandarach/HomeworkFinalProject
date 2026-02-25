@@ -1,5 +1,4 @@
-﻿using System;
-using Assets._Project.Develop.Runtime.Gameplay.Infrastructure;
+﻿using Assets._Project.Develop.Runtime.Meta.Configs;
 using Assets._Project.Develop.Runtime.Utilities.CoroutinesManagement;
 using Assets._Project.Develop.Runtime.Utilities.SceneManagement;
 using UnityEngine;
@@ -15,31 +14,28 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Process
         private SceneSwitcherService _sceneSwitcher;
         private ICoroutinesPerformer _coroutinesPerformer;
 
-        private GameplayInputArgs _inputArgs;
+        private LevelConfig _levelConfig;
         private GameState _gameState;
-        private KeyCode _restartGameKey;
 
         public GameplayCycle(
             GameplayProcess gameplayProcess,
             SceneSwitcherService sceneSwitcher,
-            ICoroutinesPerformer coroutinesPerformer,
-            KeyCode restartGameKey)
+            ICoroutinesPerformer coroutinesPerformer)
         {
             _gameplayProcess = gameplayProcess;
             _sceneSwitcher = sceneSwitcher;
             _coroutinesPerformer = coroutinesPerformer;
-            _restartGameKey = restartGameKey;
         }
 
-        public void Run(GameplayInputArgs args)
+        public void Run(LevelConfig config)
         {
-            _inputArgs = args;
+            _levelConfig = config;
 
             _gameplayProcess.OnWin += OnWin;
             _gameplayProcess.OnDefeat += OnDefeat;
 
             _gameState = GameState.Running;
-            _gameplayProcess.Run(args);
+            _gameplayProcess.Run(_levelConfig.Symbols, _levelConfig.SymbolsToGuess);
         }
 
         public void Update()
@@ -49,7 +45,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Process
             if (_gameState == GameState.Running)
                 return;
 
-            if (Input.GetKeyDown(_restartGameKey))
+            if (Input.GetKeyDown(_levelConfig.RestartGameKey))
             {
                 if (_gameState == GameState.Win)
                     SwitchToMainMenu();
@@ -61,7 +57,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Process
         private void Restart()
         {
             OnGameEnded();
-            Run(_inputArgs);
+            Run(_levelConfig);
         }
 
         private void SwitchToMainMenu()
@@ -72,7 +68,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Process
         private void OnWin()
         {
             Debug.LogWarning("*** WIN ***");
-            Debug.LogWarning($"PRESS {_restartGameKey} {GoToMainMenuMessage}");
+            Debug.LogWarning($"PRESS {_levelConfig.RestartGameKey} {GoToMainMenuMessage}");
             _gameState = GameState.Win;
             OnGameEnded();
         }
@@ -80,7 +76,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Process
         private void OnDefeat()
         {
             Debug.LogWarning("*** DEFEAT ***");
-            Debug.LogWarning($"PRESS {_restartGameKey} {RestartGameMessage}");
+            Debug.LogWarning($"PRESS {_levelConfig.RestartGameKey} {RestartGameMessage}");
             _gameState = GameState.Defeat;
             OnGameEnded();
         }

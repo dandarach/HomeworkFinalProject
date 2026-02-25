@@ -1,7 +1,6 @@
 ﻿using System;
 using UnityEngine;
 using Assets._Project.Develop.Runtime.Features.StringServices;
-using Assets._Project.Develop.Runtime.Gameplay.Infrastructure;
 
 namespace Assets._Project.Develop.Runtime.Gameplay.Process
 {
@@ -19,9 +18,9 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Process
             _validator = validator;
         }
 
-        public void Run(GameplayInputArgs inputArgs)
+        public void Run(string symbols, int symbolsToGuess)
         {
-            string generatedString = _generator.Generate(inputArgs.Symbols, inputArgs.SymbolsToGuess);
+            string generatedString = _generator.Generate(symbols, symbolsToGuess);
             Debug.LogWarning($"*** Generated string: {generatedString}");
 
             _validator.OnStringValidate += OnStringValidationEnd;

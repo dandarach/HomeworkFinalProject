@@ -31,13 +31,11 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure
         {
             IMainMenuInput input = c.Resolve<MainMenuInputHandler>();
 
-            LevelConfigs levelConfigs = c.Resolve<ConfigsProviderService>().GetConfig<LevelConfigs>();
-
             SceneSwitcherService sceneSwitcher = c.Resolve<SceneSwitcherService>();
 
             ICoroutinesPerformer coroutinesPerformer = c.Resolve<ICoroutinesPerformer>();
 
-            return new GameModeChooseService(input, levelConfigs, sceneSwitcher, coroutinesPerformer);
+            return new GameModeChooseService(input, sceneSwitcher, coroutinesPerformer);
         }
     }
 }

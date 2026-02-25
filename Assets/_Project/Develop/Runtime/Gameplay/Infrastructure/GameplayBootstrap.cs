@@ -4,6 +4,7 @@ using Assets._Project.Develop.Runtime.Gameplay.Process;
 using Assets._Project.Develop.Runtime.Infrastructure;
 using Assets._Project.Develop.Runtime.Infrastructure.DI;
 using Assets._Project.Develop.Runtime.Meta.Configs;
+using Assets._Project.Develop.Runtime.Utilities.ConfigsManagement;
 using Assets._Project.Develop.Runtime.Utilities.SceneManagement;
 using UnityEngine;
 
@@ -13,6 +14,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
     {
         private DIContainer _container;
         private GameplayInputArgs _inputArgs;
+        private LevelConfig _levelConfig;
         private IGameplayCycle _gameplayCycle;
 
         public override void ProcessRegistrations(DIContainer container, IInputSceneArgs sceneArgs = null)
@@ -29,8 +31,10 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
 
         public override IEnumerator Initialize()
         {
-            LevelConfig = _inputArgs.GameplayMode;
-            Debug.Log($"Gameplay mode symbols: '{_inputArgs.Symbols}', SymbolsToGuess: {_inputArgs.SymbolsToGuess}");
+            LevelConfigs levelConfigs = _container.Resolve<ConfigsProviderService>().GetConfig<LevelConfigs>();
+            _levelConfig = levelConfigs.GetLevelConfig(_inputArgs.GameplayMode);
+
+            Debug.Log($"Gameplay mode symbols: '{_levelConfig.Symbols}', SymbolsToGuess: {_levelConfig.SymbolsToGuess}");
 
             _gameplayCycle = _container.Resolve<IGameplayCycle>();
 
@@ -41,7 +45,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
         {
             Debug.Log("Gameplay scene start");
 
-            _gameplayCycle.Run(_inputArgs);
+            _gameplayCycle.Run(_levelConfig);
         }
 
         private void Update()

@@ -1,10 +1,10 @@
-﻿using Assets._Project.Develop.Runtime.Gameplay.Infrastructure;
+﻿using Assets._Project.Develop.Runtime.Meta.Configs;
 
 namespace Assets._Project.Develop.Runtime.Gameplay.Process
 {
     public interface IGameplayCycle
     {
-        void Run(GameplayInputArgs args);
+        void Run(LevelConfig config);
         void Update();
     }
 }
