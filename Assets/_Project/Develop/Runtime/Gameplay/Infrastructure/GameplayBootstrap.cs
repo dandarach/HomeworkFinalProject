@@ -3,6 +3,7 @@ using System.Collections;
 using Assets._Project.Develop.Runtime.Gameplay.Process;
 using Assets._Project.Develop.Runtime.Infrastructure;
 using Assets._Project.Develop.Runtime.Infrastructure.DI;
+using Assets._Project.Develop.Runtime.Meta.Configs;
 using Assets._Project.Develop.Runtime.Utilities.SceneManagement;
 using UnityEngine;
 
@@ -28,6 +29,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
 
         public override IEnumerator Initialize()
         {
+            LevelConfig = _inputArgs.GameplayMode;
             Debug.Log($"Gameplay mode symbols: '{_inputArgs.Symbols}', SymbolsToGuess: {_inputArgs.SymbolsToGuess}");
 
             _gameplayCycle = _container.Resolve<IGameplayCycle>();

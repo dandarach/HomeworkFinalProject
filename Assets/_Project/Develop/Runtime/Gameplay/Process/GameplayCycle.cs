@@ -17,15 +17,18 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Process
 
         private GameplayInputArgs _inputArgs;
         private GameState _gameState;
+        private KeyCode _restartGameKey;
 
         public GameplayCycle(
             GameplayProcess gameplayProcess,
             SceneSwitcherService sceneSwitcher,
-            ICoroutinesPerformer coroutinesPerformer)
+            ICoroutinesPerformer coroutinesPerformer,
+            KeyCode restartGameKey)
         {
             _gameplayProcess = gameplayProcess;
             _sceneSwitcher = sceneSwitcher;
             _coroutinesPerformer = coroutinesPerformer;
+            _restartGameKey = restartGameKey;
         }
 
         public void Run(GameplayInputArgs args)
@@ -46,7 +49,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Process
             if (_gameState == GameState.Running)
                 return;
 
-            if (Input.GetKeyDown(_inputArgs.RestartGameKey))
+            if (Input.GetKeyDown(_restartGameKey))
             {
                 if (_gameState == GameState.Win)
                     SwitchToMainMenu();
@@ -69,7 +72,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Process
         private void OnWin()
         {
             Debug.LogWarning("*** WIN ***");
-            Debug.LogWarning($"PRESS {_inputArgs.RestartGameKey} {GoToMainMenuMessage}");
+            Debug.LogWarning($"PRESS {_restartGameKey} {GoToMainMenuMessage}");
             _gameState = GameState.Win;
             OnGameEnded();
         }
@@ -77,7 +80,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Process
         private void OnDefeat()
         {
             Debug.LogWarning("*** DEFEAT ***");
-            Debug.LogWarning($"PRESS {_inputArgs.RestartGameKey} {RestartGameMessage}");
+            Debug.LogWarning($"PRESS {_restartGameKey} {RestartGameMessage}");
             _gameState = GameState.Defeat;
             OnGameEnded();
         }

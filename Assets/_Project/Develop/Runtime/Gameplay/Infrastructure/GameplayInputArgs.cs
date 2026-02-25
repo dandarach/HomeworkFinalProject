@@ -1,20 +1,15 @@
 ﻿using Assets._Project.Develop.Runtime.Meta.Configs;
 using Assets._Project.Develop.Runtime.Utilities.SceneManagement;
-using UnityEngine;
 
 namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
 {
     public class GameplayInputArgs : IInputSceneArgs
     {
-        public GameplayInputArgs(LevelConfig config)
+        public GameplayInputArgs(GameplayMode gameMode)
         {
-            Symbols = config.Symbols;
-            SymbolsToGuess = config.SymbolsToGuess;
-            RestartGameKey = config.RestartGameKey;
+            GameplayMode = gameMode;
         }
 
-        public string Symbols { get; }
-        public int SymbolsToGuess { get; }
-        public KeyCode RestartGameKey { get; }
+        public GameplayMode GameplayMode { get; }
     }
 }
