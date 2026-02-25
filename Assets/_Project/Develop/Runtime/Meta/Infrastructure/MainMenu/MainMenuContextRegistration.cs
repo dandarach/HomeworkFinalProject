@@ -15,12 +15,12 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure
         {
             Debug.Log("Services registration process on the Menu scene");
 
-            container.RegisterAsSingle<IMainMenuInput>(CreateInputHandler);
+            container.RegisterAsSingle(CreateInputHandler);
             
             container.RegisterAsSingle<IGameModeChooseService>(CreateGameModeChooseService);
         }
 
-        private static IMainMenuInput CreateInputHandler(DIContainer c)
+        private static MainMenuInputHandler CreateInputHandler(DIContainer c)
         {
             MenuConfig config = c.Resolve<ConfigsProviderService>().GetConfig<MenuConfig>();
 
@@ -30,8 +30,11 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure
         private static IGameModeChooseService CreateGameModeChooseService(DIContainer c)
         {
             IMainMenuInput input = c.Resolve<MainMenuInputHandler>();
-            LevelConfigs levelConfigs = c.Resolve<LevelConfigs>();
+
+            LevelConfigs levelConfigs = c.Resolve<ConfigsProviderService>().GetConfig<LevelConfigs>();
+
             SceneSwitcherService sceneSwitcher = c.Resolve<SceneSwitcherService>();
+
             ICoroutinesPerformer coroutinesPerformer = c.Resolve<ICoroutinesPerformer>();
 
             return new GameModeChooseService(input, levelConfigs, sceneSwitcher, coroutinesPerformer);
