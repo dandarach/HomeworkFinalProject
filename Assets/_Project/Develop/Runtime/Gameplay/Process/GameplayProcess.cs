@@ -1,8 +1,9 @@
 ﻿using System;
 using UnityEngine;
 using Assets._Project.Develop.Runtime.Features.StringServices;
+using Assets._Project.Develop.Runtime.Gameplay.Infrastructure;
 
-namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
+namespace Assets._Project.Develop.Runtime.Gameplay.Process
 {
     public class GameplayProcess : IDisposable
     {
