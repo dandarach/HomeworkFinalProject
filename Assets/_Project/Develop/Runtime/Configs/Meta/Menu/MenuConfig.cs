@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Assets._Project.Develop.Runtime.Meta.Configs
+namespace Assets._Project.Develop.Runtime.Configs.Meta.Menu
 {
     [CreateAssetMenu(menuName = "Configs/Gameplay/MenuConfig", fileName = "MenuConfig")]
     public class MenuConfig : ScriptableObject

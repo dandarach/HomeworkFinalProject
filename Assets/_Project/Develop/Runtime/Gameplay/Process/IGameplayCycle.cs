@@ -1,4 +1,4 @@
-﻿using Assets._Project.Develop.Runtime.Meta.Configs;
+﻿using Assets._Project.Develop.Runtime.Configs.Gameplay.Levels;
 
 namespace Assets._Project.Develop.Runtime.Gameplay.Process
 {

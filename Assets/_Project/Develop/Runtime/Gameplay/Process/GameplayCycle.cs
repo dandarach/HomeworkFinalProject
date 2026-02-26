@@ -1,4 +1,4 @@
-﻿using Assets._Project.Develop.Runtime.Meta.Configs;
+﻿using Assets._Project.Develop.Runtime.Configs.Gameplay.Levels;
 using Assets._Project.Develop.Runtime.Utilities.CoroutinesManagement;
 using Assets._Project.Develop.Runtime.Utilities.SceneManagement;
 using UnityEngine;

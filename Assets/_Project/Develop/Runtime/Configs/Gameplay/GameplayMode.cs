@@ -1,4 +1,4 @@
-﻿namespace Assets._Project.Develop.Runtime.Meta.Configs
+﻿namespace Assets._Project.Develop.Runtime.Configs.Gameplay
 {
     public enum GameplayMode
     {

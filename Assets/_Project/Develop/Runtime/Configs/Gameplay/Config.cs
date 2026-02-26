@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
+using Assets._Project.Develop.Runtime.Configs.Gameplay.Levels;
 using UnityEngine;
 
-namespace Assets._Project.Develop.Runtime.Meta.Configs
+namespace Assets._Project.Develop.Runtime.Configs.Gameplay
 {
     [Serializable]
     public class Config

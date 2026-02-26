@@ -1,11 +1,11 @@
 ﻿using Assets._Project.Develop.Runtime.Infrastructure.DI;
 using Assets._Project.Develop.Runtime.Utilities.ConfigsManagement;
 using Assets._Project.Develop.Runtime.Meta.InputSystem;
-using Assets._Project.Develop.Runtime.Meta.Configs;
 using Assets._Project.Develop.Runtime.Meta.GameModeChoose;
 using Assets._Project.Develop.Runtime.Utilities.SceneManagement;
 using Assets._Project.Develop.Runtime.Utilities.CoroutinesManagement;
 using UnityEngine;
+using Assets._Project.Develop.Runtime.Configs.Meta.Menu;
 
 namespace Assets._Project.Develop.Runtime.Meta.Infrastructure
 {

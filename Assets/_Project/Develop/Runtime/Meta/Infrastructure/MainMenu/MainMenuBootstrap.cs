@@ -57,13 +57,13 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure.MainMenu
 
 
             //////////////////////////////////////////////////////////////////////////////////
-            if (Input.GetKeyDown(KeyCode.Alpha1))
+            if (Input.GetKeyDown(KeyCode.Z))
             {
                 _walletService.Add(CurrencyTypes.Gold, 10);
                 Debug.Log("Gold: " + _walletService.GetCurrency(CurrencyTypes.Gold).Value);
             }
 
-            if (Input.GetKeyDown(KeyCode.Alpha2))
+            if (Input.GetKeyDown(KeyCode.X))
             {
                 if (_walletService.Enough(CurrencyTypes.Gold, 10))
                 {

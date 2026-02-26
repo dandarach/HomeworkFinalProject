@@ -1,7 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Assets._Project.Develop.Runtime.Meta.Configs;
+using Assets._Project.Develop.Runtime.Configs.Gameplay.Levels;
+using Assets._Project.Develop.Runtime.Configs.Meta.Menu;
 using Assets._Project.Develop.Runtime.Utilities.AssetsManagement;
 using UnityEngine;
 
@@ -13,8 +14,8 @@ namespace Assets._Project.Develop.Runtime.Utilities.ConfigsManagement
 
         private readonly Dictionary<Type, string> _configsResourcesPaths = new()
         {
-            { typeof(MenuConfig), "Configs/MenuConfig" },
-            { typeof(LevelConfigs), "Configs/LevelConfigs" }
+            { typeof(MenuConfig), "Configs/Meta/MainMenu/MenuConfig" },
+            { typeof(LevelConfigs), "Configs/Gameplay/Levels/LevelConfigs" }
         };
 
         public ResourcesConfigsLoader(ResourcesAssetsLoader resources)
