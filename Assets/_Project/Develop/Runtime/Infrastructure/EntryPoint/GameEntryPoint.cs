@@ -23,6 +23,8 @@ namespace Assets._Project.Develop.Runtime.Infrastructure.EntryPoint
 
             ProjectContextRegistrations.Process(projectContainer);
 
+            projectContainer.Initialize();
+
             projectContainer.Resolve<ICoroutinesPerformer>().StartPerform(Initialize(projectContainer));
         }
 

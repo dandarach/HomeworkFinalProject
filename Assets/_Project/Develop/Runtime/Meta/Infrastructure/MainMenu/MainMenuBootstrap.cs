@@ -78,9 +78,6 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure.MainMenu
 
             if (Input.GetKeyDown(KeyCode.S))
             {
-                Debug.LogWarning(_coroutinesPerformer);
-                Debug.LogWarning(_playerDataProvider);
-
                 _coroutinesPerformer.StartPerform(_playerDataProvider.Save());
                 Debug.Log("PlayerData saved");
             }
