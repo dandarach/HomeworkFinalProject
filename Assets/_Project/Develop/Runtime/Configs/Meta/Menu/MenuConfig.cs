@@ -9,5 +9,7 @@ namespace Assets._Project.Develop.Runtime.Configs.Meta.Menu
         [field: SerializeField] public KeyCode DigitsGameModeKey { get; private set; }
         [field: SerializeField] public KeyCode LettersGameModeKey { get; private set; }
         [field: SerializeField] public KeyCode RestartGameKey { get; private set; }
+        [field: SerializeField] public KeyCode ResetGameProgressKey { get; private set; }
+        [field: SerializeField] public KeyCode ShowGameProgressKey { get; private set; }
     }
 }

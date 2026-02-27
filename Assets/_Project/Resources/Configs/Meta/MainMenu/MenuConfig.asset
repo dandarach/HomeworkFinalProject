@@ -15,3 +15,5 @@ MonoBehaviour:
   <DigitsGameModeKey>k__BackingField: 49
   <LettersGameModeKey>k__BackingField: 50
   <RestartGameKey>k__BackingField: 32
+  <ResetGameProgressKey>k__BackingField: 48
+  <ShowGameProgressKey>k__BackingField: 282
