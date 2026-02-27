@@ -84,7 +84,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Process
         private void OnDefeat()
         {
             _gameState = GameState.Defeat;
-            _gameplayProgressService.IncreaseWinCount();
+            _gameplayProgressService.IncreaseLoseCount();
 
             Debug.LogWarning("*** DEFEAT ***");
             Debug.LogWarning($"PRESS {_levelConfig.RestartGameKey} {RestartGameMessage}");

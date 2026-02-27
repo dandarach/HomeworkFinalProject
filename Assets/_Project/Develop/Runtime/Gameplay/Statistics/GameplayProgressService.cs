@@ -16,13 +16,14 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Statistics
 
         public GameplayProgressService(ICoroutinesPerformer coroutinesPerformer, PlayerDataProvider playerDataProvider)
         {
+            _winCount = new ReactiveVariable<int>(0);
+            _loseCount = new ReactiveVariable<int>(0);
+
             _coroutinesPerformer = coroutinesPerformer;
             _playerDataProvider = playerDataProvider;
 
             playerDataProvider.RegisterWriter(this);
             playerDataProvider.RegisterReader(this);
-
-            LoadGameplayProgress();
         }
 
         public IReadonlyVariable<int> WinCount => _winCount;
