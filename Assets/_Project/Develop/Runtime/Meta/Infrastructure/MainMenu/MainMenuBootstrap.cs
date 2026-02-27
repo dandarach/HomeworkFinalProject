@@ -39,6 +39,10 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure.MainMenu
             _playerDataProvider = _container.Resolve<PlayerDataProvider>();
             _coroutinesPerformer = _container.Resolve<ICoroutinesPerformer>();
 
+            Debug.Log(_walletService);
+            Debug.Log(_coroutinesPerformer);
+            Debug.Log(_playerDataProvider);
+
             yield break;
         }
 
@@ -74,6 +78,9 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure.MainMenu
 
             if (Input.GetKeyDown(KeyCode.S))
             {
+                Debug.LogWarning(_coroutinesPerformer);
+                Debug.LogWarning(_playerDataProvider);
+
                 _coroutinesPerformer.StartPerform(_playerDataProvider.Save());
                 Debug.Log("PlayerData saved");
             }
