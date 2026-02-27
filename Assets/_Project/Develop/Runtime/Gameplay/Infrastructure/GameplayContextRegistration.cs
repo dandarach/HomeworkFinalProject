@@ -6,6 +6,7 @@ using Assets._Project.Develop.Runtime.Gameplay.Process;
 using Assets._Project.Develop.Runtime.Utilities.SceneManagement;
 using Assets._Project.Develop.Runtime.Utilities.CoroutinesManagement;
 using Assets._Project.Develop.Runtime.Utilities.DataManagement.DataProviders;
+using Assets._Project.Develop.Runtime.Gameplay.Statistics;
 
 namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
 {
@@ -30,35 +31,21 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
             => new GameplayInput();
 
         private static GameplayCycle CreateGameplayCycle(DIContainer c)
-        {
-            ICoroutinesPerformer coroutinesPerformer = c.Resolve<ICoroutinesPerformer>();
-            GameplayProcess gameplayProcess = c.Resolve<GameplayProcess>();
-            SceneSwitcherService sceneSwitcher = c.Resolve<SceneSwitcherService>();
-            PlayerDataProvider playerDataProvider = c.Resolve<PlayerDataProvider>();
-
-            return new GameplayCycle(
-                gameplayProcess,
-                sceneSwitcher,
-                coroutinesPerformer,
-                playerDataProvider);
-        }
+            => new GameplayCycle(
+                c.Resolve<GameplayProcess>(),
+                c.Resolve<SceneSwitcherService>(),
+                c.Resolve<ICoroutinesPerformer>(),
+                c.Resolve<GameplayProgressService>());
 
         private static GameplayProcess CreateGameplayProcess(DIContainer c)
-        {
-            StringGenerator generator = c.Resolve<StringGenerator>();
-            StringValidator checker = c.Resolve<StringValidator>();
-
-            return new GameplayProcess(generator, checker);
-        }
+            => new GameplayProcess(
+                c.Resolve<StringGenerator>(),
+                c.Resolve<StringValidator>());
 
         private static StringGenerator CreateStringGenerator(DIContainer c)
             => new StringGenerator();
 
         private static StringValidator CreateStringValidator(DIContainer c)
-        {
-            IGameplayInput input = c.Resolve<IGameplayInput>();
-            
-            return new StringValidator(input);
-        }
+            => new StringValidator(c.Resolve<IGameplayInput>());
     }
 }

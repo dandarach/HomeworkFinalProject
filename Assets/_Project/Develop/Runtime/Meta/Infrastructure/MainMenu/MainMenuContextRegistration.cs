@@ -28,14 +28,9 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure
         }
 
         private static IGameModeChooseService CreateGameModeChooseService(DIContainer c)
-        {
-            IMainMenuInput input = c.Resolve<MainMenuInputHandler>();
-
-            SceneSwitcherService sceneSwitcher = c.Resolve<SceneSwitcherService>();
-
-            ICoroutinesPerformer coroutinesPerformer = c.Resolve<ICoroutinesPerformer>();
-
-            return new GameModeChooseService(input, sceneSwitcher, coroutinesPerformer);
-        }
+            => new GameModeChooseService(
+                c.Resolve<MainMenuInputHandler>(),
+                c.Resolve<SceneSwitcherService>(),
+                c.Resolve<ICoroutinesPerformer>());
     }
 }

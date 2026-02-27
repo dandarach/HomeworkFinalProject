@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Assets._Project.Develop.Runtime.Gameplay.Statistics;
 using Assets._Project.Develop.Runtime.Infrastructure.DI;
 using Assets._Project.Develop.Runtime.Meta.Features.Wallet;
 using Assets._Project.Develop.Runtime.Utilities.AssetsManagement;
@@ -35,6 +36,8 @@ namespace Assets._Project.Develop.Runtime.Infrastructure.EntryPoint
             container.RegisterAsSingle<ILoadingScreen>(CreateLoadingScreen);
 
             container.RegisterAsSingle(CreateWalletService).NonLazy();
+            
+            container.RegisterAsSingle(CreateGameplayProgressService).NonLazy();
 
             container.RegisterAsSingle(CreatePlayerDataProvider);
 
@@ -54,6 +57,11 @@ namespace Assets._Project.Develop.Runtime.Infrastructure.EntryPoint
 
             return new SaveLoadService(dataSerializer, dataKeysStorage, dataRepository);
         }
+
+        private static GameplayProgressService CreateGameplayProgressService(DIContainer c)
+            => new GameplayProgressService(
+                c.Resolve<ICoroutinesPerformer>(),
+                c.Resolve<PlayerDataProvider>());
 
         private static WalletService CreateWalletService(DIContainer c)
         {
