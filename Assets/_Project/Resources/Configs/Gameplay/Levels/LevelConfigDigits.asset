@@ -14,4 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Symbols>k__BackingField: 0123456789
   <SymbolsToGuess>k__BackingField: 4
+  <InitialMoneyAmount>k__BackingField: 50
+  <WinGameBonus>k__BackingField: 10
+  <LoseGameFine>k__BackingField: 20
+  <ResetProgressCost>k__BackingField: 5
   <RestartGameKey>k__BackingField: 32

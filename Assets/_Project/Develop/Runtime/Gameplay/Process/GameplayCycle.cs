@@ -1,5 +1,6 @@
 ﻿using Assets._Project.Develop.Runtime.Configs.Gameplay.Levels;
 using Assets._Project.Develop.Runtime.Gameplay.Statistics;
+using Assets._Project.Develop.Runtime.Meta.Features.Wallet;
 using Assets._Project.Develop.Runtime.Utilities.CoroutinesManagement;
 using Assets._Project.Develop.Runtime.Utilities.SceneManagement;
 using UnityEngine;
@@ -15,6 +16,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Process
         private readonly SceneSwitcherService _sceneSwitcher;
         private readonly ICoroutinesPerformer _coroutinesPerformer;
         private readonly GameplayProgressService _gameplayProgressService;
+        private readonly WalletService _walletService;
 
         private LevelConfig _levelConfig;
         private GameState _gameState;
@@ -23,12 +25,14 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Process
             GameplayProcess gameplayProcess,
             SceneSwitcherService sceneSwitcher,
             ICoroutinesPerformer coroutinesPerformer,
-            GameplayProgressService gameplayProgressService)
+            GameplayProgressService gameplayProgressService,
+            WalletService walletService)
         {
             _gameplayProcess = gameplayProcess;
             _sceneSwitcher = sceneSwitcher;
             _coroutinesPerformer = coroutinesPerformer;
             _gameplayProgressService = gameplayProgressService;
+            _walletService = walletService;
         }
 
         public void Run(LevelConfig config)
