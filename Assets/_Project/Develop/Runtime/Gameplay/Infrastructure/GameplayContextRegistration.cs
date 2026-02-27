@@ -5,6 +5,7 @@ using UnityEngine;
 using Assets._Project.Develop.Runtime.Gameplay.Process;
 using Assets._Project.Develop.Runtime.Utilities.SceneManagement;
 using Assets._Project.Develop.Runtime.Utilities.CoroutinesManagement;
+using Assets._Project.Develop.Runtime.Utilities.DataManagement.DataProviders;
 
 namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
 {
@@ -33,8 +34,13 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
             ICoroutinesPerformer coroutinesPerformer = c.Resolve<ICoroutinesPerformer>();
             GameplayProcess gameplayProcess = c.Resolve<GameplayProcess>();
             SceneSwitcherService sceneSwitcher = c.Resolve<SceneSwitcherService>();
+            PlayerDataProvider playerDataProvider = c.Resolve<PlayerDataProvider>();
 
-            return new GameplayCycle(gameplayProcess, sceneSwitcher, coroutinesPerformer);
+            return new GameplayCycle(
+                gameplayProcess,
+                sceneSwitcher,
+                coroutinesPerformer,
+                playerDataProvider);
         }
 
         private static GameplayProcess CreateGameplayProcess(DIContainer c)

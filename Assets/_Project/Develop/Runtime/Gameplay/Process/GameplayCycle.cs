@@ -1,30 +1,39 @@
 ﻿using Assets._Project.Develop.Runtime.Configs.Gameplay.Levels;
 using Assets._Project.Develop.Runtime.Utilities.CoroutinesManagement;
+using Assets._Project.Develop.Runtime.Utilities.DataManagement;
+using Assets._Project.Develop.Runtime.Utilities.DataManagement.DataProviders;
 using Assets._Project.Develop.Runtime.Utilities.SceneManagement;
 using UnityEngine;
 
 namespace Assets._Project.Develop.Runtime.Gameplay.Process
 {
-    public class GameplayCycle : IGameplayCycle
+    public class GameplayCycle : IGameplayCycle,  IDataReader<PlayerData>, IDataWriter<PlayerData>
     {
         private const string RestartGameMessage = "TO RESTART THE GAME";
         private const string GoToMainMenuMessage = "FOR MAIN MENU";
 
-        private GameplayProcess _gameplayProcess;
-        private SceneSwitcherService _sceneSwitcher;
-        private ICoroutinesPerformer _coroutinesPerformer;
+        private readonly GameplayProcess _gameplayProcess;
+        private readonly SceneSwitcherService _sceneSwitcher;
+        private readonly ICoroutinesPerformer _coroutinesPerformer;
 
         private LevelConfig _levelConfig;
         private GameState _gameState;
 
+        private int _winCount = 0;
+        private int _loseCount = 0;
+
         public GameplayCycle(
             GameplayProcess gameplayProcess,
             SceneSwitcherService sceneSwitcher,
-            ICoroutinesPerformer coroutinesPerformer)
+            ICoroutinesPerformer coroutinesPerformer,
+            PlayerDataProvider playerDataProvider)
         {
             _gameplayProcess = gameplayProcess;
             _sceneSwitcher = sceneSwitcher;
             _coroutinesPerformer = coroutinesPerformer;
+
+            playerDataProvider.RegisterWriter(this);
+            playerDataProvider.RegisterReader(this);
         }
 
         public void Run(LevelConfig config)
@@ -36,6 +45,8 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Process
 
             _gameState = GameState.Running;
             _gameplayProcess.Run(_levelConfig.Symbols, _levelConfig.SymbolsToGuess);
+
+            PrintGameStatistics();
         }
 
         public void Update()
@@ -69,7 +80,10 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Process
         {
             Debug.LogWarning("*** WIN ***");
             Debug.LogWarning($"PRESS {_levelConfig.RestartGameKey} {GoToMainMenuMessage}");
+            
             _gameState = GameState.Win;
+            _winCount++;
+            
             OnGameEnded();
         }
 
@@ -77,7 +91,10 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Process
         {
             Debug.LogWarning("*** DEFEAT ***");
             Debug.LogWarning($"PRESS {_levelConfig.RestartGameKey} {RestartGameMessage}");
+            
             _gameState = GameState.Defeat;
+            _loseCount++;
+
             OnGameEnded();
         }
 
@@ -86,6 +103,27 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Process
             _gameplayProcess.OnWin -= OnWin;
             _gameplayProcess.OnDefeat -= OnDefeat;
             _gameplayProcess.Dispose();
+
+            PrintGameStatistics();
+        }
+
+        public void ReadFrom(PlayerData data)
+        {
+            _winCount = data.WinCount;
+            _loseCount = data.LoseCount;
+        }
+
+        public void WriteTo(PlayerData data)
+        {
+            data.WinCount = _winCount;
+            data.LoseCount = _loseCount;
+        }
+
+        private void PrintGameStatistics()
+        {
+            Debug.LogWarning("=== GAME STATISTICS ===");
+            Debug.Log($"Win count: {_winCount}");
+            Debug.Log($"Lose count: {_loseCount}");
         }
     }
 }
