@@ -16,6 +16,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
         private GameplayInputArgs _inputArgs;
         private LevelConfig _levelConfig;
         private IGameplayCycle _gameplayCycle;
+        private GameplayEconomyService _economyService;
 
         public override void ProcessRegistrations(DIContainer container, IInputSceneArgs sceneArgs = null)
         {
@@ -37,6 +38,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
             Debug.Log($"Gameplay mode symbols: '{_levelConfig.Symbols}', SymbolsToGuess: {_levelConfig.SymbolsToGuess}");
 
             _gameplayCycle = _container.Resolve<IGameplayCycle>();
+            _economyService = _container.Resolve<GameplayEconomyService>();
 
             yield break;
         }

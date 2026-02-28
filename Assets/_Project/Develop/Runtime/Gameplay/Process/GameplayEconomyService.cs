@@ -21,10 +21,13 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Process
 
             _gameplayProcess.OnWin += ProcessWin;
             _gameplayProcess.OnDefeat += ProcessDefeat;
+            
+            Debug.LogWarning(_gameplayProcess);
         }
 
         public void ProcessWin()
         {
+            Debug.LogWarning("GameplayEconomyService.ProcessWin()");
             _wallet.Add(CurrencyTypes.Gold, 10);/////////////////////////////////////
         }
 
@@ -32,6 +35,8 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Process
         {
             //if (_config.LossPenalty <= 0)
             //    return;
+
+            Debug.LogWarning("GameplayEconomyService.ProcessDefeat()");
 
             if (_wallet.Enough(CurrencyTypes.Gold, 10))////////////////////////////
                 _wallet.Spend(CurrencyTypes.Gold, 10);/////////////////////////////
