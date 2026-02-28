@@ -15,6 +15,7 @@ namespace Assets._Project.Develop.Runtime.Meta.GameModeChoose
         private readonly SceneSwitcherService _sceneSwitcher;
         private readonly ICoroutinesPerformer _coroutinesPerformer;
         private readonly GameplayProgressService _gameplayProgressService;
+        private readonly WalletService _walletService;
 
         public GameModeChooseService(
             IMainMenuInput input,
@@ -55,11 +56,7 @@ namespace Assets._Project.Develop.Runtime.Meta.GameModeChoose
             }
         }
 
-        private void ShowGameProgress()
-        {
-            Debug.Log("ShowGameProgress");
-            _gameplayProgressService.ShowGamplayProgress();
-        }
+        private void ShowGameProgress() => _gameplayProgressService.ShowGamplayProgress();
 
         private void ResetGameProgress()
         {
@@ -68,8 +65,6 @@ namespace Assets._Project.Develop.Runtime.Meta.GameModeChoose
         }
 
         private void SwitchToGameplay(GameplayMode mode)
-        {
-            _coroutinesPerformer.StartPerform(_sceneSwitcher.ProcessSwitchTo(Scenes.Gameplay, new GameplayInputArgs(mode)));
-        }
+            => _coroutinesPerformer.StartPerform(_sceneSwitcher.ProcessSwitchTo(Scenes.Gameplay, new GameplayInputArgs(mode)));
     }
 }
