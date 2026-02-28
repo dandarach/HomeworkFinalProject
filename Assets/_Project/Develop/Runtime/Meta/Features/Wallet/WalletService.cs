@@ -25,6 +25,13 @@ namespace Assets._Project.Develop.Runtime.Meta.Features.Wallet
 
         public IReadonlyVariable<int> GetCurrency(CurrencyTypes type) => _currencies[type];
 
+        public IReadOnlyDictionary<CurrencyTypes, int> GetAllCurrencies()
+        {
+            return _currencies.ToDictionary(
+                pair => pair.Key,
+                pair => pair.Value.Value);
+        }
+
         public bool Enough(CurrencyTypes type, int amount)
         {
             if (amount < 0)

@@ -59,12 +59,6 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Statistics
             data.WinCount = _winCount.Value;
             data.LoseCount = _loseCount.Value;
         }
-        public void ShowGamplayProgress()
-        {
-            Debug.LogWarning("=== GAME STATISTICS ===");
-            Debug.Log($"Win count: {_winCount.Value}");
-            Debug.Log($"Lose count: {_loseCount.Value}");
-        }
 
         public void SaveGameplayProgress()
         {

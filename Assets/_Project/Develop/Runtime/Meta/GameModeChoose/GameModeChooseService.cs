@@ -13,20 +13,20 @@ namespace Assets._Project.Develop.Runtime.Meta.GameModeChoose
         private readonly IMainMenuInput _input;
         private readonly SceneSwitcherService _sceneSwitcher;
         private readonly ICoroutinesPerformer _coroutinesPerformer;
-        private readonly GameplayProgressService _gameplayProgressService;
+        private readonly StatsInfoService _statsInfoService;
         private readonly StatsResetService _statsResetService;
 
         public GameModeChooseService(
             IMainMenuInput input,
             SceneSwitcherService sceneSwitcher,
             ICoroutinesPerformer coroutinesPerformer,
-            GameplayProgressService gameplayProgressService,
+            StatsInfoService statsInfoService,
             StatsResetService statsResetService)
             {
                 _input = input;
                 _sceneSwitcher = sceneSwitcher;
                 _coroutinesPerformer = coroutinesPerformer;
-                _gameplayProgressService = gameplayProgressService;
+                _statsInfoService = statsInfoService;
                 _statsResetService = statsResetService;
             }
 
@@ -57,7 +57,7 @@ namespace Assets._Project.Develop.Runtime.Meta.GameModeChoose
             }
         }
 
-        private void ShowGameProgress() => _gameplayProgressService.ShowGamplayProgress();
+        private void ShowGameProgress() => _statsInfoService.PrintStats();
 
         private void ResetGameProgress() => _statsResetService.Reset();
 
