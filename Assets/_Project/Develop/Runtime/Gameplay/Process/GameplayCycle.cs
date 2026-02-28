@@ -16,7 +16,6 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Process
         private readonly SceneSwitcherService _sceneSwitcher;
         private readonly ICoroutinesPerformer _coroutinesPerformer;
         private readonly GameplayProgressService _gameplayProgressService;
-        private readonly WalletService _walletService;
 
         private LevelConfig _levelConfig;
         private GameState _gameState;
@@ -25,14 +24,12 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Process
             GameplayProcess gameplayProcess,
             SceneSwitcherService sceneSwitcher,
             ICoroutinesPerformer coroutinesPerformer,
-            GameplayProgressService gameplayProgressService,
-            WalletService walletService)
+            GameplayProgressService gameplayProgressService)
         {
             _gameplayProcess = gameplayProcess;
             _sceneSwitcher = sceneSwitcher;
             _coroutinesPerformer = coroutinesPerformer;
             _gameplayProgressService = gameplayProgressService;
-            _walletService = walletService;
         }
 
         public void Run(LevelConfig config)
@@ -76,8 +73,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Process
         private void OnWin()
         {
             _gameState = GameState.Win;
-            _gameplayProgressService.IncreaseWinCount();
-
+            _gameplayProgressService.ProcessWin();
 
             Debug.LogWarning("*** WIN ***");
             Debug.LogWarning($"PRESS {_levelConfig.RestartGameKey} {GoToMainMenuMessage}");
@@ -88,7 +84,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Process
         private void OnDefeat()
         {
             _gameState = GameState.Defeat;
-            _gameplayProgressService.IncreaseLoseCount();
+            _gameplayProgressService.ProcessDefeat();
 
             Debug.LogWarning("*** DEFEAT ***");
             Debug.LogWarning($"PRESS {_levelConfig.RestartGameKey} {RestartGameMessage}");

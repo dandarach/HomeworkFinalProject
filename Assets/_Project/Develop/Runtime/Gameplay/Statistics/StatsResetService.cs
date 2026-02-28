@@ -6,34 +6,34 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Statistics
     public class StatsResetService
     {
         private readonly GameplayProgressService _gameplayProgressService;
-        private readonly WalletService _walletService;
+        private readonly WalletService _wallet;
         
         private readonly CurrencyTypes _resetCurrencyType;
         private readonly int _resetCost;
 
         public StatsResetService(
             GameplayProgressService gameplayProgressService,
-            WalletService walletService,
+            WalletService wallet,
             CurrencyTypes resetCurrencyType,
             int resetCost)
         {
             _gameplayProgressService = gameplayProgressService;
-            _walletService = walletService;
+            _wallet = wallet;
             _resetCurrencyType = resetCurrencyType;
             _resetCost = resetCost;
         }
 
         public void Reset()
         {
-            if (_walletService.Enough(CurrencyTypes.Gold, _resetCost) == false)
+            if (_wallet.Enough(CurrencyTypes.Gold, _resetCost) == false)
             {
                 Debug.LogWarning($"Not enough {_resetCost} {_resetCurrencyType} to reset gameplay statistics");
                 return;
             }
             else
             {
+                _wallet.Spend(_resetCurrencyType, _resetCost);
                 _gameplayProgressService.Reset();
-                _walletService.Spend(_resetCurrencyType, _resetCost);
                 Debug.Log($"Reset Game Statistics. Cost: {_resetCost} {_resetCurrencyType}");
             }
         }

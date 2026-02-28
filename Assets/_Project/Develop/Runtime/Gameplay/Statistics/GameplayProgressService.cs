@@ -8,19 +8,21 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Statistics
 {
     public class GameplayProgressService : IDataReader<PlayerData>, IDataWriter<PlayerData>
     {
-        private ReactiveVariable<int> _winCount;
-        private ReactiveVariable<int> _loseCount;
-
         private readonly ICoroutinesPerformer _coroutinesPerformer;
         private readonly PlayerDataProvider _playerDataProvider;
 
-        public GameplayProgressService(ICoroutinesPerformer coroutinesPerformer, PlayerDataProvider playerDataProvider)
-        {
-            _winCount = new ReactiveVariable<int>(0);
-            _loseCount = new ReactiveVariable<int>(0);
+        private ReactiveVariable<int> _winCount;
+        private ReactiveVariable<int> _loseCount;
 
+        public GameplayProgressService(
+            ICoroutinesPerformer coroutinesPerformer,
+            PlayerDataProvider playerDataProvider)
+        {
             _coroutinesPerformer = coroutinesPerformer;
             _playerDataProvider = playerDataProvider;
+
+            _winCount = new ReactiveVariable<int>(0);
+            _loseCount = new ReactiveVariable<int>(0);
 
             playerDataProvider.RegisterWriter(this);
             playerDataProvider.RegisterReader(this);
@@ -28,17 +30,6 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Statistics
 
         public IReadonlyVariable<int> WinCount => _winCount;
         public IReadonlyVariable<int> LoseCount => _loseCount;
-
-        public void IncreaseWinCount()
-        {
-            _winCount.Value++;
-            SaveGameplayProgress();
-        }
-        public void IncreaseLoseCount()
-        {
-            _loseCount.Value++;
-            SaveGameplayProgress();
-        }
 
         public void Reset()
         {
@@ -64,6 +55,18 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Statistics
         {
             _coroutinesPerformer.StartPerform(_playerDataProvider.Save());
             Debug.Log("PlayerData saved");
+        }
+
+        public void ProcessWin()
+        {
+            _winCount.Value++;
+            SaveGameplayProgress();
+        }
+
+        public void ProcessDefeat()
+        {
+            _loseCount.Value++;
+            SaveGameplayProgress();
         }
     }
 }
