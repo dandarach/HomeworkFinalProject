@@ -26,8 +26,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Statistics
 
         private void PrintGameplayStats()
         {
-            Debug.Log($"Win count: {_gameplayProgressService.WinCount.Value}");
-            Debug.Log($"Lose count: {_gameplayProgressService.LoseCount.Value}");
+            Debug.Log($"Wins: {_gameplayProgressService.WinCount.Value}; Defeats: {_gameplayProgressService.LoseCount.Value}");
         }
 
         private void PrintWalletStats()
