@@ -8,6 +8,7 @@ using UnityEngine;
 using Assets._Project.Develop.Runtime.Configs.Meta.Menu;
 using Assets._Project.Develop.Runtime.Meta.Features.Wallet;
 using Assets._Project.Develop.Runtime.Gameplay.Statistics;
+using Assets._Project.Develop.Runtime.Configs.Gameplay.Levels;
 
 namespace Assets._Project.Develop.Runtime.Meta.Infrastructure
 {
@@ -46,11 +47,14 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure
                 c.Resolve<StatsResetService>());
 
         private static StatsResetService CreateStatsResetService(DIContainer c)
-            => new StatsResetService(
+        {
+            LevelConfigs config = c.Resolve<ConfigsProviderService>().GetConfig<LevelConfigs>();
+
+            return new StatsResetService(
                 c.Resolve<GameplayProgressService>(),
                 c.Resolve<WalletService>(),
-                CurrencyTypes.Gold, ///////////////////////////////////////////////////////
-                10);
+                config.ResetProgressCost);
+        }
 
         private static StatsInfoService CreateStatsInfoService(DIContainer c)
             => new StatsInfoService(

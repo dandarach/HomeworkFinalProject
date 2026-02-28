@@ -19,3 +19,6 @@ MonoBehaviour:
   - <GameplayMode>k__BackingField: 1
     <LevelConfig>k__BackingField: {fileID: 11400000, guid: a739ba0d5f7ea234eac8eaec6e74ef35,
       type: 2}
+  <ResetProgressCost>k__BackingField:
+    <Type>k__BackingField: 0
+    <Value>k__BackingField: 50
