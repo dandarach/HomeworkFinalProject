@@ -1,4 +1,4 @@
-﻿namespace Assets._Project.Develop.Runtime.Features.StringServices
+﻿namespace Assets._Project.Develop.Runtime.Gameplay.Features.StringServices
 {
     public class StringGenerator
     {

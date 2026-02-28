@@ -2,7 +2,7 @@
 using Assets._Project.Develop.Runtime.Gameplay.InputSystem;
 using UnityEngine;
 
-namespace Assets._Project.Develop.Runtime.Features.StringServices
+namespace Assets._Project.Develop.Runtime.Gameplay.Features.StringServices
 {
     public class StringValidator
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 using UnityEngine;
-using Assets._Project.Develop.Runtime.Features.StringServices;
+using Assets._Project.Develop.Runtime.Gameplay.Features.StringServices;
 
 namespace Assets._Project.Develop.Runtime.Gameplay.Process
 {

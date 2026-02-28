@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
 using Assets._Project.Develop.Runtime.Utilities.DataManagement;
@@ -38,6 +39,7 @@ namespace Assets._Project.Develop.Runtime.Meta.Features.Wallet
                 throw new ArgumentOutOfRangeException(nameof(amount));
 
             _currencies[type].Value += amount;
+            Debug.Log($"Added {amount} {type} to the Wallet. Balance: {_currencies[type].Value} {type}");
         }
 
         public void Spend(CurrencyTypes type, int amount)
@@ -49,6 +51,7 @@ namespace Assets._Project.Develop.Runtime.Meta.Features.Wallet
                 throw new ArgumentOutOfRangeException(nameof(amount));
 
             _currencies[type].Value -= amount;
+            Debug.Log($"Spend {amount} {type} from the Wallet. Balance: {_currencies[type].Value} {type}");
         }
 
         public void ReadFrom(PlayerData data)

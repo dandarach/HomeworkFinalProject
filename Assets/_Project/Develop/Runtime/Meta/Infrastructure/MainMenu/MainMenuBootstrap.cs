@@ -15,9 +15,6 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure.MainMenu
     {
         private DIContainer _container;
         private IGameModeChooseService _gameModeChooseService;
-        private WalletService _walletService;
-        private PlayerDataProvider _playerDataProvider;
-        private ICoroutinesPerformer _coroutinesPerformer;
 
         private bool _isRunning = false;
 
@@ -33,11 +30,7 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure.MainMenu
             Debug.Log("Main Menu scene initialization");
 
             ConfigsProviderService configsProviderService = _container.Resolve<ConfigsProviderService>();
-
             _gameModeChooseService = _container.Resolve<IGameModeChooseService>();
-            _walletService = _container.Resolve<WalletService>();
-            _playerDataProvider = _container.Resolve<PlayerDataProvider>();
-            _coroutinesPerformer = _container.Resolve<ICoroutinesPerformer>();
 
             yield break;
         }
@@ -54,29 +47,6 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure.MainMenu
                 return;
 
             _gameModeChooseService.Update();
-
-
-            //////////////////////////////////////////////////////////////////////////////////
-            if (Input.GetKeyDown(KeyCode.Z))
-            {
-                _walletService.Add(CurrencyTypes.Gold, 10);
-                Debug.Log("Gold: " + _walletService.GetCurrency(CurrencyTypes.Gold).Value);
-            }
-
-            if (Input.GetKeyDown(KeyCode.X))
-            {
-                if (_walletService.Enough(CurrencyTypes.Gold, 10))
-                {
-                    _walletService.Spend(CurrencyTypes.Gold, 10);
-                    Debug.Log("Gold: " + _walletService.GetCurrency(CurrencyTypes.Gold).Value);
-                }
-            }
-
-            if (Input.GetKeyDown(KeyCode.S))
-            {
-                _coroutinesPerformer.StartPerform(_playerDataProvider.Save());
-                Debug.Log("PlayerData saved");
-            }
         }
     }
 }

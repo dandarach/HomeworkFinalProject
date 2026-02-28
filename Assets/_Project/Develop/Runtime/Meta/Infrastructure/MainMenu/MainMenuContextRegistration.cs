@@ -19,6 +19,8 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure
 
             container.RegisterAsSingle(CreateInputHandler);
             
+            container.RegisterAsSingle(CreateStatsResetService);
+            
             container.RegisterAsSingle<IGameModeChooseService>(CreateGameModeChooseService);
         }
 
@@ -38,6 +40,14 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure
                 c.Resolve<MainMenuInputHandler>(),
                 c.Resolve<SceneSwitcherService>(),
                 c.Resolve<ICoroutinesPerformer>(),
-                c.Resolve<GameplayProgressService>());
+                c.Resolve<GameplayProgressService>(),
+                c.Resolve<StatsResetService>());
+
+        private static StatsResetService CreateStatsResetService(DIContainer c)
+            => new StatsResetService(
+                c.Resolve<GameplayProgressService>(),
+                c.Resolve<WalletService>(),
+                CurrencyTypes.Gold, ///////////////////////////////////////////////////////
+                10);
     }
 }

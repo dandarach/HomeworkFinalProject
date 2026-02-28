@@ -46,8 +46,6 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Statistics
             _loseCount.Value = 0;
 
             SaveGameplayProgress();
-
-            Debug.Log("- GameplayProgressService reset");
         }
 
         public void ReadFrom(PlayerData data)
@@ -68,7 +66,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Statistics
             Debug.Log($"Lose count: {_loseCount.Value}");
         }
 
-        private void SaveGameplayProgress()
+        public void SaveGameplayProgress()
         {
             _coroutinesPerformer.StartPerform(_playerDataProvider.Save());
             Debug.Log("PlayerData saved");

@@ -1,6 +1,6 @@
 ﻿using Assets._Project.Develop.Runtime.Gameplay.InputSystem;
 using Assets._Project.Develop.Runtime.Infrastructure.DI;
-using Assets._Project.Develop.Runtime.Features.StringServices;
+using Assets._Project.Develop.Runtime.Gameplay.Features.StringServices;
 using UnityEngine;
 using Assets._Project.Develop.Runtime.Gameplay.Process;
 using Assets._Project.Develop.Runtime.Utilities.SceneManagement;
