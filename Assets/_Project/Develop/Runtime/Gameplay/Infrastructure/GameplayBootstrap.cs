@@ -48,6 +48,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
             Debug.Log("Gameplay scene start");
 
             _gameplayCycle.Run(_levelConfig);
+            _economyService.Initialize(_levelConfig.WinAward, _levelConfig.LosePenalty);
         }
 
         private void Update()

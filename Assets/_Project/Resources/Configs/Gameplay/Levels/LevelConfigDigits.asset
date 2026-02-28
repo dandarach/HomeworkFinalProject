@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Symbols>k__BackingField: 0123456789
   <SymbolsToGuess>k__BackingField: 4
-  <WinGameBonus>k__BackingField:
+  <WinAward>k__BackingField:
     <Type>k__BackingField: 0
     <Value>k__BackingField: 10
-  <LoseGameFine>k__BackingField:
+  <LosePenalty>k__BackingField:
     <Type>k__BackingField: 0
     <Value>k__BackingField: 10
   <ResetProgressCost>k__BackingField:

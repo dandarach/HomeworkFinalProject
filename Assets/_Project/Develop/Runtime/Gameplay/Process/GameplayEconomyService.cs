@@ -1,6 +1,7 @@
 ﻿using System;
 using Assets._Project.Develop.Runtime.Meta.Features.Wallet;
 using UnityEngine;
+using static Assets._Project.Develop.Runtime.Configs.Meta.Wallet.LevelConfig;
 
 namespace Assets._Project.Develop.Runtime.Gameplay.Process
 {
@@ -8,16 +9,16 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Process
     {
         private readonly GameplayProcess _gameplayProcess;
         private readonly WalletService _wallet;
-        //private readonly GameplayEconomyConfig _config;
+        
+        private CurrencyConfig _winAward;
+        private CurrencyConfig _losePenalty;
 
         public GameplayEconomyService(
             GameplayProcess gameplayProcess,
             WalletService wallet)
-            //GameplayEconomyConfig config)
         {
             _gameplayProcess = gameplayProcess;
             _wallet = wallet;
-            //_config = config;
 
             _gameplayProcess.OnWin += ProcessWin;
             _gameplayProcess.OnDefeat += ProcessDefeat;
@@ -25,21 +26,24 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Process
             Debug.LogWarning(_gameplayProcess);
         }
 
+        public void Initialize(CurrencyConfig winAward, CurrencyConfig losePenalty)
+        {
+            _winAward = winAward;
+            _losePenalty = losePenalty;
+        }
+
         public void ProcessWin()
         {
-            Debug.LogWarning("GameplayEconomyService.ProcessWin()");
-            _wallet.Add(CurrencyTypes.Gold, 10);/////////////////////////////////////
+            _wallet.Add(_winAward.Type, _winAward.Value);
         }
 
         public void ProcessDefeat()
         {
-            //if (_config.LossPenalty <= 0)
-            //    return;
+            if (_losePenalty.Value <= 0)
+                return;
 
-            Debug.LogWarning("GameplayEconomyService.ProcessDefeat()");
-
-            if (_wallet.Enough(CurrencyTypes.Gold, 10))////////////////////////////
-                _wallet.Spend(CurrencyTypes.Gold, 10);/////////////////////////////
+            if (_wallet.Enough(_winAward.Type, _losePenalty.Value))
+                _wallet.Spend(_winAward.Type, _losePenalty.Value);
         }
 
         public void Dispose()

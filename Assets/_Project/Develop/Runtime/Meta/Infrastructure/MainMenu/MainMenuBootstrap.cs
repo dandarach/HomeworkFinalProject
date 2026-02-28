@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Assets._Project.Develop.Runtime.Gameplay.Statistics;
 using Assets._Project.Develop.Runtime.Infrastructure;
 using Assets._Project.Develop.Runtime.Infrastructure.DI;
 using Assets._Project.Develop.Runtime.Meta.Features.Wallet;

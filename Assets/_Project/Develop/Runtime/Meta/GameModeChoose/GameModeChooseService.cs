@@ -22,13 +22,13 @@ namespace Assets._Project.Develop.Runtime.Meta.GameModeChoose
             ICoroutinesPerformer coroutinesPerformer,
             StatsInfoService statsInfoService,
             StatsResetService statsResetService)
-            {
-                _input = input;
-                _sceneSwitcher = sceneSwitcher;
-                _coroutinesPerformer = coroutinesPerformer;
-                _statsInfoService = statsInfoService;
-                _statsResetService = statsResetService;
-            }
+        {
+            _input = input;
+            _sceneSwitcher = sceneSwitcher;
+            _coroutinesPerformer = coroutinesPerformer;
+            _statsInfoService = statsInfoService;
+            _statsResetService = statsResetService;
+        }
 
         public void Update()
         {
