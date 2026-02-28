@@ -24,7 +24,11 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure
         {
             MenuConfig config = c.Resolve<ConfigsProviderService>().GetConfig<MenuConfig>();
 
-            return new MainMenuInputHandler(config.DigitsGameModeKey, config.LettersGameModeKey);
+            return new MainMenuInputHandler(
+                config.DigitsGameModeKey,
+                config.LettersGameModeKey,
+                config.ResetGameProgressKey,
+                config.ShowGameProgressKey);
         }
 
         private static IGameModeChooseService CreateGameModeChooseService(DIContainer c)

@@ -8,5 +8,7 @@ namespace Assets._Project.Develop.Runtime.Meta.InputSystem
     {
         bool DigitsGameModeSelected { get; }
         bool LettersGameModeSelected { get; }
+        bool ResetGameProgressKeyPressed { get; }
+        bool ShowGameProgressKeyPressed { get; }
     }
 }

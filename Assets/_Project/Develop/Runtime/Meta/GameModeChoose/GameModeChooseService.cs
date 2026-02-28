@@ -1,4 +1,5 @@
-﻿using Assets._Project.Develop.Runtime.Configs.Gameplay;
+﻿using System;
+using Assets._Project.Develop.Runtime.Configs.Gameplay;
 using Assets._Project.Develop.Runtime.Gameplay.Infrastructure;
 using Assets._Project.Develop.Runtime.Meta.InputSystem;
 using Assets._Project.Develop.Runtime.Utilities.CoroutinesManagement;
@@ -33,7 +34,30 @@ namespace Assets._Project.Develop.Runtime.Meta.GameModeChoose
             if (_input.LettersGameModeSelected)
             {
                 SwitchToGameplay(GameplayMode.Letters);
+                return;
             }
+
+            if (_input.ResetGameProgressKeyPressed)
+            {
+                ResetGameProgress();
+                return;
+            }
+
+            if (_input.ShowGameProgressKeyPressed)
+            {
+                ShowGameProgress();
+                return;
+            }
+        }
+
+        private void ShowGameProgress()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void ResetGameProgress()
+        {
+            throw new NotImplementedException();
         }
 
         private void SwitchToGameplay(GameplayMode mode)

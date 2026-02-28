@@ -72,12 +72,6 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Statistics
             Debug.Log("PlayerData saved");
         }
 
-        private void LoadGameplayProgress()
-        {
-            _coroutinesPerformer.StartPerform(_playerDataProvider.Load());
-            Debug.Log("PlayerData loaded");
-        }
-
         private void PrintGameStatistics()
         {
             Debug.LogWarning("=== GAME STATISTICS ===");

@@ -7,7 +7,6 @@ namespace Assets._Project.Develop.Runtime.Configs.Gameplay.Levels
     {
         [field: SerializeField] public string Symbols { get; private set; }
         [field: SerializeField] public int SymbolsToGuess { get; private set; }
-        [field: SerializeField] public int InitialMoneyAmount { get; private set; }
         [field: SerializeField] public int WinGameBonus { get; private set; }
         [field: SerializeField] public int LoseGameFine { get; private set; }
         [field: SerializeField] public int ResetProgressCost { get; private set; }
