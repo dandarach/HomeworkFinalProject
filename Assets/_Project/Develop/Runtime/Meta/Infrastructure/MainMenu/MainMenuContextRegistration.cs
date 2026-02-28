@@ -6,6 +6,8 @@ using Assets._Project.Develop.Runtime.Utilities.SceneManagement;
 using Assets._Project.Develop.Runtime.Utilities.CoroutinesManagement;
 using UnityEngine;
 using Assets._Project.Develop.Runtime.Configs.Meta.Menu;
+using Assets._Project.Develop.Runtime.Meta.Features.Wallet;
+using Assets._Project.Develop.Runtime.Gameplay.Statistics;
 
 namespace Assets._Project.Develop.Runtime.Meta.Infrastructure
 {
@@ -35,6 +37,7 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure
             => new GameModeChooseService(
                 c.Resolve<MainMenuInputHandler>(),
                 c.Resolve<SceneSwitcherService>(),
-                c.Resolve<ICoroutinesPerformer>());
+                c.Resolve<ICoroutinesPerformer>(),
+                c.Resolve<GameplayProgressService>());
     }
 }

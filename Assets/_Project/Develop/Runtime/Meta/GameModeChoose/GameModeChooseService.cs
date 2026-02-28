@@ -1,6 +1,8 @@
-﻿using System;
+﻿using UnityEngine;
 using Assets._Project.Develop.Runtime.Configs.Gameplay;
 using Assets._Project.Develop.Runtime.Gameplay.Infrastructure;
+using Assets._Project.Develop.Runtime.Gameplay.Statistics;
+using Assets._Project.Develop.Runtime.Meta.Features.Wallet;
 using Assets._Project.Develop.Runtime.Meta.InputSystem;
 using Assets._Project.Develop.Runtime.Utilities.CoroutinesManagement;
 using Assets._Project.Develop.Runtime.Utilities.SceneManagement;
@@ -9,18 +11,21 @@ namespace Assets._Project.Develop.Runtime.Meta.GameModeChoose
 {
     public class GameModeChooseService : IGameModeChooseService
     {
-        private IMainMenuInput _input;
-        private SceneSwitcherService _sceneSwitcher;
-        private ICoroutinesPerformer _coroutinesPerformer;
+        private readonly IMainMenuInput _input;
+        private readonly SceneSwitcherService _sceneSwitcher;
+        private readonly ICoroutinesPerformer _coroutinesPerformer;
+        private readonly GameplayProgressService _gameplayProgressService;
 
         public GameModeChooseService(
             IMainMenuInput input,
             SceneSwitcherService sceneSwitcher,
-            ICoroutinesPerformer coroutinesPerformer)
+            ICoroutinesPerformer coroutinesPerformer,
+            GameplayProgressService gameplayProgressService)
             {
                 _input = input;
                 _sceneSwitcher = sceneSwitcher;
                 _coroutinesPerformer = coroutinesPerformer;
+                _gameplayProgressService = gameplayProgressService;
             }
 
         public void Update()
@@ -52,12 +57,14 @@ namespace Assets._Project.Develop.Runtime.Meta.GameModeChoose
 
         private void ShowGameProgress()
         {
-            throw new NotImplementedException();
+            Debug.Log("ShowGameProgress");
+            _gameplayProgressService.ShowGamplayProgress();
         }
 
         private void ResetGameProgress()
         {
-            throw new NotImplementedException();
+            Debug.Log("ResetGameProgress");
+            _gameplayProgressService.Reset();
         }
 
         private void SwitchToGameplay(GameplayMode mode)

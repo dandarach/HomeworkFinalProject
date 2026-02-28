@@ -54,29 +54,24 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Statistics
         {
             _winCount.Value = data.WinCount;
             _loseCount.Value = data.LoseCount;
-
-            PrintGameStatistics();
         }
 
         public void WriteTo(PlayerData data)
         {
             data.WinCount = _winCount.Value;
             data.LoseCount = _loseCount.Value;
-
-            PrintGameStatistics();
+        }
+        public void ShowGamplayProgress()
+        {
+            Debug.LogWarning("=== GAME STATISTICS ===");
+            Debug.Log($"Win count: {_winCount.Value}");
+            Debug.Log($"Lose count: {_loseCount.Value}");
         }
 
         private void SaveGameplayProgress()
         {
             _coroutinesPerformer.StartPerform(_playerDataProvider.Save());
             Debug.Log("PlayerData saved");
-        }
-
-        private void PrintGameStatistics()
-        {
-            Debug.LogWarning("=== GAME STATISTICS ===");
-            Debug.Log($"Win count: {_winCount.Value}");
-            Debug.Log($"Lose count: {_loseCount.Value}");
         }
     }
 }
