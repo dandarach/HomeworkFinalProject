@@ -42,7 +42,7 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure.MainMenu
 
             _presentersFactory = _container.Resolve<ProjectPresentersFactory>();
             WalletPresenter walletPresenter = _presentersFactory.CreateWalletPresenter(_walletView);
-            walletPresenter.Enable();
+            walletPresenter.Initialize();
 
             yield break;
         }

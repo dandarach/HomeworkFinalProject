@@ -5,7 +5,7 @@ using Assets._Project.Develop.Runtime.UI.Core;
 
 namespace Assets._Project.Develop.Runtime.UI.Wallet
 {
-    public class WalletPresenter
+    public class WalletPresenter : IPresenter
     {
         private readonly WalletService _walletService;
         private readonly ProjectPresentersFactory _presentersFactory;
@@ -25,7 +25,7 @@ namespace Assets._Project.Develop.Runtime.UI.Wallet
             _view = view;
         }
 
-        public void Enable()
+        public void Initialize()
         {
             foreach (CurrencyTypes currencyType in _walletService.AvailableCurrencies)
             {
@@ -37,18 +37,18 @@ namespace Assets._Project.Develop.Runtime.UI.Wallet
                     _walletService.GetCurrency(currencyType),
                     currencyType);
 
-                currencyPresenter.Enable();
+                currencyPresenter.Initialize();
                 _currencyPresenters.Add(currencyPresenter);
             }
         }
 
-        public void Disable()
+        public void Dispose()
         {
             foreach (CurrencyPresenter currencyPresenter in _currencyPresenters)
             {
                 _view.Remove(currencyPresenter.View);
                 _viewsFactory.Release(currencyPresenter.View);
-                currencyPresenter.Disable();
+                currencyPresenter.Dispose();
             }
 
             _currencyPresenters.Clear();
