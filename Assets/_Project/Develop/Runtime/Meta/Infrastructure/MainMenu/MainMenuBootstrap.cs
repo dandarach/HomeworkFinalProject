@@ -64,7 +64,7 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure.MainMenu
                 _walletService.GetCurrency(CurrencyTypes.Gold),
                 CurrencyTypes.Gold);
 
-            _currencyPresenter.Enable();
+            _statsPresenter.Enable();
 
             yield break;
         }
