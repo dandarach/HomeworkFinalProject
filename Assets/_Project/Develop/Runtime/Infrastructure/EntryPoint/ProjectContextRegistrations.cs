@@ -17,6 +17,7 @@ using Assets._Project.Develop.Runtime.Utilities.SceneManagement;
 using Assets._Project.Develop.Runtime.UI;
 using UnityEngine;
 using Object = UnityEngine.Object;
+using Assets._Project.Develop.Runtime.UI.Core;
 
 namespace Assets._Project.Develop.Runtime.Infrastructure.EntryPoint
 {
@@ -43,9 +44,14 @@ namespace Assets._Project.Develop.Runtime.Infrastructure.EntryPoint
             container.RegisterAsSingle(CreatePlayerDataProvier);
             
             container.RegisterAsSingle(CreateProjectPresentersFactory);
+            
+            container.RegisterAsSingle(CreateViewsFactory);
 
             container.RegisterAsSingle<ISaveLoadService>(CreateSaveLoadService);
         }
+
+        private static ViewsFactory CreateViewsFactory(DIContainer c)
+            => new ViewsFactory(c.Resolve<ResourcesAssetsLoader>());
 
         private static ProjectPresentersFactory CreateProjectPresentersFactory(DIContainer c)
             => new ProjectPresentersFactory(c);
