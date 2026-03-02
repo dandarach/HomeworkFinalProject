@@ -2,7 +2,7 @@
 using Assets._Project.Develop.Runtime.Meta.Features.Wallet;
 using static Assets._Project.Develop.Runtime.Configs.Meta.Wallet.LevelConfig;
 
-namespace Assets._Project.Develop.Runtime.Gameplay.Statistics
+namespace Assets._Project.Develop.Runtime.Meta.Features.Statistics
 {
     public class StatsResetService
     {

@@ -17,7 +17,8 @@ namespace Assets._Project.Develop.Runtime.Utilities.ConfigsManagement
         {
             { typeof(MenuConfig), "Configs/Meta/MainMenu/MenuConfig" },
             { typeof(LevelConfigs), "Configs/Gameplay/Levels/LevelConfigs" },
-            { typeof(StartWalletConfig), "Configs/Meta/Wallet/StartWalletConfig" }
+            { typeof(StartWalletConfig), "Configs/Meta/Wallet/StartWalletConfig" },
+            { typeof(CurrencyIconConfig), "Configs/Meta/Wallet/CurrencyIconConfig" }
         };
 
         public ResourcesConfigsLoader(ResourcesAssetsLoader resources)

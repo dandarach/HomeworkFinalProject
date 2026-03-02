@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Assets._Project.Develop.Runtime.Gameplay.Statistics;
+using Assets._Project.Develop.Runtime.Meta.Features.Statistics;
 using Assets._Project.Develop.Runtime.Infrastructure.DI;
 using Assets._Project.Develop.Runtime.Meta.Features.Wallet;
 using Assets._Project.Develop.Runtime.Utilities.AssetsManagement;
@@ -14,6 +14,7 @@ using Assets._Project.Develop.Runtime.Utilities.DataManagement.Serializers;
 using Assets._Project.Develop.Runtime.Utilities.LoadingScreen;
 using Assets._Project.Develop.Runtime.Utilities.Reactive;
 using Assets._Project.Develop.Runtime.Utilities.SceneManagement;
+using Assets._Project.Develop.Runtime.UI;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -39,12 +40,17 @@ namespace Assets._Project.Develop.Runtime.Infrastructure.EntryPoint
             
             container.RegisterAsSingle(CreateGameplayProgressService).NonLazy();
 
-            container.RegisterAsSingle(CreatePlayerDataProvider);
+            container.RegisterAsSingle(CreatePlayerDataProvier);
+            
+            container.RegisterAsSingle(CreateProjectPresentersFactory);
 
             container.RegisterAsSingle<ISaveLoadService>(CreateSaveLoadService);
         }
 
-        private static PlayerDataProvider CreatePlayerDataProvider(DIContainer c)
+        private static ProjectPresentersFactory CreateProjectPresentersFactory(DIContainer c)
+            => new ProjectPresentersFactory(c);
+
+        private static PlayerDataProvider CreatePlayerDataProvier(DIContainer c)
             => new PlayerDataProvider(c.Resolve<ISaveLoadService>(), c.Resolve<ConfigsProviderService>());
 
         private static SaveLoadService CreateSaveLoadService(DIContainer c)

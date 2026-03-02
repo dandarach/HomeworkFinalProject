@@ -4,7 +4,7 @@ using Assets._Project.Develop.Runtime.Utilities.DataManagement.DataProviders;
 using Assets._Project.Develop.Runtime.Utilities.Reactive;
 using UnityEngine;
 
-namespace Assets._Project.Develop.Runtime.Gameplay.Statistics
+namespace Assets._Project.Develop.Runtime.Meta.Features.Statistics
 {
     public class GameplayProgressService : IDataReader<PlayerData>, IDataWriter<PlayerData>
     {
