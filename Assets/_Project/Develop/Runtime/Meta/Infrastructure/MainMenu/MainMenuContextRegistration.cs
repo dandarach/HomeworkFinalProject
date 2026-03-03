@@ -5,6 +5,7 @@ using Assets._Project.Develop.Runtime.Meta.Features.Statistics;
 using Assets._Project.Develop.Runtime.Meta.Features.Wallet;
 using Assets._Project.Develop.Runtime.Meta.GameModeChoose;
 using Assets._Project.Develop.Runtime.Meta.InputSystem;
+using Assets._Project.Develop.Runtime.UI.Core;
 using Assets._Project.Develop.Runtime.UI.MainMenu;
 using Assets._Project.Develop.Runtime.Utilities.AssetsManagement;
 using Assets._Project.Develop.Runtime.Utilities.ConfigsManagement;
@@ -28,6 +29,10 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure
 
             container.RegisterAsSingle(CreateMainMenuUIRoot).NonLazy();
 
+            container.RegisterAsSingle(CreateMainMenuPresentersFactory);
+
+            container.RegisterAsSingle(CreateMainMenuScreenPresenter).NonLazy();
+
             container.RegisterAsSingle<IGameModeChooseService>(CreateGameModeChooseService);
         }
 
@@ -39,6 +44,24 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure
                 .Load<MainMenuUIRoot>("UI/MainMenu/MainMenuUIRoot");
 
             return Object.Instantiate(mainMenuUIRootPrefab);
+        }
+
+        private static MainMenuPresentersFactory CreateMainMenuPresentersFactory(DIContainer c)
+            => new MainMenuPresentersFactory(c);
+
+        private static MainMenuScreenPresenter CreateMainMenuScreenPresenter(DIContainer c)
+        {
+            MainMenuUIRoot uiRoot = c.Resolve<MainMenuUIRoot>();
+            
+            MainMenuScreenView view = c
+                .Resolve<ViewsFactory>()
+                .Create<MainMenuScreenView>(ViewIDs.MainMenuScreen, uiRoot.HUDLayer);
+
+            MainMenuScreenPresenter presenter = c
+                .Resolve<MainMenuPresentersFactory>()
+                .CreateMainMenuScreen(view);
+
+            return presenter;
         }
 
         private static MainMenuInputHandler CreateInputHandler(DIContainer c)
