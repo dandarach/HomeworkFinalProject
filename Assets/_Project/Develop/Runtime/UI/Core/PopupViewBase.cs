@@ -1,6 +1,7 @@
 ﻿using System;
-using UnityEngine;
 using DG.Tweening;
+using UnityEngine;
+using UnityEngine.UI;
 
 namespace Assets._Project.Develop.Runtime.UI.Core
 {
@@ -9,6 +10,7 @@ namespace Assets._Project.Develop.Runtime.UI.Core
         public event Action CloseRequest;
 
         [SerializeField] private CanvasGroup _mainGroup;
+        [SerializeField] private Image _anticlicker;
         [SerializeField] private Transform _body;
 
         private Tween _currentAnimation;
@@ -29,10 +31,18 @@ namespace Assets._Project.Develop.Runtime.UI.Core
             // TODO: animation
             _mainGroup.alpha = 1;
 
-            _currentAnimation = _body
-                .DOScale(1, 0.5f)
-                .From(0)
-                .SetEase(Ease.OutBack);
+            Sequence animation = DOTween.Sequence();
+
+            animation
+                .Append(_anticlicker
+                    .DOFade(0.75f, 0.2f)
+                    .From(0))
+                .Join(_body
+                    .DOScale(1, 0.5f)
+                    .From(0)
+                    .SetEase(Ease.OutBack));
+
+            _currentAnimation = animation;
 
             OnPostShow();
         }
