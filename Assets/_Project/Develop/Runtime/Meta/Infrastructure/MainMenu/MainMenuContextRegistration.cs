@@ -5,6 +5,7 @@ using Assets._Project.Develop.Runtime.Meta.Features.Statistics;
 using Assets._Project.Develop.Runtime.Meta.Features.Wallet;
 using Assets._Project.Develop.Runtime.Meta.GameModeChoose;
 using Assets._Project.Develop.Runtime.Meta.InputSystem;
+using Assets._Project.Develop.Runtime.UI;
 using Assets._Project.Develop.Runtime.UI.Core;
 using Assets._Project.Develop.Runtime.UI.MainMenu;
 using Assets._Project.Develop.Runtime.Utilities.AssetsManagement;
@@ -32,8 +33,18 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure
             container.RegisterAsSingle(CreateMainMenuPresentersFactory);
 
             container.RegisterAsSingle(CreateMainMenuScreenPresenter).NonLazy();
+            
+            container.RegisterAsSingle(CreateMainMenuPopupService);
 
             container.RegisterAsSingle<IGameModeChooseService>(CreateGameModeChooseService);
+        }
+
+        private static MainMenuPopupService CreateMainMenuPopupService(DIContainer c)
+        {
+            return new MainMenuPopupService(
+                c.Resolve<ViewsFactory>(),
+                c.Resolve<ProjectPresentersFactory>(),
+                c.Resolve<MainMenuUIRoot>());
         }
 
         private static MainMenuUIRoot CreateMainMenuUIRoot(DIContainer c)
