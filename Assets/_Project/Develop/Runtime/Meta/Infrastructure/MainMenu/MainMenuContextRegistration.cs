@@ -9,6 +9,9 @@ using Assets._Project.Develop.Runtime.Meta.Features.Wallet;
 using Assets._Project.Develop.Runtime.Meta.Features.Statistics;
 using Assets._Project.Develop.Runtime.Configs.Gameplay.Levels;
 using UnityEngine;
+using Assets._Project.Develop.Runtime.UI.Wallet;
+using Assets._Project.Develop.Runtime.UI.CommonViews;
+using Assets._Project.Develop.Runtime.UI;
 
 namespace Assets._Project.Develop.Runtime.Meta.Infrastructure
 {
@@ -23,8 +26,19 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure
             container.RegisterAsSingle(CreateStatsResetService);
             
             container.RegisterAsSingle(CreateStatsInfoService);
+
+            container.RegisterAsSingle(CreateWalletPresenter).NonLazy();
             
             container.RegisterAsSingle<IGameModeChooseService>(CreateGameModeChooseService);
+        }
+
+        private static WalletPresenter CreateWalletPresenter(DIContainer c)
+        {
+            IconTextListView walletView = Object.FindObjectOfType<IconTextListView>(); //TODO: NEED TO FIX!!!
+
+            WalletPresenter walletPresenter = c.Resolve<ProjectPresentersFactory>().CreateWalletPresenter(walletView);
+
+            return walletPresenter;
         }
 
         private static MainMenuInputHandler CreateInputHandler(DIContainer c)

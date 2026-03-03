@@ -40,10 +40,6 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure.MainMenu
             ConfigsProviderService configsProviderService = _container.Resolve<ConfigsProviderService>();
             _gameModeChooseService = _container.Resolve<IGameModeChooseService>();
 
-            _presentersFactory = _container.Resolve<ProjectPresentersFactory>();
-            WalletPresenter walletPresenter = _presentersFactory.CreateWalletPresenter(_walletView);
-            walletPresenter.Initialize();
-
             yield break;
         }
 
