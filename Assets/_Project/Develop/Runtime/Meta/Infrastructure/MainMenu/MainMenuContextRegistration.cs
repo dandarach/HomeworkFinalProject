@@ -1,17 +1,16 @@
-﻿using Assets._Project.Develop.Runtime.Infrastructure.DI;
-using Assets._Project.Develop.Runtime.Utilities.ConfigsManagement;
-using Assets._Project.Develop.Runtime.Meta.InputSystem;
-using Assets._Project.Develop.Runtime.Meta.GameModeChoose;
-using Assets._Project.Develop.Runtime.Utilities.SceneManagement;
-using Assets._Project.Develop.Runtime.Utilities.CoroutinesManagement;
+﻿using Assets._Project.Develop.Runtime.Configs.Gameplay.Levels;
 using Assets._Project.Develop.Runtime.Configs.Meta.Menu;
-using Assets._Project.Develop.Runtime.Meta.Features.Wallet;
+using Assets._Project.Develop.Runtime.Infrastructure.DI;
 using Assets._Project.Develop.Runtime.Meta.Features.Statistics;
-using Assets._Project.Develop.Runtime.Configs.Gameplay.Levels;
+using Assets._Project.Develop.Runtime.Meta.Features.Wallet;
+using Assets._Project.Develop.Runtime.Meta.GameModeChoose;
+using Assets._Project.Develop.Runtime.Meta.InputSystem;
+using Assets._Project.Develop.Runtime.UI.MainMenu;
+using Assets._Project.Develop.Runtime.Utilities.AssetsManagement;
+using Assets._Project.Develop.Runtime.Utilities.ConfigsManagement;
+using Assets._Project.Develop.Runtime.Utilities.CoroutinesManagement;
+using Assets._Project.Develop.Runtime.Utilities.SceneManagement;
 using UnityEngine;
-using Assets._Project.Develop.Runtime.UI.Wallet;
-using Assets._Project.Develop.Runtime.UI.CommonViews;
-using Assets._Project.Develop.Runtime.UI;
 
 namespace Assets._Project.Develop.Runtime.Meta.Infrastructure
 {
@@ -27,18 +26,19 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure
             
             container.RegisterAsSingle(CreateStatsInfoService);
 
-            container.RegisterAsSingle(CreateWalletPresenter).NonLazy();
-            
+            container.RegisterAsSingle(CreateMainMenuUIRoot).NonLazy();
+
             container.RegisterAsSingle<IGameModeChooseService>(CreateGameModeChooseService);
         }
 
-        private static WalletPresenter CreateWalletPresenter(DIContainer c)
+        private static MainMenuUIRoot CreateMainMenuUIRoot(DIContainer c)
         {
-            IconTextListView walletView = Object.FindObjectOfType<IconTextListView>(); //TODO: NEED TO FIX!!!
+            ResourcesAssetsLoader resourcesAssetsLoader = c.Resolve<ResourcesAssetsLoader>();
 
-            WalletPresenter walletPresenter = c.Resolve<ProjectPresentersFactory>().CreateWalletPresenter(walletView);
+            MainMenuUIRoot mainMenuUIRootPrefab = resourcesAssetsLoader
+                .Load<MainMenuUIRoot>("UI/MainMenu/MainMenuUIRoot");
 
-            return walletPresenter;
+            return Object.Instantiate(mainMenuUIRootPrefab);
         }
 
         private static MainMenuInputHandler CreateInputHandler(DIContainer c)
