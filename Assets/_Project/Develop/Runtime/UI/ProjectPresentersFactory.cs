@@ -3,6 +3,7 @@ using Assets._Project.Develop.Runtime.Infrastructure.DI;
 using Assets._Project.Develop.Runtime.Meta.Features.Wallet;
 using Assets._Project.Develop.Runtime.UI.CommonViews;
 using Assets._Project.Develop.Runtime.UI.Core;
+using Assets._Project.Develop.Runtime.UI.Core.TestPopup;
 using Assets._Project.Develop.Runtime.UI.Wallet;
 using Assets._Project.Develop.Runtime.Utilities.ConfigsManagement;
 using Assets._Project.Develop.Runtime.Utilities.Reactive;
@@ -37,6 +38,11 @@ namespace Assets._Project.Develop.Runtime.UI
                 this,
                 _container.Resolve<ViewsFactory>(),
                 view);
+        }
+
+        public TestPopupPresenter CreateTestPopupPresenter(TestPopupView view)
+        {
+            return new TestPopupPresenter(view);
         }
     }
 }
