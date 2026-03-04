@@ -68,7 +68,7 @@ namespace Assets._Project.Develop.Runtime.UI.LevelsMenuPopup
         {
             if (_levelsService.CanPlay(_levelNumber) == false)
             {
-                Debug.Log("Level is blocked. Previous level must be completed");
+                Debug.LogWarning("Level is blocked. Previous level must be completed");
                 return;
             }
 
