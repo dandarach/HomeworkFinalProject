@@ -42,6 +42,8 @@ namespace Assets._Project.Develop.Runtime.UI.Core
                     .From(0)
                     .SetEase(Ease.OutBack));
 
+            ModifyShowAnimation(animation);
+
             _currentAnimation = animation;
 
             OnPostShow();
@@ -53,11 +55,18 @@ namespace Assets._Project.Develop.Runtime.UI.Core
 
             OnPreHide();
 
-            // TODO: animation
-            _mainGroup.alpha = 0;
+            Sequence animation = DOTween.Sequence();
+            
+            ModifyHideAnimation(animation);
+
+            _currentAnimation = animation;
 
             OnPostHide();
         }
+
+        protected virtual void ModifyShowAnimation(Sequence animation) { }
+
+        protected virtual void ModifyHideAnimation(Sequence animation) { }
 
         protected virtual void OnPreShow() { }
 
