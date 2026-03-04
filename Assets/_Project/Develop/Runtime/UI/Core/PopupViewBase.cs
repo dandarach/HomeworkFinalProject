@@ -22,13 +22,12 @@ namespace Assets._Project.Develop.Runtime.UI.Core
 
         public void OnCloseButtonClicked() => CloseRequest?.Invoke();
 
-        public void Show()
+        public Tween Show()
         {
             KillCurrentAnimation();
 
             OnPreShow();
 
-            // TODO: animation
             _mainGroup.alpha = 1;
 
             Sequence animation = DOTween.Sequence();
@@ -44,12 +43,12 @@ namespace Assets._Project.Develop.Runtime.UI.Core
 
             ModifyShowAnimation(animation);
 
-            _currentAnimation = animation;
+            animation.OnComplete(OnPostShow);
 
-            OnPostShow();
+            return _currentAnimation = animation;
         }
 
-        public void Hide()
+        public Tween Hide()
         {
             KillCurrentAnimation();
 
@@ -59,9 +58,9 @@ namespace Assets._Project.Develop.Runtime.UI.Core
             
             ModifyHideAnimation(animation);
 
-            _currentAnimation = animation;
+            animation.OnComplete(OnPostHide);
 
-            OnPostHide();
+            return _currentAnimation = animation;
         }
 
         protected virtual void ModifyShowAnimation(Sequence animation) { }
