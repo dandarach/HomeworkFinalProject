@@ -96,7 +96,7 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure
 
         private static StatsResetService CreateStatsResetService(DIContainer c)
         {
-            LevelConfigs config = c.Resolve<ConfigsProviderService>().GetConfig<LevelConfigs>();
+            LevelsListConfig config = c.Resolve<ConfigsProviderService>().GetConfig<LevelsListConfig>();
 
             return new StatsResetService(
                 c.Resolve<GameplayProgressService>(),

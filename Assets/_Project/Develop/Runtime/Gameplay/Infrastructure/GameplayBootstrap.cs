@@ -32,7 +32,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
 
         public override IEnumerator Initialize()
         {
-            LevelConfigs levelConfigs = _container.Resolve<ConfigsProviderService>().GetConfig<LevelConfigs>();
+            LevelsListConfig levelConfigs = _container.Resolve<ConfigsProviderService>().GetConfig<LevelsListConfig>();
             _levelConfig = levelConfigs.GetLevelConfig(_inputArgs.GameplayMode);
 
             Debug.Log($"Gameplay mode symbols: '{_levelConfig.Symbols}', SymbolsToGuess: {_levelConfig.SymbolsToGuess}");
