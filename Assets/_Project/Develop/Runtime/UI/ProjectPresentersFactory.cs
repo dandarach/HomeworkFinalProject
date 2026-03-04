@@ -60,5 +60,15 @@ namespace Assets._Project.Develop.Runtime.UI
                 levelNumber,
                 view);
         }
+
+        public LevelsMenuPopupPresenter CreateLevelsMenuPopupPresenter(LevelsMenuPopupView view)
+        {
+            return new LevelsMenuPopupPresenter(
+                _container.Resolve<ICoroutinesPerformer>(),
+                _container.Resolve<ConfigsProviderService>(),
+                this,
+                _container.Resolve<ViewsFactory>(),
+                view);
+        }
     }
 }

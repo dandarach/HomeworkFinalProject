@@ -30,6 +30,8 @@ namespace Assets._Project.Develop.Runtime.UI.LevelsMenuPopup
             _view = view;
         }
 
+        public LevelTileView View => _view;
+
         public void Initialize()
         {
             _view.SetLevel(_levelNumber.ToString());

@@ -1,4 +1,5 @@
-﻿using Assets._Project.Develop.Runtime.Configs.Gameplay.Levels;
+﻿using System.Collections.Generic;
+using Assets._Project.Develop.Runtime.Configs.Gameplay.Levels;
 using Assets._Project.Develop.Runtime.UI.Core;
 using Assets._Project.Develop.Runtime.Utilities.ConfigsManagement;
 using Assets._Project.Develop.Runtime.Utilities.CoroutinesManagement;
@@ -13,6 +14,8 @@ namespace Assets._Project.Develop.Runtime.UI.LevelsMenuPopup
         private readonly ProjectPresentersFactory _presentersFactory;
         private readonly ViewsFactory _viewsFactory;
         private readonly LevelsMenuPopupView _view;
+
+        private readonly List<LevelTilePresenter> _levelTilePresenters = new();
 
         public LevelsMenuPopupPresenter(
             ICoroutinesPerformer coroutinesPerformer,
@@ -41,8 +44,28 @@ namespace Assets._Project.Develop.Runtime.UI.LevelsMenuPopup
             {
                 LevelTileView levelTileView = _viewsFactory.Create<LevelTileView>(ViewIDs.LevelTile);
 
-                _view.LevelsListView.Add(levelTileView);
+                _view.LevelTilesListView.Add(levelTileView);
+
+                LevelTilePresenter levelTilePresenter = _presentersFactory.CreateLevelTilePresenter(levelTileView, i + 1);
+
+                levelTilePresenter.Initialize();
+
+                _levelTilePresenters.Add(levelTilePresenter);
             }
+        }
+
+        public override void Dispose()
+        {
+            base.Dispose();
+
+            foreach (LevelTilePresenter levelTilePresenter in _levelTilePresenters)
+            {
+                _view.LevelTilesListView.Remove(levelTilePresenter.View);
+                _viewsFactory.Release(levelTilePresenter.View);
+                levelTilePresenter.Dispose();
+            }
+
+            _levelTilePresenters.Clear();
         }
     }
 }

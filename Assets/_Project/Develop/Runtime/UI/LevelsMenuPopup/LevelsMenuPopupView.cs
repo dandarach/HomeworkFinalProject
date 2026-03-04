@@ -12,7 +12,7 @@ namespace Assets._Project.Develop.Runtime.UI.LevelsMenuPopup
         [SerializeField] private TMP_Text _title;
         [SerializeField] private LevelTilesListView _levelsListView;
 
-        public LevelTilesListView LevelsListView => _levelsListView;
+        public LevelTilesListView LevelTilesListView => _levelsListView;
 
         public void SetTitle(string title) => _title.text = title;
 
