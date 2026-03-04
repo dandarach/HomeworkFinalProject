@@ -7,7 +7,7 @@ using Assets._Project.Develop.Runtime.Gameplay.Infrastructure;
 
 namespace Assets._Project.Develop.Runtime.UI.LevelsMenuPopup
 {
-    public class LevelTilePresenter : IPresenter
+    public class LevelTilePresenter : ISubscibedPresenter
     {
         private readonly LevelsProgressionService _levelsService;
         private readonly SceneSwitcherService _sceneSwitcherService;
@@ -47,11 +47,19 @@ namespace Assets._Project.Develop.Runtime.UI.LevelsMenuPopup
             {
                 _view.Block();
             }
-
-            _view.Clicked += OnViewClicked;
         }
 
         public void Dispose()
+        {
+            _view.Clicked -= OnViewClicked;
+        }
+
+        public void Subscribe()
+        {
+            _view.Clicked += OnViewClicked;
+        }
+
+        public void Unsubscribe()
         {
             _view.Clicked -= OnViewClicked;
         }
