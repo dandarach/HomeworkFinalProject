@@ -45,7 +45,7 @@ namespace Assets._Project.Develop.Runtime.UI.Core
 
             animation.OnComplete(OnPostShow);
 
-            return _currentAnimation = animation;
+            return _currentAnimation = animation.SetUpdate(true).Play();
         }
 
         public Tween Hide()
@@ -60,7 +60,7 @@ namespace Assets._Project.Develop.Runtime.UI.Core
 
             animation.OnComplete(OnPostHide);
 
-            return _currentAnimation = animation;
+            return _currentAnimation = animation.SetUpdate(true).Play();
         }
 
         protected virtual void ModifyShowAnimation(Sequence animation) { }

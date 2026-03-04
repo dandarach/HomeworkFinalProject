@@ -59,7 +59,7 @@ namespace Assets._Project.Develop.Runtime.UI.MainMenu
 
         private void OnClosePopupCallbackTest()
         {
-            Debug.LogWarning("OnClosePopupCallbackTest");
+            //Debug.LogWarning("OnClosePopupCallbackTest");
         }
     }
 }
