@@ -18,6 +18,7 @@ using Assets._Project.Develop.Runtime.UI;
 using UnityEngine;
 using Object = UnityEngine.Object;
 using Assets._Project.Develop.Runtime.UI.Core;
+using Assets._Project.Develop.Runtime.Meta.Features.LevelsProgression;
 
 namespace Assets._Project.Develop.Runtime.Infrastructure.EntryPoint
 {
@@ -39,17 +40,27 @@ namespace Assets._Project.Develop.Runtime.Infrastructure.EntryPoint
 
             container.RegisterAsSingle(CreateWalletService).NonLazy();
             
-            container.RegisterAsSingle(CreateGameplayProgressService).NonLazy();
-
             container.RegisterAsSingle(CreatePlayerDataProvier);
             
             container.RegisterAsSingle(CreateProjectPresentersFactory);
             
             container.RegisterAsSingle(CreateViewsFactory);
 
+            container.RegisterAsSingle(CreateGameplayProgressService).NonLazy();
+
+            container.RegisterAsSingle(CreateLevelsProgressionService).NonLazy();
+
             container.RegisterAsSingle<ISaveLoadService>(CreateSaveLoadService);
         }
 
+        private static LevelsProgressionService CreateLevelsProgressionService(DIContainer c)
+            => new LevelsProgressionService(c.Resolve<PlayerDataProvider>());
+
+        private static GameplayProgressService CreateGameplayProgressService(DIContainer c)
+            => new GameplayProgressService(
+                c.Resolve<ICoroutinesPerformer>(),
+                c.Resolve<PlayerDataProvider>());
+        
         private static ViewsFactory CreateViewsFactory(DIContainer c)
             => new ViewsFactory(c.Resolve<ResourcesAssetsLoader>());
 
@@ -69,11 +80,6 @@ namespace Assets._Project.Develop.Runtime.Infrastructure.EntryPoint
 
             return new SaveLoadService(dataSerializer, dataKeysStorage, dataRepository);
         }
-
-        private static GameplayProgressService CreateGameplayProgressService(DIContainer c)
-            => new GameplayProgressService(
-                c.Resolve<ICoroutinesPerformer>(),
-                c.Resolve<PlayerDataProvider>());
 
         private static WalletService CreateWalletService(DIContainer c)
         {
