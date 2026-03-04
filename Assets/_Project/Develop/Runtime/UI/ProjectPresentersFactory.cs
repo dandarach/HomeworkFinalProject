@@ -1,13 +1,16 @@
 ﻿using Assets._Project.Develop.Runtime.Configs.Meta.Wallet;
 using Assets._Project.Develop.Runtime.Infrastructure.DI;
+using Assets._Project.Develop.Runtime.Meta.Features.LevelsProgression;
 using Assets._Project.Develop.Runtime.Meta.Features.Wallet;
 using Assets._Project.Develop.Runtime.UI.CommonViews;
 using Assets._Project.Develop.Runtime.UI.Core;
 using Assets._Project.Develop.Runtime.UI.Core.TestPopup;
+using Assets._Project.Develop.Runtime.UI.LevelsMenuPopup;
 using Assets._Project.Develop.Runtime.UI.Wallet;
 using Assets._Project.Develop.Runtime.Utilities.ConfigsManagement;
 using Assets._Project.Develop.Runtime.Utilities.CoroutinesManagement;
 using Assets._Project.Develop.Runtime.Utilities.Reactive;
+using Assets._Project.Develop.Runtime.Utilities.SceneManagement;
 
 namespace Assets._Project.Develop.Runtime.UI
 {
@@ -46,6 +49,16 @@ namespace Assets._Project.Develop.Runtime.UI
             return new TestPopupPresenter(
                 view,
                 _container.Resolve<ICoroutinesPerformer>());
+        }
+
+        public LevelTilePresenter CreateLevelTilePresenter(LevelTileView view, int levelNumber)
+        {
+            return new LevelTilePresenter(
+                _container.Resolve<LevelsProgressionService>(),
+                _container.Resolve<SceneSwitcherService>(),
+                _container.Resolve<ICoroutinesPerformer>(),
+                levelNumber,
+                view);
         }
     }
 }
