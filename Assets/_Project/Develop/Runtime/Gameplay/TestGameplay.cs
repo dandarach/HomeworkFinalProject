@@ -9,6 +9,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay
     {
         private DIContainer _container;
         private EntitiesFactory _entitiesFactory;
+
         private bool _isRunning;
 
         public void Initialize(DIContainer container)
