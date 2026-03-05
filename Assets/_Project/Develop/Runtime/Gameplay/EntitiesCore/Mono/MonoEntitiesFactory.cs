@@ -1,0 +1,26 @@
+﻿using Assets._Project.Develop.Runtime.Utilities.AssetsManagement;
+using UnityEngine;
+
+namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Mono
+{
+    public class MonoEntitiesFactory
+    {
+        private readonly ResourcesAssetsLoader _resources;
+
+        public MonoEntitiesFactory(ResourcesAssetsLoader resources)
+        {
+            _resources = resources;
+        }
+
+        public MonoEntity Create(Entity entity, Vector3 position, string path)
+        {
+            MonoEntity prefab = _resources.Load<MonoEntity>(path);
+
+            MonoEntity viewInstance = Object.Instantiate(prefab, position, Quaternion.identity, null);
+
+            viewInstance.Setup(entity);
+
+            return viewInstance;
+        }
+    }
+}
