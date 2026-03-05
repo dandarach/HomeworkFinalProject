@@ -31,7 +31,12 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
             container.RegisterAsSingle<IGameplayCycle>(CreateGameplayCycle);
             
             container.RegisterAsSingle(CreateEntitiesFactory);
+
+            container.RegisterAsSingle(CreateEntitiesLifeContext);
         }
+
+        private static EntitiesLifeContext CreateEntitiesLifeContext(DIContainer c)
+            => new EntitiesLifeContext();
 
         private static EntitiesFactory CreateEntitiesFactory(DIContainer c)
             => new EntitiesFactory(c);
