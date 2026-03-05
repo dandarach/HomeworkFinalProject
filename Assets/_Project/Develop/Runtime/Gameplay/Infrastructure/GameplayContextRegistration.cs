@@ -8,6 +8,7 @@ using Assets._Project.Develop.Runtime.Utilities.CoroutinesManagement;
 using Assets._Project.Develop.Runtime.Utilities.DataManagement.DataProviders;
 using Assets._Project.Develop.Runtime.Meta.Features.Statistics;
 using Assets._Project.Develop.Runtime.Meta.Features.Wallet;
+using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore;
 
 namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
 {
@@ -28,7 +29,12 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
             container.RegisterAsSingle(CreateGameplayInput);
             
             container.RegisterAsSingle<IGameplayCycle>(CreateGameplayCycle);
+            
+            container.RegisterAsSingle(CreateEntitiesFactory);
         }
+
+        private static EntitiesFactory CreateEntitiesFactory(DIContainer c)
+            => new EntitiesFactory(c);
 
         private static GameplayEconomyService CreateGameplayEconomySrevice(DIContainer c)
             => new GameplayEconomyService(
