@@ -9,6 +9,8 @@ using Assets._Project.Develop.Runtime.Utilities.DataManagement.DataProviders;
 using Assets._Project.Develop.Runtime.Meta.Features.Statistics;
 using Assets._Project.Develop.Runtime.Meta.Features.Wallet;
 using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore;
+using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Mono;
+using Assets._Project.Develop.Runtime.Utilities.AssetsManagement;
 
 namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
 {
@@ -16,8 +18,6 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
     {
         public static void Process(DIContainer container)
         {
-            Debug.Log("Services registration process on the Gamplay scene");
-
             container.RegisterAsSingle(CreateStringGenerator);
 
             container.RegisterAsSingle(CreateStringValidator);
@@ -33,7 +33,14 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
             container.RegisterAsSingle(CreateEntitiesFactory);
 
             container.RegisterAsSingle(CreateEntitiesLifeContext);
+
+            container.RegisterAsSingle(CreateMonoEntitiesFactory).NonLazy();
         }
+
+        private static MonoEntitiesFactory CreateMonoEntitiesFactory(DIContainer c)
+            => new MonoEntitiesFactory(
+                c.Resolve<ResourcesAssetsLoader>(),
+                c.Resolve<EntitiesLifeContext>());
 
         private static EntitiesLifeContext CreateEntitiesLifeContext(DIContainer c)
             => new EntitiesLifeContext();
