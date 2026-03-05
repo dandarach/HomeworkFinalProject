@@ -12,6 +12,8 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
 {
     public class GameplayBootstrap : SceneBootstrap
     {
+        [SerializeField] private TestGameplay _testGameplay;
+
         private DIContainer _container;
         private GameplayInputArgs _inputArgs;
         private LevelConfig _levelConfig;
@@ -40,6 +42,8 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
             _gameplayCycle = _container.Resolve<IGameplayCycle>();
             _economyService = _container.Resolve<GameplayEconomyService>();
 
+            _testGameplay.Initialize(_container);
+
             yield break;
         }
 
@@ -49,6 +53,8 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
 
             _gameplayCycle.Run(_levelConfig);
             _economyService.Initialize(_levelConfig.WinAward, _levelConfig.LosePenalty);
+
+            _testGameplay.Run();
         }
 
         private void Update()
