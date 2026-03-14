@@ -445,7 +445,7 @@ MonoBehaviour:
   <WalletView>k__BackingField: {fileID: 7379101431251698838}
   <StatsView>k__BackingField: {fileID: 686972278458516990}
   _openLevelsMenuButton: {fileID: 8667125163134329848}
-  _resetStatsMenuButton: {fileID: 577447997983433196}
+  _resetStatsButton: {fileID: 577447997983433196}
 --- !u!222 &6664035625495404441
 CanvasRenderer:
   m_ObjectHideFlags: 0

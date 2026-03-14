@@ -9,30 +9,28 @@ namespace Assets._Project.Develop.Runtime.UI.MainMenu
     public class MainMenuScreenView : MonoBehaviour, IView
     {
         public event Action OpenLevelsMenuButtonClicked;
+        public event Action ResetStatsButtonClicked;
 
         [field: SerializeField] public IconTextListView WalletView { get; private set; }
         [field: SerializeField] public IconTextListView StatsView { get; private set; }
 
         [SerializeField] private Button _openLevelsMenuButton;
-        [SerializeField] private Button _resetStatsMenuButton;
+        [SerializeField] private Button _resetStatsButton;
 
         private void OnEnable()
         {
             _openLevelsMenuButton.onClick.AddListener(OnOpenLevelsMenuButtonClicked);
-            _resetStatsMenuButton.onClick.AddListener(OnResetStatsMenuButtonClicked);
+            _resetStatsButton.onClick.AddListener(OnResetStatsButtonClicked);
         }
 
         private void OnDisable()
         {
             _openLevelsMenuButton.onClick.RemoveListener(OnOpenLevelsMenuButtonClicked);
-            _resetStatsMenuButton.onClick.RemoveListener(OnResetStatsMenuButtonClicked);
+            _resetStatsButton.onClick.RemoveListener(OnResetStatsButtonClicked);
         }
 
         private void OnOpenLevelsMenuButtonClicked() => OpenLevelsMenuButtonClicked?.Invoke();
 
-        private void OnResetStatsMenuButtonClicked()
-        {
-            Debug.LogWarning("OnResetStatsMenuButtonClicked");
-        }
+        private void OnResetStatsButtonClicked() => ResetStatsButtonClicked?.Invoke();
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Assets._Project.Develop.Runtime.Meta.Features.Stats;
 using Assets._Project.Develop.Runtime.UI.Core;
 using Assets._Project.Develop.Runtime.UI.Stats;
 using Assets._Project.Develop.Runtime.UI.Wallet;
@@ -10,26 +11,27 @@ namespace Assets._Project.Develop.Runtime.UI.MainMenu
     public class MainMenuScreenPresenter : IPresenter
     {
         private readonly MainMenuScreenView _screen;
-
         private readonly ProjectPresentersFactory _projectPresentersFactory;
-
         private readonly MainMenuPopupService _popupService;
-
+        private readonly StatsResetService _statsResetService;
         private readonly List<IPresenter> _childPresenters = new();
 
         public MainMenuScreenPresenter(
             MainMenuScreenView screen,
             ProjectPresentersFactory projectPresentersFactory,
-            MainMenuPopupService popupService)
+            MainMenuPopupService popupService,
+            StatsResetService statsResetService)
         {
             _screen = screen;
             _projectPresentersFactory = projectPresentersFactory;
             _popupService = popupService;
+            _statsResetService = statsResetService;
         }
 
         public void Initialize()
         {
             _screen.OpenLevelsMenuButtonClicked += OnOpenLevelsMenuButtonClicked;
+            _screen.ResetStatsButtonClicked += OnResetStatsButtonClicked;
 
             CreateWallet();
             CreateStats();
@@ -41,6 +43,7 @@ namespace Assets._Project.Develop.Runtime.UI.MainMenu
         public void Dispose()
         {
             _screen.OpenLevelsMenuButtonClicked -= OnOpenLevelsMenuButtonClicked;
+            _screen.ResetStatsButtonClicked -= OnResetStatsButtonClicked;
 
             foreach (IPresenter presenter in _childPresenters)
                 presenter.Dispose();
@@ -63,6 +66,11 @@ namespace Assets._Project.Develop.Runtime.UI.MainMenu
         private void OnOpenLevelsMenuButtonClicked()
         {
             _popupService.OpenLevelsMenuPopup();
+        }
+
+        private void OnResetStatsButtonClicked()
+        {
+            _statsResetService.Reset();
         }
     }
 }

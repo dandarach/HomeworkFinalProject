@@ -15,12 +15,8 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure.MainMenu
 {
     public class MainMenuBootstrap : SceneBootstrap
     {
-        [SerializeField] private IconTextListView _walletView;
-
         private DIContainer _container;
         private IGameModeChooseService _gameModeChooseService;
-        private ProjectPresentersFactory _presentersFactory;
-        private WalletService _walletService;
 
         private bool _isRunning = false;
 
@@ -34,8 +30,6 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure.MainMenu
         public override IEnumerator Initialize()
         {
             Debug.Log("Main Menu scene initialization");
-
-            _walletService = _container.Resolve<WalletService>();
 
             ConfigsProviderService configsProviderService = _container.Resolve<ConfigsProviderService>();
             _gameModeChooseService = _container.Resolve<IGameModeChooseService>();
