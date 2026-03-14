@@ -1,7 +1,7 @@
 ﻿using System;
+using Assets._Project.Develop.Runtime.Configs.Meta.Wallet;
 using Assets._Project.Develop.Runtime.Meta.Features.Wallet;
 using UnityEngine;
-using static Assets._Project.Develop.Runtime.Configs.Meta.Wallet.LevelConfig;
 
 namespace Assets._Project.Develop.Runtime.Gameplay.Process
 {
@@ -22,8 +22,6 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Process
 
             _gameplayProcess.OnWin += ProcessWin;
             _gameplayProcess.OnDefeat += ProcessDefeat;
-            
-            Debug.LogWarning(_gameplayProcess);
         }
 
         public void Initialize(CurrencyConfig winAward, CurrencyConfig losePenalty)

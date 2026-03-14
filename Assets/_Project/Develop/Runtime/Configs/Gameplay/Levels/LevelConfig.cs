@@ -1,10 +1,10 @@
-﻿using static Assets._Project.Develop.Runtime.Configs.Meta.Wallet.LevelConfig;
+﻿using Assets._Project.Develop.Runtime.Configs.Meta.Wallet;
 using UnityEngine;
 
 namespace Assets._Project.Develop.Runtime.Configs.Gameplay.Levels
 {
     [CreateAssetMenu(menuName = "Configs/Gameplay/LevelConfig", fileName = "LevelConfig")]
-    public partial class LevelConfig : ScriptableObject
+    public class LevelConfig : ScriptableObject
     {
         [field: SerializeField] public string Symbols { get; private set; }
         [field: SerializeField] public int SymbolsToGuess { get; private set; }

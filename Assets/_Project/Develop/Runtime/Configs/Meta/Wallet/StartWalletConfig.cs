@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Assets._Project.Develop.Runtime.Meta.Features.Wallet;
-using static Assets._Project.Develop.Runtime.Configs.Meta.Wallet.LevelConfig;
 using UnityEngine;
 
 namespace Assets._Project.Develop.Runtime.Configs.Meta.Wallet

@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 using Assets._Project.Develop.Runtime.Meta.Features.Wallet;
-using static Assets._Project.Develop.Runtime.Configs.Meta.Wallet.LevelConfig;
+using Assets._Project.Develop.Runtime.Configs.Meta.Wallet;
 
-namespace Assets._Project.Develop.Runtime.Meta.Features.Statistics
+namespace Assets._Project.Develop.Runtime.Meta.Features.Stats
 {
     public class StatsResetService
     {

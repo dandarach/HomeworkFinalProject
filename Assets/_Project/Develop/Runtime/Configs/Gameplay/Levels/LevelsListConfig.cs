@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Assets._Project.Develop.Runtime.Configs.Meta.Wallet;
 using UnityEngine;
-using static Assets._Project.Develop.Runtime.Configs.Meta.Wallet.LevelConfig;
 
 namespace Assets._Project.Develop.Runtime.Configs.Gameplay.Levels
 {

@@ -2,7 +2,7 @@
 using Assets._Project.Develop.Runtime.Meta.Features.Wallet;
 using System.Collections.Generic;
 
-namespace Assets._Project.Develop.Runtime.Meta.Features.Statistics
+namespace Assets._Project.Develop.Runtime.Meta.Features.Stats
 {
     public class StatsInfoService
     {
