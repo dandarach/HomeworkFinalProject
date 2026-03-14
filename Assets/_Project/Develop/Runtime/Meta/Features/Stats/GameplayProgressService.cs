@@ -1,4 +1,6 @@
-﻿using Assets._Project.Develop.Runtime.Utilities.CoroutinesManagement;
+﻿using System.Collections.Generic;
+using Assets._Project.Develop.Runtime.Meta.Features.Wallet;
+using Assets._Project.Develop.Runtime.Utilities.CoroutinesManagement;
 using Assets._Project.Develop.Runtime.Utilities.DataManagement;
 using Assets._Project.Develop.Runtime.Utilities.DataManagement.DataProviders;
 using Assets._Project.Develop.Runtime.Utilities.Reactive;
@@ -11,8 +13,7 @@ namespace Assets._Project.Develop.Runtime.Meta.Features.Stats
         private readonly ICoroutinesPerformer _coroutinesPerformer;
         private readonly PlayerDataProvider _playerDataProvider;
 
-        private ReactiveVariable<int> _winCount;
-        private ReactiveVariable<int> _loseCount;
+        private readonly Dictionary<StatTypes, ReactiveVariable<int>> _stats;
 
         public GameplayProgressService(
             ICoroutinesPerformer coroutinesPerformer,

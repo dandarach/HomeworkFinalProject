@@ -1,11 +1,14 @@
-﻿using Assets._Project.Develop.Runtime.Configs.Meta.Wallet;
+﻿using Assets._Project.Develop.Runtime.Configs.Meta.Stats;
+using Assets._Project.Develop.Runtime.Configs.Meta.Wallet;
 using Assets._Project.Develop.Runtime.Infrastructure.DI;
 using Assets._Project.Develop.Runtime.Meta.Features.LevelsProgression;
+using Assets._Project.Develop.Runtime.Meta.Features.Stats;
 using Assets._Project.Develop.Runtime.Meta.Features.Wallet;
 using Assets._Project.Develop.Runtime.UI.CommonViews;
 using Assets._Project.Develop.Runtime.UI.Core;
 using Assets._Project.Develop.Runtime.UI.Core.TestPopup;
 using Assets._Project.Develop.Runtime.UI.LevelsMenuPopup;
+using Assets._Project.Develop.Runtime.UI.Stats;
 using Assets._Project.Develop.Runtime.UI.Wallet;
 using Assets._Project.Develop.Runtime.Utilities.ConfigsManagement;
 using Assets._Project.Develop.Runtime.Utilities.CoroutinesManagement;
@@ -41,6 +44,18 @@ namespace Assets._Project.Develop.Runtime.UI
                 _container.Resolve<WalletService>(),
                 this,
                 _container.Resolve<ViewsFactory>(),
+                view);
+        }
+
+        public StatPresenter CreateStatPresenter(
+            IconTextView view,
+            IReadonlyVariable<int> stat,
+            StatTypes statType)
+        {
+            return new StatPresenter(
+                stat,
+                statType,
+                _container.Resolve<ConfigsProviderService>().GetConfig<StatIconsConfig>(),
                 view);
         }
 
