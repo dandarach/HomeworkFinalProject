@@ -78,15 +78,13 @@ namespace Assets._Project.Develop.Runtime.Meta.Features.Stats
 
         public void ProcessWin()
         {
-            // TODO: NEED TO FIX
-            //_winCount.Value++;
+            _stats[StatTypes.Wins].Value++;
             SaveGameplayProgress();
         }
 
         public void ProcessDefeat()
         {
-            // TODO: NEED TO FIX
-            //_loseCount.Value++;
+            _stats[StatTypes.Defeats].Value++;
             SaveGameplayProgress();
         }
     }
