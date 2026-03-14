@@ -15,8 +15,6 @@ namespace Assets._Project.Develop.Runtime.Configs.Gameplay.Levels
         public IReadOnlyList<LevelConfig> Levels => _levels;
 
         public LevelConfig GetLevelConfig(GameplayMode mode)
-            //=> _levels.First(config => config.GameplayMode == mode).LevelConfig;
-            => _levels[1];
-
+            => _levels.First(config => config.GameplayMode == mode);
     }
 }

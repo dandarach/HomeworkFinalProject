@@ -47,8 +47,7 @@ namespace Assets._Project.Develop.Runtime.UI.LevelsMenuPopup
 
                 _view.LevelTilesListView.Add(levelTileView);
 
-                // TODO: NEED TO FIX!
-                LevelTilePresenter levelTilePresenter = _presentersFactory.CreateLevelTilePresenter(levelTileView, GameplayMode.Digits);
+                LevelTilePresenter levelTilePresenter = _presentersFactory.CreateLevelTilePresenter(levelTileView, levelsListConfig.Levels[i].GameplayMode);
 
                 levelTilePresenter.Initialize();
 
