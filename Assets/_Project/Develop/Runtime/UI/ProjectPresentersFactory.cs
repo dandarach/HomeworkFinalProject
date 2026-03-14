@@ -58,6 +58,15 @@ namespace Assets._Project.Develop.Runtime.UI
                 view);
         }
 
+        public GameProgressPresenter CreateGameProgressPresenter(IconTextListView view)
+        {
+            return new GameProgressPresenter(
+                _container.Resolve<GameplayProgressService>(),
+                this,
+                _container.Resolve<ViewsFactory>(),
+                view);
+        }
+
         public TestPopupPresenter CreateTestPopupPresenter(TestPopupView view)
         {
             return new TestPopupPresenter(

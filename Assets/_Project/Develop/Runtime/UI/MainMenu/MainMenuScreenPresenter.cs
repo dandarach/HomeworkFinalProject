@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Assets._Project.Develop.Runtime.UI.Core;
+using Assets._Project.Develop.Runtime.UI.Stats;
 using Assets._Project.Develop.Runtime.UI.Wallet;
 using UnityEngine;
 
@@ -31,6 +32,7 @@ namespace Assets._Project.Develop.Runtime.UI.MainMenu
             _screen.OpenLevelsMenuButtonClicked += OnOpenLevelsMenuButtonClicked;
 
             CreateWallet();
+            CreateStats();
 
             foreach (IPresenter presenter in _childPresenters)
                 presenter.Initialize();
@@ -50,6 +52,12 @@ namespace Assets._Project.Develop.Runtime.UI.MainMenu
         {
             WalletPresenter walletPresenter = _projectPresentersFactory.CreateWalletPresenter(_screen.WalletView);
             _childPresenters.Add(walletPresenter);
+        }
+
+        private void CreateStats()
+        {
+            GameProgressPresenter statsPresenter = _projectPresentersFactory.CreateGameProgressPresenter(_screen.StatsView);
+            _childPresenters.Add(statsPresenter);
         }
 
         private void OnOpenLevelsMenuButtonClicked()

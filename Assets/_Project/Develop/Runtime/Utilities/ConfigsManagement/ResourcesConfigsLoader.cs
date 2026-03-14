@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Assets._Project.Develop.Runtime.Configs.Gameplay.Levels;
 using Assets._Project.Develop.Runtime.Configs.Meta.Menu;
+using Assets._Project.Develop.Runtime.Configs.Meta.Stats;
 using Assets._Project.Develop.Runtime.Configs.Meta.Wallet;
 using Assets._Project.Develop.Runtime.Utilities.AssetsManagement;
 using UnityEngine;
@@ -18,7 +19,8 @@ namespace Assets._Project.Develop.Runtime.Utilities.ConfigsManagement
             { typeof(MenuConfig), "Configs/Meta/MainMenu/MenuConfig" },
             { typeof(LevelsListConfig), "Configs/Gameplay/Levels/LevelsListConfig" },
             { typeof(StartWalletConfig), "Configs/Meta/Wallet/StartWalletConfig" },
-            { typeof(CurrencyIconsConfig), "Configs/Meta/Wallet/CurrencyIconConfig" }
+            { typeof(CurrencyIconsConfig), "Configs/Meta/Wallet/CurrencyIconConfig" },
+            { typeof(StatIconsConfig), "Configs/Meta/Stats/StatIconConfig" }
         };
 
         public ResourcesConfigsLoader(ResourcesAssetsLoader resources)
