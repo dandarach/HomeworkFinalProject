@@ -6,7 +6,6 @@ using Assets._Project.Develop.Runtime.Meta.Features.Stats;
 using Assets._Project.Develop.Runtime.Meta.Features.Wallet;
 using Assets._Project.Develop.Runtime.UI.CommonViews;
 using Assets._Project.Develop.Runtime.UI.Core;
-using Assets._Project.Develop.Runtime.UI.Core.TestPopup;
 using Assets._Project.Develop.Runtime.UI.LevelsMenuPopup;
 using Assets._Project.Develop.Runtime.UI.Stats;
 using Assets._Project.Develop.Runtime.UI.Wallet;
@@ -66,13 +65,6 @@ namespace Assets._Project.Develop.Runtime.UI
                 this,
                 _container.Resolve<ViewsFactory>(),
                 view);
-        }
-
-        public TestPopupPresenter CreateTestPopupPresenter(TestPopupView view)
-        {
-            return new TestPopupPresenter(
-                view,
-                _container.Resolve<ICoroutinesPerformer>());
         }
 
         public LevelTilePresenter CreateLevelTilePresenter(LevelTileView view, GameplayMode gameplayMode)
