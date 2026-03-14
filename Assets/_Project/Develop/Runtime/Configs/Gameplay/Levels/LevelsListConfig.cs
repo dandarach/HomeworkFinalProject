@@ -14,16 +14,9 @@ namespace Assets._Project.Develop.Runtime.Configs.Gameplay.Levels
 
         public IReadOnlyList<LevelConfig> Levels => _levels;
 
-        public LevelConfig GetLevelConfig(GameplayMode gameplayMode)
-            // TODO: NEED TO FIX
-            //=> _levels.First(config => config.GameplayMode == gameplayMode).LevelConfig;
-            => GetBy(1);
+        public LevelConfig GetLevelConfig(GameplayMode mode)
+            //=> _levels.First(config => config.GameplayMode == mode).LevelConfig;
+            => _levels[1];
 
-        public LevelConfig GetBy(int levelNumber)
-        {
-            int levelIndex = levelNumber - 1;
-
-            return _levels[levelIndex];
-        }
     }
 }

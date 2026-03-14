@@ -11,7 +11,7 @@ namespace Assets._Project.Develop.Runtime.UI.LevelsMenuPopup
         public event Action Clicked;
 
         [SerializeField] private Image _background;
-        [SerializeField] private TMP_Text _levelNumberText;
+        [SerializeField] private TMP_Text _levelNameText;
         [SerializeField] private Button _button;
 
         [SerializeField] private Color _activeColor;
@@ -28,7 +28,7 @@ namespace Assets._Project.Develop.Runtime.UI.LevelsMenuPopup
             _button.onClick.RemoveListener(OnClick);
         }
 
-        public void SetLevel(string level) => _levelNumberText.text = level;
+        public void SetLevelName(string level) => _levelNameText.text = level;
 
         public void Block() => _background.color = _blockedColor;
         

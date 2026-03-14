@@ -1,17 +1,12 @@
 ﻿using Assets._Project.Develop.Runtime.Configs.Gameplay.Levels;
-using Assets._Project.Develop.Runtime.Configs.Meta.Menu;
 using Assets._Project.Develop.Runtime.Infrastructure.DI;
 using Assets._Project.Develop.Runtime.Meta.Features.Stats;
 using Assets._Project.Develop.Runtime.Meta.Features.Wallet;
-using Assets._Project.Develop.Runtime.Meta.GameModeChoose;
-using Assets._Project.Develop.Runtime.Meta.InputSystem;
 using Assets._Project.Develop.Runtime.UI;
 using Assets._Project.Develop.Runtime.UI.Core;
 using Assets._Project.Develop.Runtime.UI.MainMenu;
 using Assets._Project.Develop.Runtime.Utilities.AssetsManagement;
 using Assets._Project.Develop.Runtime.Utilities.ConfigsManagement;
-using Assets._Project.Develop.Runtime.Utilities.CoroutinesManagement;
-using Assets._Project.Develop.Runtime.Utilities.SceneManagement;
 using UnityEngine;
 
 namespace Assets._Project.Develop.Runtime.Meta.Infrastructure
@@ -22,12 +17,8 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure
         {
             Debug.Log("Services registration process on the Menu scene");
 
-            container.RegisterAsSingle(CreateInputHandler);
-            
             container.RegisterAsSingle(CreateStatsResetService);
             
-            container.RegisterAsSingle(CreateStatsInfoService);
-
             container.RegisterAsSingle(CreateMainMenuUIRoot).NonLazy();
 
             container.RegisterAsSingle(CreateMainMenuPresentersFactory);
@@ -35,8 +26,6 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure
             container.RegisterAsSingle(CreateMainMenuScreenPresenter).NonLazy();
             
             container.RegisterAsSingle(CreateMainMenuPopupService);
-
-            container.RegisterAsSingle<IGameModeChooseService>(CreateGameModeChooseService);
         }
 
         private static MainMenuPopupService CreateMainMenuPopupService(DIContainer c)
@@ -75,25 +64,6 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure
             return presenter;
         }
 
-        private static MainMenuInputHandler CreateInputHandler(DIContainer c)
-        {
-            MenuConfig config = c.Resolve<ConfigsProviderService>().GetConfig<MenuConfig>();
-
-            return new MainMenuInputHandler(
-                config.DigitsGameModeKey,
-                config.LettersGameModeKey,
-                config.ResetGameProgressKey,
-                config.ShowGameProgressKey);
-        }
-
-        private static IGameModeChooseService CreateGameModeChooseService(DIContainer c)
-            => new GameModeChooseService(
-                c.Resolve<MainMenuInputHandler>(),
-                c.Resolve<SceneSwitcherService>(),
-                c.Resolve<ICoroutinesPerformer>(),
-                c.Resolve<StatsInfoService>(),
-                c.Resolve<StatsResetService>());
-
         private static StatsResetService CreateStatsResetService(DIContainer c)
         {
             LevelsListConfig config = c.Resolve<ConfigsProviderService>().GetConfig<LevelsListConfig>();
@@ -103,10 +73,5 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure
                 c.Resolve<WalletService>(),
                 config.ResetProgressCost);
         }
-
-        private static StatsInfoService CreateStatsInfoService(DIContainer c)
-            => new StatsInfoService(
-                c.Resolve<GameplayProgressService>(),
-                c.Resolve<WalletService>());
     }
 }

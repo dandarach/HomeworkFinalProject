@@ -3,6 +3,7 @@ using Assets._Project.Develop.Runtime.UI.Core;
 using Assets._Project.Develop.Runtime.Utilities.CoroutinesManagement;
 using Assets._Project.Develop.Runtime.Utilities.SceneManagement;
 using Assets._Project.Develop.Runtime.Gameplay.Infrastructure;
+using Assets._Project.Develop.Runtime.Configs.Gameplay;
 
 namespace Assets._Project.Develop.Runtime.UI.LevelsMenuPopup
 {
@@ -11,18 +12,18 @@ namespace Assets._Project.Develop.Runtime.UI.LevelsMenuPopup
         private readonly SceneSwitcherService _sceneSwitcherService;
         private readonly ICoroutinesPerformer _coroutinesPerformer;
 
-        private readonly int _levelNumber;
+        private readonly GameplayMode _gameplayMode;
         private readonly LevelTileView _view;
 
         public LevelTilePresenter(
             SceneSwitcherService sceneSwitcherService,
             ICoroutinesPerformer coroutinesPerformer,
-            int levelNumber,
+            GameplayMode gameplayMode,
             LevelTileView view)
         {
             _sceneSwitcherService = sceneSwitcherService;
             _coroutinesPerformer = coroutinesPerformer;
-            _levelNumber = levelNumber;
+            _gameplayMode = gameplayMode;
             _view = view;
         }
 
@@ -30,7 +31,7 @@ namespace Assets._Project.Develop.Runtime.UI.LevelsMenuPopup
 
         public void Initialize()
         {
-            _view.SetLevel(_levelNumber.ToString());
+            _view.SetLevelName(_gameplayMode.ToString());
             _view.Activate();
         }
 
@@ -51,9 +52,8 @@ namespace Assets._Project.Develop.Runtime.UI.LevelsMenuPopup
 
         private void OnViewClicked()
         {
-            // TODO: NEED TO FIX
             _coroutinesPerformer
-                .StartPerform(_sceneSwitcherService.ProcessSwitchTo(Scenes.Gameplay, new GameplayInputArgs(Configs.Gameplay.GameplayMode.Digits)));
+                .StartPerform(_sceneSwitcherService.ProcessSwitchTo(Scenes.Gameplay, new GameplayInputArgs(_gameplayMode)));
         }
     }
 }

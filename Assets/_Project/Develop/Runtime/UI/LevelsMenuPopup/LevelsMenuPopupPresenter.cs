@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Assets._Project.Develop.Runtime.Configs.Gameplay;
 using Assets._Project.Develop.Runtime.Configs.Gameplay.Levels;
 using Assets._Project.Develop.Runtime.UI.Core;
 using Assets._Project.Develop.Runtime.Utilities.ConfigsManagement;
@@ -46,7 +47,8 @@ namespace Assets._Project.Develop.Runtime.UI.LevelsMenuPopup
 
                 _view.LevelTilesListView.Add(levelTileView);
 
-                LevelTilePresenter levelTilePresenter = _presentersFactory.CreateLevelTilePresenter(levelTileView, i + 1);
+                // TODO: NEED TO FIX!
+                LevelTilePresenter levelTilePresenter = _presentersFactory.CreateLevelTilePresenter(levelTileView, GameplayMode.Digits);
 
                 levelTilePresenter.Initialize();
 

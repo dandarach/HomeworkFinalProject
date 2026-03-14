@@ -61,7 +61,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _background: {fileID: 8668604852111714500}
-  _levelNumberText: {fileID: 7936273571932114527}
+  _levelNameText: {fileID: 7936273571932114527}
   _button: {fileID: 6271850988459693795}
   _activeColor: {r: 0.9433962, g: 0.67741764, b: 0, a: 1}
   _completedColor: {r: 0.52724886, g: 0.7921569, b: 0.011764727, a: 1}
@@ -205,7 +205,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 255
+  m_text: NUMBERS
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -232,8 +232,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 48
-  m_fontSizeBase: 48
+  m_fontSize: 25
+  m_fontSizeBase: 25
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18

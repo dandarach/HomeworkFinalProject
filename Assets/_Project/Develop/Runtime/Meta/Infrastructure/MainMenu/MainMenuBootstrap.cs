@@ -1,12 +1,6 @@
 ﻿using System.Collections;
 using Assets._Project.Develop.Runtime.Infrastructure;
 using Assets._Project.Develop.Runtime.Infrastructure.DI;
-using Assets._Project.Develop.Runtime.Meta.Features.Wallet;
-using Assets._Project.Develop.Runtime.Meta.GameModeChoose;
-using Assets._Project.Develop.Runtime.UI;
-using Assets._Project.Develop.Runtime.UI.CommonViews;
-using Assets._Project.Develop.Runtime.UI.Core;
-using Assets._Project.Develop.Runtime.UI.Wallet;
 using Assets._Project.Develop.Runtime.Utilities.ConfigsManagement;
 using Assets._Project.Develop.Runtime.Utilities.SceneManagement;
 using UnityEngine;
@@ -16,8 +10,6 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure.MainMenu
     public class MainMenuBootstrap : SceneBootstrap
     {
         private DIContainer _container;
-        private IGameModeChooseService _gameModeChooseService;
-
         private bool _isRunning = false;
 
         public override void ProcessRegistrations(DIContainer container, IInputSceneArgs sceneArgs = null)
@@ -32,7 +24,6 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure.MainMenu
             Debug.Log("Main Menu scene initialization");
 
             ConfigsProviderService configsProviderService = _container.Resolve<ConfigsProviderService>();
-            _gameModeChooseService = _container.Resolve<IGameModeChooseService>();
 
             yield break;
         }
@@ -47,8 +38,6 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure.MainMenu
         {
             if (_isRunning == false)
                 return;
-
-            _gameModeChooseService.Update();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Assets._Project.Develop.Runtime.Configs.Meta.Stats;
+﻿using Assets._Project.Develop.Runtime.Configs.Gameplay;
+using Assets._Project.Develop.Runtime.Configs.Meta.Stats;
 using Assets._Project.Develop.Runtime.Configs.Meta.Wallet;
 using Assets._Project.Develop.Runtime.Infrastructure.DI;
 using Assets._Project.Develop.Runtime.Meta.Features.Stats;
@@ -74,12 +75,12 @@ namespace Assets._Project.Develop.Runtime.UI
                 _container.Resolve<ICoroutinesPerformer>());
         }
 
-        public LevelTilePresenter CreateLevelTilePresenter(LevelTileView view, int levelNumber)
+        public LevelTilePresenter CreateLevelTilePresenter(LevelTileView view, GameplayMode gameplayMode)
         {
             return new LevelTilePresenter(
                 _container.Resolve<SceneSwitcherService>(),
                 _container.Resolve<ICoroutinesPerformer>(),
-                levelNumber,
+                gameplayMode,
                 view);
         }
 
