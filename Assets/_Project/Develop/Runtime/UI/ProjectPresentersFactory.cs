@@ -1,7 +1,6 @@
 ﻿using Assets._Project.Develop.Runtime.Configs.Meta.Stats;
 using Assets._Project.Develop.Runtime.Configs.Meta.Wallet;
 using Assets._Project.Develop.Runtime.Infrastructure.DI;
-using Assets._Project.Develop.Runtime.Meta.Features.LevelsProgression;
 using Assets._Project.Develop.Runtime.Meta.Features.Stats;
 using Assets._Project.Develop.Runtime.Meta.Features.Wallet;
 using Assets._Project.Develop.Runtime.UI.CommonViews;
@@ -69,7 +68,6 @@ namespace Assets._Project.Develop.Runtime.UI
         public LevelTilePresenter CreateLevelTilePresenter(LevelTileView view, int levelNumber)
         {
             return new LevelTilePresenter(
-                _container.Resolve<LevelsProgressionService>(),
                 _container.Resolve<SceneSwitcherService>(),
                 _container.Resolve<ICoroutinesPerformer>(),
                 levelNumber,

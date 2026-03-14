@@ -12,8 +12,8 @@ namespace Assets._Project.Develop.Runtime.Meta.Features.Wallet
     {
         private readonly Dictionary<CurrencyTypes, ReactiveVariable<int>> _currencies;
 
-        public WalletService(Dictionary<CurrencyTypes,
-            ReactiveVariable<int>> currencies,
+        public WalletService(
+            Dictionary<CurrencyTypes, ReactiveVariable<int>> currencies,
             PlayerDataProvider playerDataProvider)
         {
             _currencies = new Dictionary<CurrencyTypes, ReactiveVariable<int>>(currencies);

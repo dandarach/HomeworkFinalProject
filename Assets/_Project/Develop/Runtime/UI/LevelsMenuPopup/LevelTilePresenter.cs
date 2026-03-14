@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using Assets._Project.Develop.Runtime.Meta.Features.LevelsProgression;
 using Assets._Project.Develop.Runtime.UI.Core;
 using Assets._Project.Develop.Runtime.Utilities.CoroutinesManagement;
 using Assets._Project.Develop.Runtime.Utilities.SceneManagement;
@@ -9,7 +8,6 @@ namespace Assets._Project.Develop.Runtime.UI.LevelsMenuPopup
 {
     public class LevelTilePresenter : ISubscibedPresenter
     {
-        private readonly LevelsProgressionService _levelsService;
         private readonly SceneSwitcherService _sceneSwitcherService;
         private readonly ICoroutinesPerformer _coroutinesPerformer;
 
@@ -17,13 +15,11 @@ namespace Assets._Project.Develop.Runtime.UI.LevelsMenuPopup
         private readonly LevelTileView _view;
 
         public LevelTilePresenter(
-            LevelsProgressionService levelsService,
             SceneSwitcherService sceneSwitcherService,
             ICoroutinesPerformer coroutinesPerformer,
             int levelNumber,
             LevelTileView view)
         {
-            _levelsService = levelsService;
             _sceneSwitcherService = sceneSwitcherService;
             _coroutinesPerformer = coroutinesPerformer;
             _levelNumber = levelNumber;
@@ -35,18 +31,7 @@ namespace Assets._Project.Develop.Runtime.UI.LevelsMenuPopup
         public void Initialize()
         {
             _view.SetLevel(_levelNumber.ToString());
-
-            if (_levelsService.CanPlay(_levelNumber))
-            {
-                if (_levelsService.IsLevelCompleted(_levelNumber))
-                    _view.Complete();
-                else
-                    _view.Activate();
-            }
-            else
-            {
-                _view.Block();
-            }
+            _view.Activate();
         }
 
         public void Dispose()
@@ -66,12 +51,6 @@ namespace Assets._Project.Develop.Runtime.UI.LevelsMenuPopup
 
         private void OnViewClicked()
         {
-            if (_levelsService.CanPlay(_levelNumber) == false)
-            {
-                Debug.LogWarning("Level is blocked. Previous level must be completed");
-                return;
-            }
-
             // TODO: NEED TO FIX
             _coroutinesPerformer
                 .StartPerform(_sceneSwitcherService.ProcessSwitchTo(Scenes.Gameplay, new GameplayInputArgs(Configs.Gameplay.GameplayMode.Digits)));

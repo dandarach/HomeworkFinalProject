@@ -18,7 +18,6 @@ using Assets._Project.Develop.Runtime.UI;
 using UnityEngine;
 using Object = UnityEngine.Object;
 using Assets._Project.Develop.Runtime.UI.Core;
-using Assets._Project.Develop.Runtime.Meta.Features.LevelsProgression;
 
 namespace Assets._Project.Develop.Runtime.Infrastructure.EntryPoint
 {
@@ -48,18 +47,21 @@ namespace Assets._Project.Develop.Runtime.Infrastructure.EntryPoint
 
             container.RegisterAsSingle(CreateGameplayProgressService).NonLazy();
 
-            container.RegisterAsSingle(CreateLevelsProgressionService).NonLazy();
-
             container.RegisterAsSingle<ISaveLoadService>(CreateSaveLoadService);
         }
 
-        private static LevelsProgressionService CreateLevelsProgressionService(DIContainer c)
-            => new LevelsProgressionService(c.Resolve<PlayerDataProvider>());
-
         private static GameplayProgressService CreateGameplayProgressService(DIContainer c)
-            => new GameplayProgressService(
+        {
+            Dictionary<StatTypes, ReactiveVariable<int>> stats = new();
+
+            foreach (StatTypes statType in Enum.GetValues(typeof(StatTypes)))
+                stats[statType] = new ReactiveVariable<int>();
+
+            return new GameplayProgressService(
+                stats,
                 c.Resolve<ICoroutinesPerformer>(),
                 c.Resolve<PlayerDataProvider>());
+        }
         
         private static ViewsFactory CreateViewsFactory(DIContainer c)
             => new ViewsFactory(c.Resolve<ResourcesAssetsLoader>());

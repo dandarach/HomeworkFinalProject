@@ -28,15 +28,15 @@ namespace Assets._Project.Develop.Runtime.UI.Stats
 
         public void Initialize()
         {
-            foreach (CurrencyTypes currencyType in _progressService.AvailableCurrencies)
+            foreach (StatTypes statType in _progressService.AvailableStats)
             {
                 IconTextView statView = _viewsFactory.Create<IconTextView>(ViewIDs.CurrencyView);
                 _view.Add(statView);
 
                 StatPresenter statPresenter = _presentersFactory.CreateStatPresenter(
                     statView,
-                    _progressService.GetCurrency(statType),
-                    currencyType);
+                    _progressService.GetStat(statType),
+                    statType);
 
                 statPresenter.Initialize();
                 _statPresenters.Add(statPresenter);

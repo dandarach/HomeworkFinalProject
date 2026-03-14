@@ -26,7 +26,7 @@ namespace Assets._Project.Develop.Runtime.Meta.Features.Stats
 
         private void PrintGameplayStats()
         {
-            Debug.Log($"Wins: {_gameplayProgressService.WinCount.Value}; Defeats: {_gameplayProgressService.LoseCount.Value}");
+            //Debug.Log($"Wins: {_gameplayProgressService.WinCount.Value}; Defeats: {_gameplayProgressService.LoseCount.Value}");
         }
 
         private void PrintWalletStats()
