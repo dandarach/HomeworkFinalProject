@@ -60,6 +60,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <StringGeneratorView>k__BackingField: {fileID: 3159254532690444708}
+  <StringValidatorView>k__BackingField: {fileID: 583281794806649680}
 --- !u!1001 &6426816203599095119
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -178,6 +179,18 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d86a003780912c745a2fcc910960dfaf, type: 3}
+--- !u!114 &583281794806649680 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5848092319464076831, guid: d86a003780912c745a2fcc910960dfaf,
+    type: 3}
+  m_PrefabInstance: {fileID: 6426816203599095119}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4765d5e306407d4f9300f71a6f0f786, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &5005975815854440365 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2038001092025686754, guid: d86a003780912c745a2fcc910960dfaf,

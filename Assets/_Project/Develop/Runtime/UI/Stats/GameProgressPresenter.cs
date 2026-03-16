@@ -30,7 +30,7 @@ namespace Assets._Project.Develop.Runtime.UI.Stats
         {
             foreach (StatTypes statType in _progressService.AvailableStats)
             {
-                IconTextView statView = _viewsFactory.Create<IconTextView>(ViewIDs.CurrencyView);
+                IconTextView statView = _viewsFactory.Create<IconTextView>(ViewIDs.StatView);
                 _view.Add(statView);
 
                 StatPresenter statPresenter = _presentersFactory.CreateStatPresenter(

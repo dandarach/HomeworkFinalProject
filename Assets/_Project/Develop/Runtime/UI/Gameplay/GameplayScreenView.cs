@@ -9,6 +9,7 @@ namespace Assets._Project.Develop.Runtime.UI.Gameplay
     public class GameplayScreenView : MonoBehaviour, IView
     {
         [field: SerializeField] public TextView StringGeneratorView { get; private set; }
+        [field: SerializeField] public TextView StringValidatorView { get; private set; }
 
         private void OnEnable()
         {
@@ -17,9 +18,5 @@ namespace Assets._Project.Develop.Runtime.UI.Gameplay
         private void OnDisable()
         {
         }
-
-        //private void OnOpenLevelsMenuButtonClicked() => OpenLevelsMenuButtonClicked?.Invoke();
-
-        //private void OnResetStatsButtonClicked() => ResetStatsButtonClicked?.Invoke();
     }
 }
