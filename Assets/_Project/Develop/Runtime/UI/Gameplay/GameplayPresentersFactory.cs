@@ -16,8 +16,7 @@ namespace Assets._Project.Develop.Runtime.UI.Gameplay
         {
             return new GameplayScreenPresenter(
                 view,
-                _container.Resolve<ProjectPresentersFactory>(),
-                _container.Resolve<StatsResetService>());
+                _container.Resolve<GameplayPresentersFactory>());
         }
     }
 }
