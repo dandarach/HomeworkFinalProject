@@ -8,29 +8,18 @@ namespace Assets._Project.Develop.Runtime.UI.Gameplay
 {
     public class GameplayScreenView : MonoBehaviour, IView
     {
-        public event Action OpenLevelsMenuButtonClicked;
-        public event Action ResetStatsButtonClicked;
-
-        [field: SerializeField] public IconTextListView WalletView { get; private set; }
-        [field: SerializeField] public IconTextListView StatsView { get; private set; }
-
-        [SerializeField] private Button _openLevelsMenuButton;
-        [SerializeField] private Button _resetStatsButton;
+        [field: SerializeField] public TextView StringGeneratorView { get; private set; }
 
         private void OnEnable()
         {
-            _openLevelsMenuButton.onClick.AddListener(OnOpenLevelsMenuButtonClicked);
-            _resetStatsButton.onClick.AddListener(OnResetStatsButtonClicked);
         }
 
         private void OnDisable()
         {
-            _openLevelsMenuButton.onClick.RemoveListener(OnOpenLevelsMenuButtonClicked);
-            _resetStatsButton.onClick.RemoveListener(OnResetStatsButtonClicked);
         }
 
-        private void OnOpenLevelsMenuButtonClicked() => OpenLevelsMenuButtonClicked?.Invoke();
+        //private void OnOpenLevelsMenuButtonClicked() => OpenLevelsMenuButtonClicked?.Invoke();
 
-        private void OnResetStatsButtonClicked() => ResetStatsButtonClicked?.Invoke();
+        //private void OnResetStatsButtonClicked() => ResetStatsButtonClicked?.Invoke();
     }
 }

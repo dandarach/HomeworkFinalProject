@@ -20,11 +20,11 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Process
 
         public void Run(string symbols, int symbolsToGuess)
         {
-            string generatedString = _generator.Generate(symbols, symbolsToGuess);
-            Debug.LogWarning($"*** Generated string: {generatedString}");
+            _generator.Generate(symbols, symbolsToGuess);
+            Debug.LogWarning($"*** Generated string: {_generator.GeneratedString}");
 
             _validator.OnStringValidate += OnStringValidationEnd;
-            _validator.Run(generatedString);
+            _validator.Run(_generator.GeneratedString.Value);
         }
 
         public void Update()

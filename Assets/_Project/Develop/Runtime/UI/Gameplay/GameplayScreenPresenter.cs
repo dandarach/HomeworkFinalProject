@@ -7,18 +7,15 @@ namespace Assets._Project.Develop.Runtime.UI.Gameplay
     public class GameplayScreenPresenter : IPresenter
     {
         private readonly GameplayScreenView _screen;
-        private readonly ProjectPresentersFactory _projectPresentersFactory;
-        private readonly StatsResetService _statsResetService;
+        private readonly GameplayPresentersFactory _gameplayPresentersFactory;
         private readonly List<IPresenter> _childPresenters = new();
 
         public GameplayScreenPresenter(
             GameplayScreenView screen,
-            ProjectPresentersFactory projectPresentersFactory,
-            StatsResetService statsResetService)
+            GameplayPresentersFactory gameplayPresentersFactory)
         {
             _screen = screen;
-            _projectPresentersFactory = projectPresentersFactory;
-            _statsResetService = statsResetService;
+            _gameplayPresentersFactory = gameplayPresentersFactory;
         }
 
         public void Initialize()
