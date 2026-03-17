@@ -9,7 +9,7 @@ namespace Assets._Project.Develop.Runtime.UI.Gameplay
 
         public GameplayPopupService(
             ViewsFactory viewsFactory,
-            ProjectPresentersFactory presentersFactory,
+            GameplayPresentersFactory presentersFactory,
             GameplayUIRoot uiRoot)
             : base(viewsFactory, presentersFactory)
         {
