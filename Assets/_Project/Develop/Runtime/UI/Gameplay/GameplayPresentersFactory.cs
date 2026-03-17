@@ -1,5 +1,8 @@
-﻿using Assets._Project.Develop.Runtime.Infrastructure.DI;
+﻿using Assets._Project.Develop.Runtime.Gameplay.Features.StringServices;
+using Assets._Project.Develop.Runtime.Infrastructure.DI;
 using Assets._Project.Develop.Runtime.Meta.Features.Stats;
+using Assets._Project.Develop.Runtime.UI.CommonViews;
+using Assets._Project.Develop.Runtime.UI.Gameplay.Features.StringServices;
 
 namespace Assets._Project.Develop.Runtime.UI.Gameplay
 {
@@ -16,7 +19,13 @@ namespace Assets._Project.Develop.Runtime.UI.Gameplay
         {
             return new GameplayScreenPresenter(
                 view,
-                _container.Resolve<GameplayPresentersFactory>());
+                this);
+        }
+
+        public StringGeneratorPresenter CreateStringGeneratorPresenter(TextView view)
+        {
+            StringGenerator stringGenerator = _container.Resolve<StringGenerator>();
+            return new StringGeneratorPresenter(stringGenerator, view);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using UnityEngine;
+using System;
 using Assets._Project.Develop.Runtime.Gameplay.Features.StringServices;
 using Assets._Project.Develop.Runtime.UI.CommonViews;
 using Assets._Project.Develop.Runtime.UI.Core;
@@ -23,6 +24,7 @@ namespace Assets._Project.Develop.Runtime.UI.Gameplay.Features.StringServices
         {
             UpdateValue(_stringGenerator.GeneratedString.Value);
             _disposable = _stringGenerator.GeneratedString.Subscribe(OnStringChanged);
+            Debug.LogWarning("------------- Initialize");
         }
 
         public void Dispose()
@@ -30,7 +32,11 @@ namespace Assets._Project.Develop.Runtime.UI.Gameplay.Features.StringServices
             _disposable.Dispose();
         }
 
-        private void OnStringChanged(string arg1, string newValue) => UpdateValue(newValue);
+        private void OnStringChanged(string arg1, string newValue)
+        {
+            Debug.LogWarning("------------- OnStringChanged" + newValue);
+            UpdateValue(newValue);
+        }
 
         private void UpdateValue(string value) => _view.SetText(value);
     }
