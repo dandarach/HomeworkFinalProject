@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
-using Assets._Project.Develop.Runtime.Meta.Features.Stats;
 using Assets._Project.Develop.Runtime.UI.Core;
 using Assets._Project.Develop.Runtime.UI.Gameplay.Features.StringServices;
-using Assets._Project.Develop.Runtime.UI.Wallet;
 
 namespace Assets._Project.Develop.Runtime.UI.Gameplay
 {
@@ -23,6 +21,7 @@ namespace Assets._Project.Develop.Runtime.UI.Gameplay
         public void Initialize()
         {
             CreateStringGenerator();
+            CreateStringValidator();
 
             foreach (IPresenter presenter in _childPresenters)
                 presenter.Initialize();
@@ -42,6 +41,14 @@ namespace Assets._Project.Develop.Runtime.UI.Gameplay
                 .CreateStringGeneratorPresenter(_screen.StringGeneratorView);
             
             _childPresenters.Add(stringGeneratorPresenter);
+        }
+
+        private void CreateStringValidator()
+        {
+            StringValidatorPresenter stringValidatorPresenter = _gameplayPresentersFactory
+                .CreateStringValidatorPresenter(_screen.StringValidatorView);
+            
+            _childPresenters.Add(stringValidatorPresenter);
         }
     }
 }

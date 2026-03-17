@@ -6,24 +6,24 @@ using Assets._Project.Develop.Runtime.UI.Core;
 
 namespace Assets._Project.Develop.Runtime.UI.Gameplay.Features.StringServices
 {
-    public class StringGeneratorPresenter : IPresenter
+    public class StringValidatorPresenter : IPresenter
     {
-        private readonly StringGenerator _stringGenerator;
+        private readonly StringValidator _stringValidator;
         private readonly TextView _view;
         private IDisposable _disposable;
 
-        public StringGeneratorPresenter(
-            StringGenerator stringGenerator,
+        public StringValidatorPresenter(
+            StringValidator stringValidator,
             TextView view)
         {
-            _stringGenerator = stringGenerator;
+            _stringValidator = stringValidator;
             _view = view;
         }
 
         public void Initialize()
         {
-            UpdateValue(_stringGenerator.GeneratedString.Value);
-            _disposable = _stringGenerator.GeneratedString.Subscribe(OnStringChanged);
+            UpdateValue(_stringValidator.InputString.Value);
+            _disposable = _stringValidator.InputString.Subscribe(OnStringChanged);
         }
 
         public void Dispose()

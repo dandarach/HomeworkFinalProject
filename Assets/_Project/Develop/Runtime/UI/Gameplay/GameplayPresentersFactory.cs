@@ -27,5 +27,11 @@ namespace Assets._Project.Develop.Runtime.UI.Gameplay
             StringGenerator stringGenerator = _container.Resolve<StringGenerator>();
             return new StringGeneratorPresenter(stringGenerator, view);
         }
+
+        public StringValidatorPresenter CreateStringValidatorPresenter(TextView view)
+        {
+            StringValidator stringValidator = _container.Resolve<StringValidator>();
+            return new StringValidatorPresenter(stringValidator, view);
+        }
     }
 }
