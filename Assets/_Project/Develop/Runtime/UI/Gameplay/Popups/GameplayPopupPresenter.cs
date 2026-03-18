@@ -5,8 +5,6 @@ namespace Assets._Project.Develop.Runtime.UI.Gameplay.Popups
 {
     public class GameplayPopupPresenter : PopupPresenterBase
     {
-        private const string TitleName = "LEVELS";
-
         private readonly GameplayPopupView _view;
 
         public GameplayPopupPresenter(
@@ -21,10 +19,11 @@ namespace Assets._Project.Develop.Runtime.UI.Gameplay.Popups
         public override void Initialize()
         {
             base.Initialize();
-
-            _view.SetTitle(TitleName);
-
         }
+
+        public void SetTitle(string title) => _view.SetTitle(title);
+        
+        public void SetMessageText(string message) => _view.SetMessageText(message);
 
         public override void Dispose()
         {

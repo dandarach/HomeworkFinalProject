@@ -10,6 +10,10 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Process
 {
     public class GameplayCycle : IGameplayCycle
     {
+        private const string WinPopupTitle = "GAME OVER";
+        private const string WinMessage = "YOU WIN!";
+        private const string DefeatPopupTitle = "GAME OVER";
+        private const string DefeatMessage = "DEFEAT!";
         private const string RestartGameMessage = "TO RESTART THE GAME";
         private const string GoToMainMenuMessage = "FOR MAIN MENU";
 
@@ -51,16 +55,16 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Process
         {
             _gameplayProcess.Update();
 
-            if (_gameState == GameState.Running)
-                return;
+            //if (_gameState == GameState.Running)
+            //    return;
 
-            if (Input.GetKeyDown(_levelConfig.RestartGameKey))
-            {
-                if (_gameState == GameState.Win)
-                    SwitchToMainMenu();
-                else if (_gameState == GameState.Defeat)
-                    Restart();
-            }
+            //if (Input.GetKeyDown(_levelConfig.RestartGameKey))
+            //{
+            //    if (_gameState == GameState.Win)
+            //        SwitchToMainMenu();
+            //    else if (_gameState == GameState.Defeat)
+            //        Restart();
+            //}
         }
 
         private void Restart()
@@ -82,9 +86,14 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Process
             Debug.LogWarning("*** WIN ***");
             Debug.LogWarning($"PRESS {_levelConfig.RestartGameKey} {GoToMainMenuMessage}");
 
-            _gameplayPopupService.OpenPopup();
-
             OnGameEnded();
+
+            _gameplayPopupService.OpenPopup(WinPopupTitle, WinMessage, SwitchToMainMenu);
+        }
+
+        public void TestCallback()
+        {
+            Debug.LogError("lksdjflksdjflksdjflkj");
         }
 
         private void OnDefeat()
@@ -94,8 +103,10 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Process
 
             Debug.LogWarning("*** DEFEAT ***");
             Debug.LogWarning($"PRESS {_levelConfig.RestartGameKey} {RestartGameMessage}");
-
+            
             OnGameEnded();
+
+            _gameplayPopupService.OpenPopup(DefeatPopupTitle, DefeatMessage, Restart);
         }
 
         private void OnGameEnded()

@@ -1,6 +1,6 @@
-﻿using Assets._Project.Develop.Runtime.UI.Core;
+﻿using System;
+using Assets._Project.Develop.Runtime.UI.Core;
 using Assets._Project.Develop.Runtime.UI.Gameplay.Popups;
-using Assets._Project.Develop.Runtime.UI.LevelsMenuPopup;
 using UnityEngine;
 
 namespace Assets._Project.Develop.Runtime.UI.Gameplay
@@ -22,13 +22,15 @@ namespace Assets._Project.Develop.Runtime.UI.Gameplay
 
         protected override Transform PopupLayer => _uiRoot.PopupsLayer;
         
-        public GameplayPopupPresenter OpenPopup()
+        public GameplayPopupPresenter OpenPopup(string title, string message, Action Callback)
         {
             GameplayPopupView view = ViewsFactory.Create<GameplayPopupView>(ViewIDs.GameplayPopup, PopupLayer);
+            view.SetTitle(title);
+            view.SetMessageText(message);
 
             GameplayPopupPresenter popup = _presentersFactory.CreateGameplayPopupPresenter(view);
 
-            OnPopupCreated(popup, view);
+            OnPopupCreated(popup, view, Callback);
 
             return popup;
         }
