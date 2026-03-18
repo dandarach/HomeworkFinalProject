@@ -22,7 +22,7 @@ namespace Assets._Project.Develop.Runtime.UI.Gameplay
 
         protected override Transform PopupLayer => _uiRoot.PopupsLayer;
         
-        public GameplayPopupPresenter OpenPopup(string title, string message, Action Callback)
+        public GameplayPopupPresenter OpenPopup(string title, string message, Action Callback = null)
         {
             GameplayPopupView view = ViewsFactory.Create<GameplayPopupView>(ViewIDs.GameplayPopup, PopupLayer);
             view.SetTitle(title);

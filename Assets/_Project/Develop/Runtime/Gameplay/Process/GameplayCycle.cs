@@ -1,6 +1,5 @@
 ﻿using Assets._Project.Develop.Runtime.Configs.Gameplay.Levels;
 using Assets._Project.Develop.Runtime.Meta.Features.Stats;
-using Assets._Project.Develop.Runtime.Meta.Features.Wallet;
 using Assets._Project.Develop.Runtime.UI.Gameplay;
 using Assets._Project.Develop.Runtime.Utilities.CoroutinesManagement;
 using Assets._Project.Develop.Runtime.Utilities.SceneManagement;
@@ -14,8 +13,6 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Process
         private const string WinMessage = "YOU WIN!";
         private const string DefeatPopupTitle = "GAME OVER";
         private const string DefeatMessage = "DEFEAT!";
-        private const string RestartGameMessage = "TO RESTART THE GAME";
-        private const string GoToMainMenuMessage = "FOR MAIN MENU";
 
         private readonly GameplayProcess _gameplayProcess;
         private readonly SceneSwitcherService _sceneSwitcher;
@@ -24,7 +21,6 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Process
         private readonly GameplayPopupService _gameplayPopupService;
 
         private LevelConfig _levelConfig;
-        private GameState _gameState;
 
         public GameplayCycle(
             GameplayProcess gameplayProcess,
@@ -47,24 +43,12 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Process
             _gameplayProcess.OnWin += OnWin;
             _gameplayProcess.OnDefeat += OnDefeat;
 
-            _gameState = GameState.Running;
             _gameplayProcess.Run(_levelConfig.Symbols, _levelConfig.SymbolsToGuess);
         }
 
         public void Update()
         {
             _gameplayProcess.Update();
-
-            //if (_gameState == GameState.Running)
-            //    return;
-
-            //if (Input.GetKeyDown(_levelConfig.RestartGameKey))
-            //{
-            //    if (_gameState == GameState.Win)
-            //        SwitchToMainMenu();
-            //    else if (_gameState == GameState.Defeat)
-            //        Restart();
-            //}
         }
 
         private void Restart()
@@ -80,29 +64,20 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Process
 
         private void OnWin()
         {
-            _gameState = GameState.Win;
             _gameplayProgressService.ProcessWin();
 
             Debug.LogWarning("*** WIN ***");
-            Debug.LogWarning($"PRESS {_levelConfig.RestartGameKey} {GoToMainMenuMessage}");
 
             OnGameEnded();
 
             _gameplayPopupService.OpenPopup(WinPopupTitle, WinMessage, SwitchToMainMenu);
         }
 
-        public void TestCallback()
-        {
-            Debug.LogError("lksdjflksdjflksdjflkj");
-        }
-
         private void OnDefeat()
         {
-            _gameState = GameState.Defeat;
             _gameplayProgressService.ProcessDefeat();
 
             Debug.LogWarning("*** DEFEAT ***");
-            Debug.LogWarning($"PRESS {_levelConfig.RestartGameKey} {RestartGameMessage}");
             
             OnGameEnded();
 

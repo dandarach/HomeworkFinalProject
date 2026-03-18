@@ -11,6 +11,5 @@ namespace Assets._Project.Develop.Runtime.Configs.Gameplay.Levels
         [field: SerializeField] public int SymbolsToGuess { get; private set; }
         [field: SerializeField] public CurrencyConfig WinAward { get; private set; }
         [field: SerializeField] public CurrencyConfig LosePenalty { get; private set; }
-        [field: SerializeField] public KeyCode RestartGameKey { get; private set; }
     }
 }
