@@ -10,13 +10,5 @@ namespace Assets._Project.Develop.Runtime.UI.Gameplay
     {
         [field: SerializeField] public TextView StringGeneratorView { get; private set; }
         [field: SerializeField] public TextView StringValidatorView { get; private set; }
-
-        private void OnEnable()
-        {
-        }
-
-        private void OnDisable()
-        {
-        }
     }
 }
