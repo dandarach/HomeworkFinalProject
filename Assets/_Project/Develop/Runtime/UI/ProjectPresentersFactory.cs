@@ -18,7 +18,7 @@ namespace Assets._Project.Develop.Runtime.UI
 {
     public class ProjectPresentersFactory
     {
-        private readonly DIContainer _container;
+        protected readonly DIContainer _container;
 
         public ProjectPresentersFactory(DIContainer container)
         {

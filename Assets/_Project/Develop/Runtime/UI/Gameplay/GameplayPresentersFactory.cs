@@ -1,6 +1,5 @@
 ﻿using Assets._Project.Develop.Runtime.Gameplay.Features.StringServices;
 using Assets._Project.Develop.Runtime.Infrastructure.DI;
-using Assets._Project.Develop.Runtime.Meta.Features.Stats;
 using Assets._Project.Develop.Runtime.UI.CommonViews;
 using Assets._Project.Develop.Runtime.UI.Gameplay.Features.StringServices;
 
@@ -8,7 +7,7 @@ namespace Assets._Project.Develop.Runtime.UI.Gameplay
 {
     public class GameplayPresentersFactory
     {
-        private readonly DIContainer _container;
+        protected readonly DIContainer _container;
 
         public GameplayPresentersFactory(DIContainer container)
         {

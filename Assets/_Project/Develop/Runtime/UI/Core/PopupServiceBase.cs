@@ -1,42 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
-using Assets._Project.Develop.Runtime.UI.LevelsMenuPopup;
 using UnityEngine;
 
 namespace Assets._Project.Develop.Runtime.UI.Core
 {
-    public abstract class PopupService : IDisposable
+    public abstract class PopupServiceBase : IDisposable
     {
         protected readonly ViewsFactory ViewsFactory;
 
-        private readonly ProjectPresentersFactory _presentersFactory;
-
         private readonly Dictionary<PopupPresenterBase, PopupInfo> _presenterToInfo = new();
 
-        protected PopupService(
-            ViewsFactory viewsFactory,
-            ProjectPresentersFactory presentersFactory)
+        protected PopupServiceBase(ViewsFactory viewsFactory)
         {
             ViewsFactory = viewsFactory;
-            _presentersFactory = presentersFactory;
         }
 
         protected abstract Transform PopupLayer {  get; }
 
-        sddsfsfdpublic LevelsMenuPopupPresenter OpenLevelsMenuPopup()
-        {
-            LevelsMenuPopupView view = ViewsFactory.Create<LevelsMenuPopupView>(ViewIDs.LevelsMenuPopup, PopupLayer);
-            
-            LevelsMenuPopupPresenter popup = _presentersFactory.CreateLevelsMenuPopupPresenter(view);
-
-            OnPopupCreated(popup, view);
-
-            return popup;
-        }
-
         public void ClosePopup(PopupPresenterBase popup)
         {
             popup.CloseRequest -= ClosePopup;
+            
             popup.Hide(() =>
             {
                 _presenterToInfo[popup].ClosedCallback?.Invoke();
