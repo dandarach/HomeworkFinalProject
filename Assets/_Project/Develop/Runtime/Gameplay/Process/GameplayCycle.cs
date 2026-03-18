@@ -1,6 +1,7 @@
 ﻿using Assets._Project.Develop.Runtime.Configs.Gameplay.Levels;
 using Assets._Project.Develop.Runtime.Meta.Features.Stats;
 using Assets._Project.Develop.Runtime.Meta.Features.Wallet;
+using Assets._Project.Develop.Runtime.UI.Gameplay;
 using Assets._Project.Develop.Runtime.Utilities.CoroutinesManagement;
 using Assets._Project.Develop.Runtime.Utilities.SceneManagement;
 using UnityEngine;
@@ -16,6 +17,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Process
         private readonly SceneSwitcherService _sceneSwitcher;
         private readonly ICoroutinesPerformer _coroutinesPerformer;
         private readonly GameplayProgressService _gameplayProgressService;
+        private readonly GameplayPopupService _gameplayPopupService;
 
         private LevelConfig _levelConfig;
         private GameState _gameState;
@@ -24,12 +26,14 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Process
             GameplayProcess gameplayProcess,
             SceneSwitcherService sceneSwitcher,
             ICoroutinesPerformer coroutinesPerformer,
-            GameplayProgressService gameplayProgressService)
+            GameplayProgressService gameplayProgressService,
+            GameplayPopupService gameplayPopupService)
         {
             _gameplayProcess = gameplayProcess;
             _sceneSwitcher = sceneSwitcher;
             _coroutinesPerformer = coroutinesPerformer;
             _gameplayProgressService = gameplayProgressService;
+            _gameplayPopupService = gameplayPopupService;
         }
 
         public void Run(LevelConfig config)
@@ -77,6 +81,8 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Process
 
             Debug.LogWarning("*** WIN ***");
             Debug.LogWarning($"PRESS {_levelConfig.RestartGameKey} {GoToMainMenuMessage}");
+
+            _gameplayPopupService.OpenPopup();
 
             OnGameEnded();
         }

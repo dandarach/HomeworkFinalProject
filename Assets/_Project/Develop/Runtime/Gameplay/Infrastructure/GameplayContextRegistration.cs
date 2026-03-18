@@ -40,16 +40,16 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
 
             container.RegisterAsSingle(CreateGameplayScreenPresenter).NonLazy();
 
-            //container.RegisterAsSingle(CreateGameplayPopupService);
+            container.RegisterAsSingle(CreateGameplayPopupService);
         }
 
-        //private static GameplayPopupService CreateGameplayPopupService(DIContainer c)
-        //{
-        //    return new GameplayPopupService(
-        //        c.Resolve<ViewsFactory>(),
-        //        c.Resolve<GameplayPresentersFactory>(),
-        //        c.Resolve<GameplayUIRoot>());
-        //}
+        private static GameplayPopupService CreateGameplayPopupService(DIContainer c)
+        {
+            return new GameplayPopupService(
+                c.Resolve<ViewsFactory>(),
+                c.Resolve<GameplayPresentersFactory>(),
+                c.Resolve<GameplayUIRoot>());
+        }
 
         private static GameplayUIRoot CreateGameplayUIRoot(DIContainer c)
         {
@@ -92,7 +92,8 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
                 c.Resolve<GameplayProcess>(),
                 c.Resolve<SceneSwitcherService>(),
                 c.Resolve<ICoroutinesPerformer>(),
-                c.Resolve<GameplayProgressService>());
+                c.Resolve<GameplayProgressService>(),
+                c.Resolve<GameplayPopupService>());
 
         private static GameplayProcess CreateGameplayProcess(DIContainer c)
             => new GameplayProcess(

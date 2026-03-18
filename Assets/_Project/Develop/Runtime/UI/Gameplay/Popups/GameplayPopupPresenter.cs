@@ -7,18 +7,12 @@ namespace Assets._Project.Develop.Runtime.UI.Gameplay.Popups
     {
         private const string TitleName = "LEVELS";
 
-        private readonly GameplayPresentersFactory _presentersFactory;
-        private readonly ViewsFactory _viewsFactory;
         private readonly GameplayPopupView _view;
 
         public GameplayPopupPresenter(
             ICoroutinesPerformer coroutinesPerformer,
-            GameplayPresentersFactory presentersFactory,
-            ViewsFactory viewsFactory,
             GameplayPopupView view) : base(coroutinesPerformer)
         {
-            _presentersFactory = presentersFactory;
-            _viewsFactory = viewsFactory;
             _view = view;
         }
 

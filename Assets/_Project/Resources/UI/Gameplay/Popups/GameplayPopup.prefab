@@ -305,20 +305,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3480912418611293118}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8216697061627023936}
-        m_TargetAssemblyTypeName: Assets._Project.Develop.Runtime.UI.Core.PopupViewBase,
-          Assembly-CSharp
-        m_MethodName: OnCloseButtonClicked
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &3885903731032213218
 GameObject:
   m_ObjectHideFlags: 0
@@ -463,7 +450,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6745171171163098117}
   - component: {fileID: 2080137266687442485}
-  - component: {fileID: 8216697061627023936}
   - component: {fileID: 6480976159719975142}
   m_Layer: 5
   m_Name: GameplayPopup
@@ -505,24 +491,6 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &8216697061627023936
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7073371627159807602}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5e08eb7b06042814687ae750c93d7fc0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _mainGroup: {fileID: 2080137266687442485}
-  _anticlicker: {fileID: 5938589247268142110}
-  _body: {fileID: 64752658779265712}
-  _animationType: 1
-  _title: {fileID: 0}
-  _levelsListView: {fileID: 0}
 --- !u!114 &6480976159719975142
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -539,7 +507,6 @@ MonoBehaviour:
   _anticlicker: {fileID: 5938589247268142110}
   _body: {fileID: 64752658779265712}
   _animationType: 1
-  _title: {fileID: 0}
   _message: {fileID: 7403623734995660592}
   _closeButton: {fileID: 2879135129396260506}
 --- !u!1 &7475454369808623023
@@ -735,11 +702,6 @@ PrefabInstance:
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 5792936225680436939, guid: 5b124580e8df0fe40b7647b0f031b053,
-        type: 3}
-      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 8216697061627023936}
     - target: {fileID: 5792936225680436939, guid: 5b124580e8df0fe40b7647b0f031b053,
         type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
