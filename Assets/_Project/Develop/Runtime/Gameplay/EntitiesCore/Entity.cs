@@ -4,7 +4,7 @@ using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Systems;
 
 namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
 {
-    public class Entity : IDisposable
+    public partial class Entity : IDisposable
     {
         private readonly Dictionary<Type, IEntityComponent> _components = new();
 
