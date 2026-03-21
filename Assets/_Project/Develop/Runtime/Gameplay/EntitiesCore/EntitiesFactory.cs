@@ -1,4 +1,5 @@
 ﻿using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Mono;
+using Assets._Project.Develop.Runtime.Gameplay.Features.LyfeCycle;
 using Assets._Project.Develop.Runtime.Gameplay.Features.MovementFeature;
 using Assets._Project.Develop.Runtime.Infrastructure.DI;
 using Assets._Project.Develop.Runtime.Utilities.Reactive;
@@ -29,11 +30,15 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
                 .AddMoveDirection()
                 .AddMoveSpeed(new ReactiveVariable<float>(20f))
                 .AddRotationDirection()
-                .AddRotationSpeed(new ReactiveVariable<float>(900f));
+                .AddRotationSpeed(new ReactiveVariable<float>(900f))
+                .AddMaxHealth(new ReactiveVariable<float>(100f))
+                .AddCurrentHealth(new ReactiveVariable<float>(100f))
+                .AddIsDead();
 
             entity
                 .AddSystem(new RigidbodyMovementSystem())
-                .AddSystem(new RigidbodyRotationSystem());
+                .AddSystem(new RigidbodyRotationSystem())
+                .AddSystem(new DeathSystem());
 
             _entitiesLifeContext.Add(entity);
 

@@ -31,6 +31,12 @@ namespace Assets._Project.Develop.Runtime.Gameplay
             if (_isRunning == false)
                 return;
 
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                _entity.CurrentHealth.Value -= 30f;
+                Debug.Log($"Current Health: {_entity.CurrentHealth.Value.ToString()}");
+            }
+
             Vector3 input = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
 
             _entity.MoveDirection.Value = input;
