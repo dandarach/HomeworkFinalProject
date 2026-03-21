@@ -21,7 +21,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay
 
         public void Run()
         {
-            _entity = _entitiesFactory.CreateTestEntity(Vector3.zero);
+            _entity = _entitiesFactory.CreateGhost(Vector3.zero);
 
             _isRunning = true;
         }
@@ -34,6 +34,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay
             Vector3 input = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
 
             _entity.MoveDirection.Value = input;
+            _entity.RotationDirection.Value = input;
         }
     }
 }
