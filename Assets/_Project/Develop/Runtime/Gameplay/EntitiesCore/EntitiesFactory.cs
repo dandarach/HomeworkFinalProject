@@ -37,7 +37,9 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
                 .AddIsDead()
                 .AddInDeathProcess()
                 .AddDeathProcessInitialTime(new ReactiveVariable<float>(2f))
-                .AddDeathProcessCurrentTime();
+                .AddDeathProcessCurrentTime()
+                .AddTakeDamageRequest()
+                .AddTakeDamageEvent();
 
             ICompositeCondition canMove = new CompositeCondition()
                 .Add(new FuncCondition(() => entity.IsDead.Value == false));
@@ -52,11 +54,15 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
                 .Add(new FuncCondition(() => entity.IsDead.Value == true))
                 .Add(new FuncCondition(() => entity.InDeathProcess.Value == false));
 
+            ICompositeCondition canApplyDamage = new CompositeCondition()
+                .Add(new FuncCondition(() => entity.IsDead.Value == false));
+
             entity
                 .AddCanMove(canMove)
                 .AddCanRotate(canRotate)
                 .AddMustDie(mustDie)
-                .AddMustSelfRelease(mustSelfRelease);
+                .AddMustSelfRelease(mustSelfRelease)
+                .AddCanApplyDamage(canApplyDamage);
 
             entity
                 .AddSystem(new RigidbodyMovementSystem())

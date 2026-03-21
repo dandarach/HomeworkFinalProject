@@ -32,10 +32,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay
                 return;
 
             if (Input.GetKeyDown(KeyCode.Space))
-            {
-                _entity.CurrentHealth.Value -= 30f;
-                Debug.Log($"Current Health: {_entity.CurrentHealth.Value.ToString()}");
-            }
+                _entity.TakeDamageRequest.Invoke(30f);
 
             Vector3 input = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
 
