@@ -33,7 +33,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay
 
             Vector3 input = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
 
-            _entity.GetComponent<MoveDirection>().Value.Value = input;
+            _entity.MoveDirection.Value = input;
         }
     }
 }

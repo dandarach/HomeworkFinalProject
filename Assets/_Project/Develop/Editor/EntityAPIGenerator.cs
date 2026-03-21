@@ -17,6 +17,7 @@ namespace Assets._Project.Develop.Editor
         private static string OutputPath
             => Path.Combine(Application.dataPath, "_Project/Develop/Runtime/Gameplay/EntitiesCore/Generated/EntityAPI.cs");
 
+        [InitializeOnLoadMethod]
         [MenuItem("Tools/GenerateEntityAPI")]
         public static void Generate()
         {
@@ -45,9 +46,31 @@ namespace Assets._Project.Develop.Editor
 
                 if (HasSingleField(componentType, out FieldInfo field) && field.Name == "Value")
                 {
+                    // Get field from component property
                     sb.AppendLine($"\t\tpublic {GetValidTypeName(field.FieldType)} {componentName} => {modifiedComponentName}.{field.Name};");
                     sb.AppendLine();
+
+                    // Method Add if there is one field with empty constructor
+                    if (HasEmptyConstructor(field.FieldType))
+                    {
+                        string initializer = "{ " + field.Name + " = new " + GetValidTypeName(field.FieldType) + "() }";
+
+                        sb.AppendLine($"\t\tpublic {typeof(Entity).FullName} Add{componentName}()");
+                        sb.AppendLine("\t\t{");
+                        sb.AppendLine($"\t\t\treturn AddComponent(new {fullTypeName}() {initializer});");
+                        sb.AppendLine("\t\t}");
+                        sb.AppendLine();
+                    }
                 }
+
+                // Method Add with parameters
+                string componentParameters = GetParameters(componentType);
+
+                sb.AppendLine($"\t\tpublic {typeof(Entity).FullName} Add{componentName}({componentParameters})");
+                sb.AppendLine("\t\t{");
+                sb.AppendLine($"\t\t\treturn AddComponent(new {fullTypeName}() {GetInitializer(componentType)});");
+                sb.AppendLine("\t\t}");
+                sb.AppendLine();
             }
 
             sb.AppendLine("\t}");
@@ -58,6 +81,41 @@ namespace Assets._Project.Develop.Editor
             AssetDatabase.Refresh();
             AssetDatabase.SaveAssets();
         }
+
+        private static bool HasEmptyConstructor(Type type)
+        {
+            return
+                type.GetConstructor(Type.EmptyTypes) != null
+                && type.IsSubclassOf(typeof(UnityEngine.Object)) == false;
+        }
+
+        private static string GetParameters(Type type)
+        {
+            FieldInfo[] fields = type.GetFields(BindingFlags.Public | BindingFlags.Instance);
+
+            if (fields.Any() == false)
+                return "";
+
+            IEnumerable<string> parameters = fields
+                .Select(field => $"{GetValidTypeName(field.FieldType)} {GetVariableNameFrom(field.Name)}");
+
+            return string.Join(", ", parameters);
+        }
+
+        private static string GetInitializer(Type type)
+        {
+            FieldInfo[] fields = type.GetFields(BindingFlags.Public | BindingFlags.Instance);
+
+            if (fields.Any() == false)
+                return "";
+
+            IEnumerable<string> initializers = fields
+                .Select(field => $"{field.Name} = {GetVariableNameFrom(field.Name)}");
+
+            return "{ " + string.Join(", ", initializers) + " }";
+        }
+
+        private static string GetVariableNameFrom(string name) => char.ToLowerInvariant(name[0]) + name.Substring(1);
 
         private static bool HasSingleField(Type type, out FieldInfo field)
         {
