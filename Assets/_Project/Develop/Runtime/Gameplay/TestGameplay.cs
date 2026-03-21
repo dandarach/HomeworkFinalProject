@@ -22,6 +22,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay
         public void Run()
         {
             _entity = _entitiesFactory.CreateGhost(Vector3.zero);
+            _entitiesFactory.CreateGhost(Vector3.zero + Vector3.forward * 5f);
 
             _isRunning = true;
         }

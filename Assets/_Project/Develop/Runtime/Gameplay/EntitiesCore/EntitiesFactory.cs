@@ -30,7 +30,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
 
             entity
                 .AddMoveDirection()
-                .AddMoveSpeed(new ReactiveVariable<float>(20f))
+                .AddMoveSpeed(new ReactiveVariable<float>(10f))
                 .AddRotationDirection()
                 .AddRotationSpeed(new ReactiveVariable<float>(900f))
                 .AddMaxHealth(new ReactiveVariable<float>(100f))
