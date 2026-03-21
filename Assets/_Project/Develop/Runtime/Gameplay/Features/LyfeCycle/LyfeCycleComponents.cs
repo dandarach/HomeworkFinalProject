@@ -17,4 +17,19 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.LyfeCycle
     {
         public ReactiveVariable<bool> Value;
     }
+    
+    public class DeathProcessInitialTime : IEntityComponent
+    {
+        public ReactiveVariable<float> Value;
+    }
+
+    public class DeathProcessCurrentTime : IEntityComponent
+    {
+        public ReactiveVariable<float> Value;
+    }
+
+    public class InDeathProcess : IEntityComponent
+    {
+        public ReactiveVariable<bool> Value;
+    }
 }
