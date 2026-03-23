@@ -70,7 +70,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Process
 
             OnGameEnded();
 
-            _gameplayPopupService.OpenPopup(WinPopupTitle, WinMessage, SwitchToMainMenu);
+            _gameplayPopupService.OpenPopup(WinPopupTitle, WinMessage);
         }
 
         private void OnDefeat()
@@ -81,7 +81,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Process
             
             OnGameEnded();
 
-            _gameplayPopupService.OpenPopup(DefeatPopupTitle, DefeatMessage, Restart);
+            _gameplayPopupService.OpenPopup(DefeatPopupTitle, DefeatMessage);
         }
 
         private void OnGameEnded()

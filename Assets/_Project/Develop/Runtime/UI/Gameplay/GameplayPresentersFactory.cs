@@ -1,12 +1,10 @@
 ﻿using Assets._Project.Develop.Runtime.Gameplay.Features.StringServices;
 using Assets._Project.Develop.Runtime.Infrastructure.DI;
 using Assets._Project.Develop.Runtime.UI.CommonViews;
-using Assets._Project.Develop.Runtime.UI.Core;
 using Assets._Project.Develop.Runtime.UI.Gameplay.Features.StringServices;
 using Assets._Project.Develop.Runtime.UI.Gameplay.Popups;
-using Assets._Project.Develop.Runtime.UI.LevelsMenuPopup;
-using Assets._Project.Develop.Runtime.Utilities.ConfigsManagement;
 using Assets._Project.Develop.Runtime.Utilities.CoroutinesManagement;
+using Assets._Project.Develop.Runtime.Utilities.SceneManagement;
 
 namespace Assets._Project.Develop.Runtime.UI.Gameplay
 {
@@ -34,11 +32,20 @@ namespace Assets._Project.Develop.Runtime.UI.Gameplay
             return new StringValidatorPresenter(stringValidator, view);
         }
 
-        public GameplayPopupPresenter CreateGameplayPopupPresenter(GameplayPopupView view)
+        public WinPopupPresenter CreateWinPopupPresenter(WinPopupView view)
         {
-            return new GameplayPopupPresenter(
+            return new WinPopupPresenter(
                 _container.Resolve<ICoroutinesPerformer>(),
-                view);
+                view,
+                _container.Resolve<SceneSwitcherService>());
+        }
+
+        public DefeatPopupPresenter CreateDefeatPopupPresenter(DefeatPopupView view)
+        {
+            return new DefeatPopupPresenter(
+                _container.Resolve<ICoroutinesPerformer>(),
+                view,
+                _container.Resolve<SceneSwitcherService>());
         }
     }
 }

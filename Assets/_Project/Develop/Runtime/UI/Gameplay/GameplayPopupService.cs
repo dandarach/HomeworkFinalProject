@@ -22,15 +22,24 @@ namespace Assets._Project.Develop.Runtime.UI.Gameplay
 
         protected override Transform PopupLayer => _uiRoot.PopupsLayer;
         
-        public GameplayPopupPresenter OpenPopup(string title, string message, Action Callback = null)
+        public WinPopupPresenter OpenPopup(string title, string message, Action callback = null)
         {
-            GameplayPopupView view = ViewsFactory.Create<GameplayPopupView>(ViewIDs.GameplayPopup, PopupLayer);
-            view.SetTitle(title);
-            view.SetMessageText(message);
+            WinPopupView view = ViewsFactory.Create<WinPopupView>(ViewIDs.WinPopup, PopupLayer);
 
-            GameplayPopupPresenter popup = _presentersFactory.CreateGameplayPopupPresenter(view);
+            WinPopupPresenter popup = _presentersFactory.CreateWinPopupPresenter(view);
 
-            OnPopupCreated(popup, view, Callback);
+            OnPopupCreated(popup, view, callback);
+
+            return popup;
+        }
+
+        public DefeatPopupPresenter OpenDefeatPopup(Action callback = null)
+        {
+            DefeatPopupView view = ViewsFactory.Create<DefeatPopupView>(ViewIDs.DefeatPopup, PopupLayer);
+
+            DefeatPopupPresenter popup = _presentersFactory.CreateDefeatPopupPresenter(view);
+
+            OnPopupCreated(popup, view, callback);
 
             return popup;
         }
