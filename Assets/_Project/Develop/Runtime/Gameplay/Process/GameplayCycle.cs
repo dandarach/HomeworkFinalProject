@@ -9,11 +9,6 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Process
 {
     public class GameplayCycle : IGameplayCycle
     {
-        private const string WinPopupTitle = "GAME OVER";
-        private const string WinMessage = "YOU WIN!";
-        private const string DefeatPopupTitle = "GAME OVER";
-        private const string DefeatMessage = "DEFEAT!";
-
         private readonly GameplayProcess _gameplayProcess;
         private readonly SceneSwitcherService _sceneSwitcher;
         private readonly ICoroutinesPerformer _coroutinesPerformer;
@@ -57,11 +52,6 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Process
             Run(_levelConfig);
         }
 
-        private void SwitchToMainMenu()
-        {
-            _coroutinesPerformer.StartPerform(_sceneSwitcher.ProcessSwitchTo(Scenes.MainMenu));
-        }
-
         private void OnWin()
         {
             _gameplayProgressService.ProcessWin();
@@ -70,7 +60,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Process
 
             OnGameEnded();
 
-            _gameplayPopupService.OpenPopup(WinPopupTitle, WinMessage);
+            _gameplayPopupService.OpenWinPopup();
         }
 
         private void OnDefeat()
@@ -81,7 +71,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Process
             
             OnGameEnded();
 
-            _gameplayPopupService.OpenPopup(DefeatPopupTitle, DefeatMessage);
+            _gameplayPopupService.OpenDefeatPopup(Restart);
         }
 
         private void OnGameEnded()

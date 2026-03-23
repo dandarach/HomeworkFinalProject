@@ -8,6 +8,7 @@ namespace Assets._Project.Develop.Runtime.UI.Gameplay.Popups
     public class WinPopupPresenter : PopupPresenterBase
     {
         private const string TitleName = "GAME OVER";
+        private const string WinMessage = "YOU WIN!";
 
         private readonly WinPopupView _view;
         private readonly SceneSwitcherService _sceneSwitcher;
@@ -30,6 +31,7 @@ namespace Assets._Project.Develop.Runtime.UI.Gameplay.Popups
             base.Initialize();
 
             _view.SetTitle(TitleName);
+            _view.SetMessageText(WinMessage);
 
             _view.ButtonClicked += OnButtonClicked;
         }
@@ -59,7 +61,6 @@ namespace Assets._Project.Develop.Runtime.UI.Gameplay.Popups
 
         private void OnButtonClicked()
         {
-            Debug.LogWarning("OnButtonClicked");
             _coroutinesPerformer.StartPerform(_sceneSwitcher.ProcessSwitchTo(Scenes.MainMenu));
             OnCloseRequest();
         }

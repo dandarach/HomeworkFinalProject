@@ -22,7 +22,7 @@ namespace Assets._Project.Develop.Runtime.UI.Gameplay
 
         protected override Transform PopupLayer => _uiRoot.PopupsLayer;
         
-        public WinPopupPresenter OpenPopup(string title, string message, Action callback = null)
+        public WinPopupPresenter OpenWinPopup(Action callback = null)
         {
             WinPopupView view = ViewsFactory.Create<WinPopupView>(ViewIDs.WinPopup, PopupLayer);
 
