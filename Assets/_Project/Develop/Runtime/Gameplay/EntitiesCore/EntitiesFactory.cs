@@ -40,6 +40,27 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
             return entity;
         }
 
+        public Entity CreateCharacterControllerEntity(Vector3 position)
+        {
+            Entity entity = CreateEmpty();
+
+            _monoEntitiesFactory.Create(entity, position, "Entities/CharacterControllerTestEntity");
+
+            entity
+                .AddMoveDirection()
+                .AddMoveSpeed(new ReactiveVariable<float>(10f))
+                .AddRotationDirection()
+                .AddRotationSpeed(new ReactiveVariable<float>(900f));
+
+            entity
+                .AddSystem(new CharacterControllerMovementSystem())
+                .AddSystem(new TransformRotationtSystem());
+
+            _entitiesLifeContext.Add(entity);
+
+            return entity;
+        }
+
         private Entity CreateEmpty() => new Entity();
     }
 }

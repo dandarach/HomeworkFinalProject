@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 5677274329927919655}
   - component: {fileID: 4016157281956989036}
-  - component: {fileID: 2871705474936241699}
-  - component: {fileID: 4406494144740888171}
+  - component: {fileID: 7929978788020172971}
+  - component: {fileID: -7699129097316290309}
   m_Layer: 0
-  m_Name: RigidbodyTestEntity
+  m_Name: CharacterControllerTestEntity
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfc466906fd496d4a82113e163099395, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &2871705474936241699
+--- !u!114 &7929978788020172971
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -56,36 +56,35 @@ MonoBehaviour:
   m_GameObject: {fileID: 3120568853723164887}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea9a9e61dc0f79f4c8162590e33c3505, type: 3}
+  m_Script: {fileID: 11500000, guid: 5282965202e09c6419dc33e9411f210d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!54 &4406494144740888171
-Rigidbody:
+--- !u!143 &-7699129097316290309
+CharacterController:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3120568853723164887}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 116
-  m_CollisionDetection: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Height: 2
+  m_Radius: 0.62
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0.95, z: 0.09}
 --- !u!1 &5509037398407320562
 GameObject:
   m_ObjectHideFlags: 0
@@ -148,7 +147,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 0aa589cecf9c7504c915749099cb29f2, type: 2}
+  - {fileID: 2100000, guid: 606cffcdbcacceb4c82cc8344bc8d12e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -231,7 +230,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 0aa589cecf9c7504c915749099cb29f2, type: 2}
+  - {fileID: 2100000, guid: 606cffcdbcacceb4c82cc8344bc8d12e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
