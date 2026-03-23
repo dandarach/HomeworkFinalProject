@@ -5,20 +5,19 @@ using UnityEngine;
 
 namespace Assets._Project.Develop.Runtime.Gameplay.Features.MovementFeature
 {
-    public class CharacterControllerRotationtSystem : IInitializableSystem, IUpdatableSystem
+    public class RotationCalcualtionSystem : IInitializableSystem, IUpdatableSystem
     {
         private ReactiveVariable<Vector3> _direction;
         private ReactiveVariable<float> _rotationSpeed;
-        private CharacterController _characterController;
+        private ReactiveVariable<Quaternion> _targetRotation;
+        private ReactiveVariable<Quaternion> _currentRotation;
 
         public void OnInit(Entity entity)
         {
             _direction = entity.MoveDirection;
             _rotationSpeed = entity.RotationSpeed;
-            _characterController = entity.CharacterController;
-
-            if (_direction.Value != Vector3.zero)
-                _characterController.transform.rotation = Quaternion.LookRotation(_direction.Value.normalized);
+            _currentRotation = entity.CurrentRotation;
+            _targetRotation = entity.TargetRotation;
         }
 
         public void OnUpdate(float deltaTime)
@@ -27,12 +26,13 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.MovementFeature
                 return;
 
             Quaternion lookRotation = Quaternion.LookRotation(_direction.Value.normalized);
-
             float step = _rotationSpeed.Value * deltaTime;
 
-            Quaternion rotation = Quaternion.RotateTowards(_characterController.transform.rotation, lookRotation, step);
-
-            _characterController.transform.rotation = rotation;
+            _targetRotation.Value = Quaternion.RotateTowards(
+                _currentRotation.Value,
+                lookRotation,
+                step
+            );
         }
     }
 }

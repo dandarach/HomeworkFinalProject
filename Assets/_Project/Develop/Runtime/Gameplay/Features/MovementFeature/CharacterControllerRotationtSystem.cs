@@ -5,20 +5,23 @@ using UnityEngine;
 
 namespace Assets._Project.Develop.Runtime.Gameplay.Features.MovementFeature
 {
-    public class CharacterControllerMovementSystem : IInitializableSystem, IUpdatableSystem
+    public class CharacterControllerRotationtSystem : IInitializableSystem, IUpdatableSystem
     {
-        private ReactiveVariable<Vector3> _velocity;
+        private ReactiveVariable<Quaternion> _targetRotation;
         private CharacterController _controller;
 
         public void OnInit(Entity entity)
         {
-            _velocity = entity.Velocity;
+            _targetRotation = entity.TargetRotation;
             _controller = entity.CharacterController;
         }
 
         public void OnUpdate(float deltaTime)
         {
-            _controller.Move(_velocity.Value * deltaTime);
+            if (_targetRotation.Value == Quaternion.identity)
+                return;
+
+            _controller.transform.rotation = _targetRotation.Value;
         }
     }
 }

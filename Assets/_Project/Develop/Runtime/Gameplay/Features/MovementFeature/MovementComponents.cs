@@ -14,6 +14,11 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.MovementFeature
         public ReactiveVariable<float> Value;
     }
 
+    public class Velocity : IEntityComponent
+    {
+        public ReactiveVariable<Vector3> Value;
+    }
+
     public class RotationDirection : IEntityComponent
     {
         public ReactiveVariable<Vector3> Value;
@@ -22,5 +27,15 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.MovementFeature
     public class RotationSpeed : IEntityComponent
     {
         public ReactiveVariable<float> Value;
+    }
+
+    public class CurrentRotation : IEntityComponent
+    {
+        public ReactiveVariable<Quaternion> Value;
+    }
+
+    public class TargetRotation : IEntityComponent
+    {
+        public ReactiveVariable<Quaternion> Value;
     }
 }

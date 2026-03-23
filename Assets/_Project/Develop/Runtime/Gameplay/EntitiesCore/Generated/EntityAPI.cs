@@ -30,6 +30,20 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
 			return AddComponent(new Assets._Project.Develop.Runtime.Gameplay.Features.MovementFeature.MoveSpeed() { Value = value });
 		}
 
+		public Assets._Project.Develop.Runtime.Gameplay.Features.MovementFeature.Velocity VelocityC => GetComponent<Assets._Project.Develop.Runtime.Gameplay.Features.MovementFeature.Velocity>();
+
+		public Assets._Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<UnityEngine.Vector3> Velocity => VelocityC.Value;
+
+		public Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Entity AddVelocity()
+		{
+			return AddComponent(new Assets._Project.Develop.Runtime.Gameplay.Features.MovementFeature.Velocity() { Value = new Assets._Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<UnityEngine.Vector3>() });
+		}
+
+		public Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Entity AddVelocity(Assets._Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<UnityEngine.Vector3> value)
+		{
+			return AddComponent(new Assets._Project.Develop.Runtime.Gameplay.Features.MovementFeature.Velocity() { Value = value });
+		}
+
 		public Assets._Project.Develop.Runtime.Gameplay.Features.MovementFeature.RotationDirection RotationDirectionC => GetComponent<Assets._Project.Develop.Runtime.Gameplay.Features.MovementFeature.RotationDirection>();
 
 		public Assets._Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<UnityEngine.Vector3> RotationDirection => RotationDirectionC.Value;
@@ -56,6 +70,34 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
 		public Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Entity AddRotationSpeed(Assets._Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Single> value)
 		{
 			return AddComponent(new Assets._Project.Develop.Runtime.Gameplay.Features.MovementFeature.RotationSpeed() { Value = value });
+		}
+
+		public Assets._Project.Develop.Runtime.Gameplay.Features.MovementFeature.CurrentRotation CurrentRotationC => GetComponent<Assets._Project.Develop.Runtime.Gameplay.Features.MovementFeature.CurrentRotation>();
+
+		public Assets._Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<UnityEngine.Quaternion> CurrentRotation => CurrentRotationC.Value;
+
+		public Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Entity AddCurrentRotation()
+		{
+			return AddComponent(new Assets._Project.Develop.Runtime.Gameplay.Features.MovementFeature.CurrentRotation() { Value = new Assets._Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<UnityEngine.Quaternion>() });
+		}
+
+		public Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Entity AddCurrentRotation(Assets._Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<UnityEngine.Quaternion> value)
+		{
+			return AddComponent(new Assets._Project.Develop.Runtime.Gameplay.Features.MovementFeature.CurrentRotation() { Value = value });
+		}
+
+		public Assets._Project.Develop.Runtime.Gameplay.Features.MovementFeature.TargetRotation TargetRotationC => GetComponent<Assets._Project.Develop.Runtime.Gameplay.Features.MovementFeature.TargetRotation>();
+
+		public Assets._Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<UnityEngine.Quaternion> TargetRotation => TargetRotationC.Value;
+
+		public Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Entity AddTargetRotation()
+		{
+			return AddComponent(new Assets._Project.Develop.Runtime.Gameplay.Features.MovementFeature.TargetRotation() { Value = new Assets._Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<UnityEngine.Quaternion>() });
+		}
+
+		public Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Entity AddTargetRotation(Assets._Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<UnityEngine.Quaternion> value)
+		{
+			return AddComponent(new Assets._Project.Develop.Runtime.Gameplay.Features.MovementFeature.TargetRotation() { Value = value });
 		}
 
 		public Assets._Project.Develop.Runtime.Gameplay.Common.RigidbodyComponent RigidbodyC => GetComponent<Assets._Project.Develop.Runtime.Gameplay.Common.RigidbodyComponent>();

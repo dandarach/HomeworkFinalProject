@@ -5,20 +5,22 @@ using UnityEngine;
 
 namespace Assets._Project.Develop.Runtime.Gameplay.Features.MovementFeature
 {
-    public class CharacterControllerMovementSystem : IInitializableSystem, IUpdatableSystem
+    public class MovementCalcualtionSystem : IInitializableSystem, IUpdatableSystem
     {
+        private ReactiveVariable<Vector3> _inputDirection;
+        private ReactiveVariable<float> _speed;
         private ReactiveVariable<Vector3> _velocity;
-        private CharacterController _controller;
 
         public void OnInit(Entity entity)
         {
+            _inputDirection = entity.MoveDirection;
+            _speed = entity.MoveSpeed;
             _velocity = entity.Velocity;
-            _controller = entity.CharacterController;
         }
 
         public void OnUpdate(float deltaTime)
         {
-            _controller.Move(_velocity.Value * deltaTime);
+            _velocity.Value = _inputDirection.Value.normalized * _speed.Value;
         }
     }
 }

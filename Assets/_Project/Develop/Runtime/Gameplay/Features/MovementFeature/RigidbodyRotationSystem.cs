@@ -7,32 +7,21 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.MovementFeature
 {
     public class RigidbodyRotationtSystem : IInitializableSystem, IUpdatableSystem
     {
-        private ReactiveVariable<Vector3> _direction;
-        private ReactiveVariable<float> _rotationSpeed;
+        private ReactiveVariable<Quaternion> _targetRotation;
         private Rigidbody _rigidbody;
 
         public void OnInit(Entity entity)
         {
-            _direction = entity.MoveDirection;
-            _rotationSpeed = entity.RotationSpeed;
+            _targetRotation = entity.TargetRotation;
             _rigidbody = entity.Rigidbody;
-
-            if (_direction.Value != Vector3.zero)
-                _rigidbody.transform.rotation = Quaternion.LookRotation(_direction.Value.normalized);
         }
 
         public void OnUpdate(float deltaTime)
         {
-            if (_direction.Value == Vector3.zero)
+            if (_targetRotation.Value == Quaternion.identity)
                 return;
 
-            Quaternion lookRotation = Quaternion.LookRotation(_direction.Value.normalized);
-
-            float step = _rotationSpeed.Value * deltaTime;
-
-            Quaternion rotation = Quaternion.RotateTowards(_rigidbody.rotation, lookRotation, step);
-
-            _rigidbody.MoveRotation(rotation);
+            _rigidbody.MoveRotation(_targetRotation.Value);
         }
     }
 }
