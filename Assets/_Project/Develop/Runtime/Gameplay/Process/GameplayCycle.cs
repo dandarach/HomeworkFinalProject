@@ -10,8 +10,6 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Process
     public class GameplayCycle : IGameplayCycle
     {
         private readonly GameplayProcess _gameplayProcess;
-        private readonly SceneSwitcherService _sceneSwitcher;
-        private readonly ICoroutinesPerformer _coroutinesPerformer;
         private readonly GameplayProgressService _gameplayProgressService;
         private readonly GameplayPopupService _gameplayPopupService;
 
@@ -19,14 +17,10 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Process
 
         public GameplayCycle(
             GameplayProcess gameplayProcess,
-            SceneSwitcherService sceneSwitcher,
-            ICoroutinesPerformer coroutinesPerformer,
             GameplayProgressService gameplayProgressService,
             GameplayPopupService gameplayPopupService)
         {
             _gameplayProcess = gameplayProcess;
-            _sceneSwitcher = sceneSwitcher;
-            _coroutinesPerformer = coroutinesPerformer;
             _gameplayProgressService = gameplayProgressService;
             _gameplayPopupService = gameplayPopupService;
         }

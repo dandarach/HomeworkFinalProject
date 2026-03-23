@@ -90,8 +90,6 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
         private static GameplayCycle CreateGameplayCycle(DIContainer c)
             => new GameplayCycle(
                 c.Resolve<GameplayProcess>(),
-                c.Resolve<SceneSwitcherService>(),
-                c.Resolve<ICoroutinesPerformer>(),
                 c.Resolve<GameplayProgressService>(),
                 c.Resolve<GameplayPopupService>());
 
