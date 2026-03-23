@@ -8,12 +8,14 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.MovementFeature
     public class RigidbodyRotationtSystem : IInitializableSystem, IUpdatableSystem
     {
         private ReactiveVariable<Quaternion> _targetRotation;
+        private ReactiveVariable<Quaternion> _currentRotation;
         private Rigidbody _rigidbody;
 
         public void OnInit(Entity entity)
         {
             _targetRotation = entity.TargetRotation;
             _rigidbody = entity.Rigidbody;
+            _currentRotation = entity.CurrentRotation;
         }
 
         public void OnUpdate(float deltaTime)
@@ -22,6 +24,8 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.MovementFeature
                 return;
 
             _rigidbody.MoveRotation(_targetRotation.Value);
+
+            _currentRotation.Value = _rigidbody.rotation;
         }
     }
 }

@@ -31,8 +31,8 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
                 .AddRotationDirection()
                 .AddRotationSpeed(new ReactiveVariable<float>(900f))
                 .AddVelocity()
-                .AddCurrentRotation()
-                .AddTargetRotation();
+                .AddCurrentRotation(new ReactiveVariable<Quaternion>(Quaternion.identity))
+                .AddTargetRotation(new ReactiveVariable<Quaternion>(Quaternion.identity));
 
             entity
                 .AddSystem(new MovementCalcualtionSystem())
@@ -57,8 +57,8 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
                 .AddRotationDirection()
                 .AddRotationSpeed(new ReactiveVariable<float>(900f))
                 .AddVelocity()
-                .AddCurrentRotation()
-                .AddTargetRotation();
+                .AddCurrentRotation(new ReactiveVariable<Quaternion>(Quaternion.identity))
+                .AddTargetRotation(new ReactiveVariable<Quaternion>(Quaternion.identity));
 
             entity
                 .AddSystem(new MovementCalcualtionSystem())

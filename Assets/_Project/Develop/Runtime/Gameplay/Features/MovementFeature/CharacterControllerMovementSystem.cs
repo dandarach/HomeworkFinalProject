@@ -8,17 +8,17 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.MovementFeature
     public class CharacterControllerMovementSystem : IInitializableSystem, IUpdatableSystem
     {
         private ReactiveVariable<Vector3> _velocity;
-        private CharacterController _controller;
+        private CharacterController _characterController;
 
         public void OnInit(Entity entity)
         {
             _velocity = entity.Velocity;
-            _controller = entity.CharacterController;
+            _characterController = entity.CharacterController;
         }
 
         public void OnUpdate(float deltaTime)
         {
-            _controller.Move(_velocity.Value * deltaTime);
+            _characterController.Move(_velocity.Value * deltaTime);
         }
     }
 }

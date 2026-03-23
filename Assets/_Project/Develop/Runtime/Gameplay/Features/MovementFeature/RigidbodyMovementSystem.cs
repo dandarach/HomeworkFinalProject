@@ -18,7 +18,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.MovementFeature
 
         public void OnUpdate(float deltaTime)
         {
-            _rigidbody.MovePosition(_rigidbody.position + _velocity.Value * deltaTime);
+            _rigidbody.velocity = _velocity.Value;
         }
     }
 }
