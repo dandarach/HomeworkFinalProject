@@ -1,7 +1,6 @@
-﻿using Assets._Project.Develop.Runtime.Gameplay.InputSystem;
+﻿using Assets._Project.Develop.Runtime.Gameplay.Features.InputSystem;
 using Assets._Project.Develop.Runtime.Infrastructure.DI;
 using Assets._Project.Develop.Runtime.Gameplay.Features.StringServices;
-using UnityEngine;
 using Assets._Project.Develop.Runtime.Gameplay.Process;
 using Assets._Project.Develop.Runtime.Utilities.SceneManagement;
 using Assets._Project.Develop.Runtime.Utilities.CoroutinesManagement;
@@ -11,6 +10,7 @@ using Assets._Project.Develop.Runtime.Meta.Features.Wallet;
 using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore;
 using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Mono;
 using Assets._Project.Develop.Runtime.Utilities.AssetsManagement;
+using UnityEngine;
 
 namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
 {
@@ -53,8 +53,8 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
                 c.Resolve<GameplayProcess>(),
                 c.Resolve<WalletService>());
 
-        private static IGameplayInput CreateGameplayInput(DIContainer c)
-            => new GameplayInput();
+        private static IInputService CreateGameplayInput(DIContainer c)
+            => new DesktopInput();
 
         private static GameplayCycle CreateGameplayCycle(DIContainer c)
             => new GameplayCycle(
@@ -72,6 +72,6 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
             => new StringGenerator();
 
         private static StringValidator CreateStringValidator(DIContainer c)
-            => new StringValidator(c.Resolve<IGameplayInput>());
+            => new StringValidator(c.Resolve<IInputService>());
     }
 }

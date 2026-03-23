@@ -31,6 +31,8 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.MovementFeature
             float step = _rotationSpeed.Value * deltaTime;
 
             Quaternion rotation = Quaternion.RotateTowards(_characterController.transform.rotation, lookRotation, step);
+
+            _characterController.transform.rotation = rotation;
         }
     }
 }

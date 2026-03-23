@@ -22,8 +22,6 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.MovementFeature
         {
             Vector3 velocity = _moveDirection.Value.normalized * _moveSpeed.Value;
 
-            //Vector3 move = transform.right * x + transform.forward * z;
-
             _characterController.Move(velocity * Time.deltaTime);
         }
     }

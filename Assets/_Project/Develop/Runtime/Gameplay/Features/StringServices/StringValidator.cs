@@ -1,5 +1,5 @@
 ﻿using System;
-using Assets._Project.Develop.Runtime.Gameplay.InputSystem;
+using Assets._Project.Develop.Runtime.Gameplay.Features.InputSystem;
 using UnityEngine;
 
 namespace Assets._Project.Develop.Runtime.Gameplay.Features.StringServices
@@ -10,10 +10,10 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.StringServices
 
         private string _inputString;
         private string _stringToMatch;
-        private IGameplayInput _input;
+        private IInputService _input;
         private bool _isRunning = false;
 
-        public StringValidator(IGameplayInput input)
+        public StringValidator(IInputService input)
         {
             _input = input;
         }
