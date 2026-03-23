@@ -76,7 +76,6 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Process
             _gameplayProgressService.ProcessWin();
 
             Debug.LogWarning("*** WIN ***");
-            Debug.LogWarning($"PRESS {_levelConfig.RestartGameKey} {GoToMainMenuMessage}");
 
             OnGameEnded();
         }
@@ -87,7 +86,6 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Process
             _gameplayProgressService.ProcessDefeat();
 
             Debug.LogWarning("*** DEFEAT ***");
-            Debug.LogWarning($"PRESS {_levelConfig.RestartGameKey} {RestartGameMessage}");
 
             OnGameEnded();
         }

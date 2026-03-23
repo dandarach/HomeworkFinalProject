@@ -15,6 +15,6 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.InputSystem
             => new Vector3(Input.GetAxisRaw(HorizontalAxisName), 0, Input.GetAxisRaw(VerticalAxisName));
 
         public bool IsSwitchEntityButtonPressed
-            => Input.GetKeyDown(_switchEntityKey);
+            => Input.GetKeyUp(_switchEntityKey);
     }
 }

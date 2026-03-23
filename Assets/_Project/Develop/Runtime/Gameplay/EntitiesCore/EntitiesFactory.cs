@@ -54,7 +54,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
 
             entity
                 .AddSystem(new CharacterControllerMovementSystem())
-                .AddSystem(new TransformRotationtSystem());
+                .AddSystem(new CharacterControllerRotationtSystem());
 
             _entitiesLifeContext.Add(entity);
 

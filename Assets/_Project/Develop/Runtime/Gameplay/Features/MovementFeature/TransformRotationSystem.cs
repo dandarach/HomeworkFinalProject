@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Assets._Project.Develop.Runtime.Gameplay.Features.MovementFeature
 {
-    public class TransformRotationtSystem : IInitializableSystem, IUpdatableSystem
+    public class CharacterControllerRotationtSystem : IInitializableSystem, IUpdatableSystem
     {
         private ReactiveVariable<Vector3> _direction;
         private ReactiveVariable<float> _rotationSpeed;
