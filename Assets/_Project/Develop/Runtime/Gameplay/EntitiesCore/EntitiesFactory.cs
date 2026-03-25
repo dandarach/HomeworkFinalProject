@@ -2,6 +2,7 @@
 using Assets._Project.Develop.Runtime.Gameplay.Features.ApplyDamage;
 using Assets._Project.Develop.Runtime.Gameplay.Features.LyfeCycle;
 using Assets._Project.Develop.Runtime.Gameplay.Features.MovementFeature;
+using Assets._Project.Develop.Runtime.Gameplay.Features.Sensors;
 using Assets._Project.Develop.Runtime.Infrastructure.DI;
 using Assets._Project.Develop.Runtime.Utilities;
 using Assets._Project.Develop.Runtime.Utilities.Conditions;
@@ -14,12 +15,14 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
     {
         private readonly DIContainer _container;
         private readonly EntitiesLifeContext _entitiesLifeContext;
+        private readonly CollidersRegistryService _collidersRegistryService;
         private readonly MonoEntitiesFactory _monoEntitiesFactory;
 
         public EntitiesFactory(DIContainer container)
         {
             _container = container;
             _entitiesLifeContext = _container.Resolve<EntitiesLifeContext>();
+            _collidersRegistryService = _container.Resolve<CollidersRegistryService>();
             _monoEntitiesFactory = _container.Resolve<MonoEntitiesFactory>();
         }
 
@@ -72,6 +75,8 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
             entity
                 .AddSystem(new RigidbodyMovementSystem())
                 .AddSystem(new RigidbodyRotationSystem())
+                .AddSystem(new BodyContactsDetectingSystem())
+                .AddSystem(new BodyContactsEntitiesFilterSystem(_collidersRegistryService))
                 .AddSystem(new ApplyDamageSystem())
                 .AddSystem(new DeathSystem())
                 .AddSystem(new DeathProcessTimerSystem())
