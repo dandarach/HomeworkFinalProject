@@ -4,8 +4,14 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Mono
 {
     public class MonoEntity : MonoBehaviour
     {
+        private Entity _linkedEntity;
+
+        public Entity LinkedEntity => _linkedEntity;
+
         public void Setup(Entity entity)
         {
+            _linkedEntity = entity;
+
             MonoEntityRegistrator[] registrators = GetComponentsInChildren<MonoEntityRegistrator>();
 
             if (registrators != null )
@@ -15,7 +21,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Mono
 
         public void Cleanup(Entity entity)
         {
-
+            _linkedEntity = null;
         }
     }
 }

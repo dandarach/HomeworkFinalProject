@@ -43,7 +43,8 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
                 .AddTakeDamageRequest()
                 .AddTakeDamageEvent()
                 .AddContactsDetectingMask(1 << LayerMask.NameToLayer("Characters"))
-                .AddContactCollidersBuffer(new Buffer<Collider>(64));
+                .AddContactCollidersBuffer(new Buffer<Collider>(64))
+                .AddContactEntitiesBuffer(new Buffer<Entity>(64));
 
             ICompositeCondition canMove = new CompositeCondition()
                 .Add(new FuncCondition(() => entity.IsDead.Value == false));
