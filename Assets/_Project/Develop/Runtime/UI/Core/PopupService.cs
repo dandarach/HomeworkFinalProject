@@ -49,12 +49,15 @@ namespace Assets._Project.Develop.Runtime.UI.Core
         public void ClosePopup(PopupPresenterBase popup)
         {
             popup.CloseRequest -= ClosePopup;
+
             popup.Hide(() =>
             {
-                _presenterToInfo[popup].ClosedCallback?.Invoke();
+                var view = _presenterToInfo[popup];
 
                 DisposeFor(popup);
                 _presenterToInfo.Remove(popup);
+                
+                view.ClosedCallback?.Invoke();
             });
         }
 

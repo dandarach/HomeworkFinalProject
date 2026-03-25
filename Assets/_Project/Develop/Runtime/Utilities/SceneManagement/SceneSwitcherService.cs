@@ -30,6 +30,8 @@ namespace Assets._Project.Develop.Runtime.Utilities.SceneManagement
         {
             _loadingScreen.Show();
 
+            yield return null;
+
             _currentSceneContainer?.Dispose();
 
             yield return _sceneLoaderService.LoadAsync(Scenes.Empty);
