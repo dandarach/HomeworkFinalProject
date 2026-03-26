@@ -1,6 +1,8 @@
-﻿using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore;
+﻿using System.Collections.Generic;
+using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore;
 using Assets._Project.Develop.Runtime.Utilities.Conditions;
 using Assets._Project.Develop.Runtime.Utilities.Reactive;
+using UnityEngine;
 
 namespace Assets._Project.Develop.Runtime.Gameplay.Features.LyfeCycle
 {
@@ -42,5 +44,10 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.LyfeCycle
     public class InDeathProcess : IEntityComponent
     {
         public ReactiveVariable<bool> Value;
+    }
+
+    public class DisableCollidersOnDeath : IEntityComponent
+    {
+        public List<Collider> Value;
     }
 }
