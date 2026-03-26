@@ -38,8 +38,6 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.Sensors
                     _contactsEntities.Count++;
                 }
             }
-
-            Debug.Log($"Entities contacts: {_contactsEntities.Count}");
         }
     }
 }
