@@ -28,7 +28,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 1, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8392304268530722739}
@@ -178,7 +178,7 @@ PrefabInstance:
     - target: {fileID: 2969958584333137955, guid: dca61b936f7afe242a161984143e6b31,
         type: 3}
       propertyPath: m_Name
-      value: Ghost1
+      value: Hero
       objectReference: {fileID: 0}
     - target: {fileID: 6063678949329275980, guid: dca61b936f7afe242a161984143e6b31,
         type: 3}
@@ -344,13 +344,13 @@ CapsuleCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 0
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.25
   m_Height: 2.3721619
   m_Direction: 1
   m_Center: {x: 0, y: 1.1860809, z: 0}
