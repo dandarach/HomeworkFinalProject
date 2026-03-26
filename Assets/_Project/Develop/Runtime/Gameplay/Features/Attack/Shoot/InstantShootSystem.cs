@@ -25,7 +25,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.Attack.Shoot
 
         private void OnAttackDelayEnd()
         {
-            Debug.Log($"Shoot. Damage: {_damage}. ShootPoint: {_shootPoint.position}");
+            Debug.Log($"Shoot. Damage: {_damage.Value}. ShootPoint: {_shootPoint.position}");
         }
 
         public void OnDispose()
