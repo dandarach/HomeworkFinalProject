@@ -35,6 +35,9 @@ namespace Assets._Project.Develop.Runtime.Gameplay
             if (Input.GetKeyDown(KeyCode.Space))
                 _entity.TakeDamageRequest.Invoke(30f);
 
+            if (Input.GetKeyDown(KeyCode.R))
+                _entity.StartAttackRequest.Invoke();
+
             Vector3 input = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
 
             _entity.MoveDirection.Value = input;
