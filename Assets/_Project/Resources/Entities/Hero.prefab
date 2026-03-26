@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &793940504614367716
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2038253080174465088}
+  m_Layer: 6
+  m_Name: ShootPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2038253080174465088
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 793940504614367716}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.75, z: 0.75}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3695479917954896071}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2598449368409902876
 GameObject:
   m_ObjectHideFlags: 0
@@ -233,6 +264,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 6063678949329275980, guid: dca61b936f7afe242a161984143e6b31,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2038253080174465088}
     - targetCorrespondingSourceObject: {fileID: 3696689302921706982, guid: dca61b936f7afe242a161984143e6b31,
         type: 3}
       insertIndex: -1
@@ -253,12 +288,22 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2969958584333137955, guid: dca61b936f7afe242a161984143e6b31,
         type: 3}
       insertIndex: -1
+      addedObject: {fileID: 5403895780195527162}
+    - targetCorrespondingSourceObject: {fileID: 2969958584333137955, guid: dca61b936f7afe242a161984143e6b31,
+        type: 3}
+      insertIndex: -1
       addedObject: {fileID: -5859370791589167978}
     - targetCorrespondingSourceObject: {fileID: 2969958584333137955, guid: dca61b936f7afe242a161984143e6b31,
         type: 3}
       insertIndex: -1
       addedObject: {fileID: -7768017654626202542}
   m_SourcePrefab: {fileID: 100100000, guid: dca61b936f7afe242a161984143e6b31, type: 3}
+--- !u!4 &3695479917954896071 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6063678949329275980, guid: dca61b936f7afe242a161984143e6b31,
+    type: 3}
+  m_PrefabInstance: {fileID: 7453026955743698059}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &5645562435249104040 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2969958584333137955, guid: dca61b936f7afe242a161984143e6b31,
@@ -304,6 +349,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _colliders:
   - {fileID: -7768017654626202542}
+--- !u!114 &5403895780195527162
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5645562435249104040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5158d12045746a54bae10c1ba85faf5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _shootPoint: {fileID: 2038253080174465088}
 --- !u!54 &-5859370791589167978
 Rigidbody:
   m_ObjectHideFlags: 0
