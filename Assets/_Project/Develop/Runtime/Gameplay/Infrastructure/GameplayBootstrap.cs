@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using Assets._Project.Develop.Runtime.Configs.Gameplay.Levels;
+using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore;
 using Assets._Project.Develop.Runtime.Gameplay.Process;
 using Assets._Project.Develop.Runtime.Infrastructure;
 using Assets._Project.Develop.Runtime.Infrastructure.DI;
@@ -12,11 +13,14 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
 {
     public class GameplayBootstrap : SceneBootstrap
     {
+        [SerializeField] private TestGameplay _testGameplay;
+
         private DIContainer _container;
         private GameplayInputArgs _inputArgs;
         private LevelConfig _levelConfig;
         private IGameplayCycle _gameplayCycle;
         private GameplayEconomyService _economyService;
+        private EntitiesLifeContext _entitiesLifeContext;
 
         public override void ProcessRegistrations(DIContainer container, IInputSceneArgs sceneArgs = null)
         {
@@ -38,7 +42,12 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
             Debug.Log($"Gameplay mode symbols: '{_levelConfig.Symbols}', SymbolsToGuess: {_levelConfig.SymbolsToGuess}");
 
             _gameplayCycle = _container.Resolve<IGameplayCycle>();
+            
             _economyService = _container.Resolve<GameplayEconomyService>();
+
+            _entitiesLifeContext = _container.Resolve<EntitiesLifeContext>();
+
+            _testGameplay.Initialize(_container);
 
             yield break;
         }
@@ -49,14 +58,15 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
 
             _gameplayCycle.Run(_levelConfig);
             _economyService.Initialize(_levelConfig.WinAward, _levelConfig.LosePenalty);
+
+            _testGameplay.Run();
         }
 
         private void Update()
         {
-            if (_gameplayCycle == null)
-                return;
+            _entitiesLifeContext?.Update(Time.deltaTime);
 
-            _gameplayCycle.Update();
+            _gameplayCycle?.Update();
         }
     }
 }
