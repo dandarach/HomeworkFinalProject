@@ -47,7 +47,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
 
             _entitiesLifeContext = _container.Resolve<EntitiesLifeContext>();
 
-            //_testGameplay.Initialize(_container);
+            _testGameplay.Initialize(_container);
 
             yield break;
         }
@@ -55,11 +55,11 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
         public override void Run()
         {
             Debug.Log("Gameplay scene start");
+            
+            _testGameplay.Run();
 
             _gameplayCycle.Run(_levelConfig);
             _economyService.Initialize(_levelConfig.WinAward, _levelConfig.LosePenalty);
-
-            //_testGameplay.Run();
         }
 
         private void Update()
@@ -67,6 +67,8 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
             _entitiesLifeContext?.Update(Time.deltaTime);
 
             _gameplayCycle?.Update();
+
+            _testGameplay.Update();
         }
     }
 }

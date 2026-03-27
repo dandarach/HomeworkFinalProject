@@ -20,8 +20,8 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Process
             _gameplayProcess = gameplayProcess;
             _wallet = wallet;
 
-            _gameplayProcess.OnWin += ProcessWin;
-            _gameplayProcess.OnDefeat += ProcessDefeat;
+            //_gameplayProcess.OnWin += ProcessWin;
+            //_gameplayProcess.OnDefeat += ProcessDefeat;
         }
 
         public void Initialize(CurrencyConfig winAward, CurrencyConfig losePenalty)
@@ -46,8 +46,8 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Process
 
         public void Dispose()
         {
-            _gameplayProcess.OnWin -= ProcessWin;
-            _gameplayProcess.OnDefeat -= ProcessDefeat;
+            //_gameplayProcess.OnWin -= ProcessWin;
+            //_gameplayProcess.OnDefeat -= ProcessDefeat;
         }
     }
 }

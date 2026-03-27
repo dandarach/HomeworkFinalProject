@@ -18,7 +18,7 @@ namespace Assets._Project.Develop.Runtime.UI.MainMenu
             _uiRoot = uiRoot;
             _presentersFactory = presentersFactory;
         }
-
+        
         protected override Transform PopupLayer => _uiRoot.PopupsLayer;
 
         public LevelsMenuPopupPresenter OpenLevelsMenuPopup()

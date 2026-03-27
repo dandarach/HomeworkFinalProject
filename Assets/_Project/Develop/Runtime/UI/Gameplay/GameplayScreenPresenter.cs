@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Assets._Project.Develop.Runtime.UI.Core;
-using Assets._Project.Develop.Runtime.UI.Gameplay.Features.StringServices;
 
 namespace Assets._Project.Develop.Runtime.UI.Gameplay
 {
@@ -20,9 +19,6 @@ namespace Assets._Project.Develop.Runtime.UI.Gameplay
 
         public void Initialize()
         {
-            CreateStringGenerator();
-            CreateStringValidator();
-
             foreach (IPresenter presenter in _childPresenters)
                 presenter.Initialize();
         }
@@ -33,22 +29,6 @@ namespace Assets._Project.Develop.Runtime.UI.Gameplay
                 presenter.Dispose();
 
             _childPresenters.Clear();
-        }
-
-        private void CreateStringGenerator()
-        {
-            StringGeneratorPresenter stringGeneratorPresenter = _gameplayPresentersFactory
-                .CreateStringGeneratorPresenter(_screen.StringGeneratorView);
-            
-            _childPresenters.Add(stringGeneratorPresenter);
-        }
-
-        private void CreateStringValidator()
-        {
-            StringValidatorPresenter stringValidatorPresenter = _gameplayPresentersFactory
-                .CreateStringValidatorPresenter(_screen.StringValidatorView);
-            
-            _childPresenters.Add(stringValidatorPresenter);
         }
     }
 }

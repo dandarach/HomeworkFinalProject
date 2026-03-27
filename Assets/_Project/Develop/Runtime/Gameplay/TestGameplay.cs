@@ -21,6 +21,8 @@ namespace Assets._Project.Develop.Runtime.Gameplay
 
         public void Run()
         {
+            Debug.LogWarning("*** TEST GAMEPLAY ***");
+
             _entity = _entitiesFactory.CreateHero(Vector3.zero);
             _entitiesFactory.CreateGhost(Vector3.zero + Vector3.forward * 5f);
 

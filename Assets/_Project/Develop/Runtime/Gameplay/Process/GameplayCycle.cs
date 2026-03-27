@@ -27,8 +27,8 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Process
         {
             _levelConfig = config;
 
-            _gameplayProcess.OnWin += OnWin;
-            _gameplayProcess.OnDefeat += OnDefeat;
+            //_gameplayProcess.OnWin += OnWin;
+            //_gameplayProcess.OnDefeat += OnDefeat;
 
             _gameplayProcess.Run(_levelConfig.Symbols, _levelConfig.SymbolsToGuess);
         }
@@ -68,8 +68,8 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Process
 
         private void OnGameEnded()
         {
-            _gameplayProcess.OnWin -= OnWin;
-            _gameplayProcess.OnDefeat -= OnDefeat;
+            //_gameplayProcess.OnWin -= OnWin;
+            //_gameplayProcess.OnDefeat -= OnDefeat;
             _gameplayProcess.Dispose();
         }
     }

@@ -1,6 +1,5 @@
 ﻿using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore;
 using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Mono;
-using Assets._Project.Develop.Runtime.Gameplay.Features.StringServices;
 using Assets._Project.Develop.Runtime.Gameplay.InputSystem;
 using Assets._Project.Develop.Runtime.Gameplay.Process;
 using Assets._Project.Develop.Runtime.Infrastructure.DI;
@@ -17,10 +16,6 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
     {
         public static void Process(DIContainer container)
         {
-            container.RegisterAsSingle(CreateStringGenerator);
-
-            container.RegisterAsSingle(CreateStringValidator);
-            
             container.RegisterAsSingle(CreateGameplayProcess);
             
             container.RegisterAsSingle(CreateGameplayEconomySrevice);
@@ -93,14 +88,6 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
                 c.Resolve<GameplayPopupService>());
 
         private static GameplayProcess CreateGameplayProcess(DIContainer c)
-            => new GameplayProcess(
-                c.Resolve<StringGenerator>(),
-                c.Resolve<StringValidator>());
-
-        private static StringGenerator CreateStringGenerator(DIContainer c)
-            => new StringGenerator();
-
-        private static StringValidator CreateStringValidator(DIContainer c)
-            => new StringValidator(c.Resolve<IGameplayInput>());
+            => new GameplayProcess();
     }
 }
