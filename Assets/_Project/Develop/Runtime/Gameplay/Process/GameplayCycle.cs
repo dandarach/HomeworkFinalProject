@@ -1,8 +1,6 @@
 ﻿using Assets._Project.Develop.Runtime.Configs.Gameplay.Levels;
 using Assets._Project.Develop.Runtime.Meta.Features.Stats;
 using Assets._Project.Develop.Runtime.UI.Gameplay;
-using Assets._Project.Develop.Runtime.Utilities.CoroutinesManagement;
-using Assets._Project.Develop.Runtime.Utilities.SceneManagement;
 using UnityEngine;
 
 namespace Assets._Project.Develop.Runtime.Gameplay.Process

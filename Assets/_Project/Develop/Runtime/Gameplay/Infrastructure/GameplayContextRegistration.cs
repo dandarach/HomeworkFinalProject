@@ -1,16 +1,15 @@
-﻿using Assets._Project.Develop.Runtime.Gameplay.InputSystem;
-using Assets._Project.Develop.Runtime.Infrastructure.DI;
-using Assets._Project.Develop.Runtime.Gameplay.Features.StringServices;
-using UnityEngine;
-using Assets._Project.Develop.Runtime.Gameplay.Process;
-using Assets._Project.Develop.Runtime.Utilities.SceneManagement;
-using Assets._Project.Develop.Runtime.Utilities.CoroutinesManagement;
-using Assets._Project.Develop.Runtime.Utilities.DataManagement.DataProviders;
-using Assets._Project.Develop.Runtime.Meta.Features.Statistics;
-using Assets._Project.Develop.Runtime.Meta.Features.Wallet;
-using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore;
+﻿using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore;
 using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Mono;
+using Assets._Project.Develop.Runtime.Gameplay.Features.StringServices;
+using Assets._Project.Develop.Runtime.Gameplay.InputSystem;
+using Assets._Project.Develop.Runtime.Gameplay.Process;
+using Assets._Project.Develop.Runtime.Infrastructure.DI;
+using Assets._Project.Develop.Runtime.Meta.Features.Stats;
+using Assets._Project.Develop.Runtime.Meta.Features.Wallet;
+using Assets._Project.Develop.Runtime.UI.Core;
+using Assets._Project.Develop.Runtime.UI.Gameplay;
 using Assets._Project.Develop.Runtime.Utilities.AssetsManagement;
+using UnityEngine;
 
 namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
 {
@@ -25,6 +24,12 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
             container.RegisterAsSingle(CreateGameplayProcess);
             
             container.RegisterAsSingle(CreateGameplayEconomySrevice);
+
+            container.RegisterAsSingle(CreateGameplayPopupService);
+            
+            container.RegisterAsSingle(CreateGameplayPresentersFactory);
+
+            container.RegisterAsSingle(CreateGameplayGameplayUIRoot);
             
             container.RegisterAsSingle(CreateGameplayInput);
             
@@ -62,12 +67,30 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
         private static IGameplayInput CreateGameplayInput(DIContainer c)
             => new GameplayInput();
 
+        private static GameplayPopupService CreateGameplayPopupService(DIContainer c)
+            => new GameplayPopupService(
+                c.Resolve<ViewsFactory>(),
+                c.Resolve<GameplayPresentersFactory>(),
+                c.Resolve<GameplayUIRoot>());
+
+        private static GameplayPresentersFactory CreateGameplayPresentersFactory(DIContainer c)
+            => new GameplayPresentersFactory(c);
+
+        private static GameplayUIRoot CreateGameplayGameplayUIRoot(DIContainer c)
+        {
+            ResourcesAssetsLoader resourcesAssetsLoader = c.Resolve<ResourcesAssetsLoader>();
+
+            GameplayUIRoot gameplayUIRootPrefab = resourcesAssetsLoader
+                .Load<GameplayUIRoot>("UI/Gameplay/GameplayUIRoot");
+
+            return Object.Instantiate(gameplayUIRootPrefab);
+        }
+
         private static GameplayCycle CreateGameplayCycle(DIContainer c)
             => new GameplayCycle(
                 c.Resolve<GameplayProcess>(),
-                c.Resolve<SceneSwitcherService>(),
-                c.Resolve<ICoroutinesPerformer>(),
-                c.Resolve<GameplayProgressService>());
+                c.Resolve<GameplayProgressService>(),
+                c.Resolve<GameplayPopupService>());
 
         private static GameplayProcess CreateGameplayProcess(DIContainer c)
             => new GameplayProcess(

@@ -47,7 +47,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
 
             _entitiesLifeContext = _container.Resolve<EntitiesLifeContext>();
 
-            _testGameplay.Initialize(_container);
+            //_testGameplay.Initialize(_container);
 
             yield break;
         }
@@ -59,7 +59,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
             _gameplayCycle.Run(_levelConfig);
             _economyService.Initialize(_levelConfig.WinAward, _levelConfig.LosePenalty);
 
-            _testGameplay.Run();
+            //_testGameplay.Run();
         }
 
         private void Update()
