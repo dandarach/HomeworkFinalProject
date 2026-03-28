@@ -10,6 +10,11 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.Sensors
         public CapsuleCollider Value;
     }
 
+    public class ContactsDetectingRadius : IEntityComponent
+    {
+        public ReactiveVariable<float> Value;
+    }
+
     public class ContactsDetectingMask : IEntityComponent
     {
         public LayerMask Value;

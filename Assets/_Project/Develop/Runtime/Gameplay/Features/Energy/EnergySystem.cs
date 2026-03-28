@@ -1,12 +1,9 @@
 ﻿using System;
 using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore;
 using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Systems;
-using Assets._Project.Develop.Runtime.Gameplay.Features.Attack;
-using Assets._Project.Develop.Runtime.Gameplay.Features.Teleportation;
 using Assets._Project.Develop.Runtime.Utilities.Conditions;
 using Assets._Project.Develop.Runtime.Utilities.Reactive;
 using UnityEngine;
-using static UnityEngine.Rendering.DebugUI;
 
 namespace Assets._Project.Develop.Runtime.Gameplay.Features.Energy
 {
@@ -34,16 +31,9 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.Energy
 
             _refillCurrentTime.Value = _refillInitialTime.Value;
 
-            _teleportationEndDisposable = _endTeleportationEvent.Subscribe(OnTeleportEnd);
+            _teleportationEndDisposable = _endTeleportationEvent.Subscribe(WasteEnerge);
         }
 
-        private void OnTeleportEnd()
-        {
-            _currentEnergy.Value -= _requiredEnergyForTeleportation.Value;
-            _currentEnergy.Value = Mathf.Max(_currentEnergy.Value, 0);
-
-            Debug.Log($"Spend {_requiredEnergyForTeleportation.Value} energy. Current energy: {_currentEnergy.Value}");
-        }
         public void OnUpdate(float deltaTime)
         {
             if (_canRefillEnergy.Evaluate() == false)
@@ -51,8 +41,16 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.Energy
 
             _refillCurrentTime.Value -= deltaTime;
 
-            if (IsCooldownOver())
+            if (IsTimeOver())
                 RefillEnergy();
+        }
+
+        private void WasteEnerge()
+        {
+            _currentEnergy.Value -= _requiredEnergyForTeleportation.Value;
+            _currentEnergy.Value = Mathf.Max(_currentEnergy.Value, 0);
+
+            Debug.Log($"Wasted {_requiredEnergyForTeleportation.Value} energy. Current energy: {_currentEnergy.Value}");
         }
 
         private void RefillEnergy()
@@ -65,7 +63,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.Energy
             _refillCurrentTime.Value = _refillInitialTime.Value;
         }
 
-        private bool IsCooldownOver() => _refillCurrentTime.Value <= 0;
+        private bool IsTimeOver() => _refillCurrentTime.Value <= 0;
 
         public void OnDispose()
         {
