@@ -25,7 +25,6 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.Attack
         private void OnStartAttackProcess()
         {
             _currentTime.Value = 0;
-
         }
 
         public void OnUpdate(float deltaTime)

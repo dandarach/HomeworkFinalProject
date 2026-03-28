@@ -5,6 +5,7 @@ using Assets._Project.Develop.Runtime.Gameplay.Features.Attack.Shoot;
 using Assets._Project.Develop.Runtime.Gameplay.Features.LyfeCycle;
 using Assets._Project.Develop.Runtime.Gameplay.Features.MovementFeature;
 using Assets._Project.Develop.Runtime.Gameplay.Features.Sensors;
+using Assets._Project.Develop.Runtime.Gameplay.Features.Teleportation;
 using Assets._Project.Develop.Runtime.Infrastructure.DI;
 using Assets._Project.Develop.Runtime.Utilities;
 using Assets._Project.Develop.Runtime.Utilities.Conditions;
@@ -59,10 +60,11 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
                 .AddEnergyRefillCurrentTime()
                 .AddTeleportationRadius(new ReactiveVariable<float>(5f))
                 .AddRequiredEnergyForTeleportation(new ReactiveVariable<float>(25f))
+                .AddTeleportationProcessInitialTime(new ReactiveVariable<float>(5f))
+                .AddTeleportationProcessCurrentTime()
                 .AddInTeleportationProcess()
                 .AddStartTeleportationRequest()
                 .AddStartTeleportationEvent()
-                .AddEndTeleportationRequest()
                 .AddEndTeleportationEvent();
 
             ICompositeCondition mustDie = new CompositeCondition()
@@ -85,9 +87,14 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
                 .Add(new FuncCondition(() => entity.IsDead.Value))
                 .Add(new FuncCondition(() => entity.IsMoving.Value));
 
-            ICompositeCondition canTeleport = new CompositeCondition()
+            ICompositeCondition canStartTeleport = new CompositeCondition()
                 .Add(new FuncCondition(() => entity.IsDead.Value == false))
-                .Add(new FuncCondition(() => entity.CurrentEnergy.Value >= entity.RequiredEnergyForTeleportation.Value));
+                .Add(new FuncCondition(() => entity.CurrentEnergy.Value >= entity.RequiredEnergyForTeleportation.Value))
+                .Add(new FuncCondition(() => entity.InTeleportationProcess.Value == false));
+
+            ICompositeCondition canRefillEnergy = new CompositeCondition()
+                .Add(new FuncCondition(() => entity.IsDead.Value == false))
+                .Add(new FuncCondition(() => entity.CurrentEnergy.Value < entity.MaxEnergy.Value));
 
             entity
                 .AddMustDie(mustDie)
@@ -95,7 +102,8 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
                 .AddCanApplyDamage(canApplyDamage)
                 .AddCanStartAttack(canStartAttack)
                 .AddMustCancelAttack(mustCancelAttack)
-                .AddCanMove(canTeleport);
+                .AddCanTeleport(canStartTeleport)
+                .AddCanRefillEnergy(canRefillEnergy);
 
             entity
                 .AddSystem(new StartAttackSystem())
@@ -107,7 +115,10 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
                 .AddSystem(new DeathSystem())
                 .AddSystem(new DisableCollidersOnDeathSystem())
                 .AddSystem(new DeathProcessTimerSystem())
-                .AddSystem(new SelfReleaseSystem(_entitiesLifeContext));
+                .AddSystem(new SelfReleaseSystem(_entitiesLifeContext))
+                .AddSystem(new StartTeleportationSystem())
+                .AddSystem(new TeleportationProcessTimerSystem())
+                .AddSystem(new EndTeleportationSystem());
 
             _entitiesLifeContext.Add(entity);
 
@@ -172,60 +183,6 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
                 .AddSystem(new DeathSystem())
                 .AddSystem(new DisableCollidersOnDeathSystem())
                 .AddSystem(new DeathProcessTimerSystem())
-                .AddSystem(new SelfReleaseSystem(_entitiesLifeContext));
-
-            _entitiesLifeContext.Add(entity);
-
-            return entity;
-        }
-
-        public Entity CreateProjectile(Vector3 position, Vector3 direction, float damage)
-        {
-            Entity entity = CreateEmpty();
-
-            _monoEntitiesFactory.Create(entity, position, "Entities/Projectile");
-
-            entity
-                .AddMoveDirection(new ReactiveVariable<Vector3>(direction))
-                .AddMoveSpeed(new ReactiveVariable<float>(10f))
-                .AddIsMoving()
-                .AddRotationDirection(new ReactiveVariable<Vector3>(direction))
-                .AddRotationSpeed(new ReactiveVariable<float>(9999f))
-                .AddIsDead()
-                .AddContactsDetectingMask(1 << LayerMask.NameToLayer("Characters"))
-                .AddContactCollidersBuffer(new Buffer<Collider>(64))
-                .AddContactEntitiesBuffer(new Buffer<Entity>(64))
-                .AddBodyContactDamage(new ReactiveVariable<float>(damage))
-                .AddDeathMask(1 << LayerMask.NameToLayer("Characters"))
-                .AddIsTouchDeathMask();
-
-            ICompositeCondition canMove = new CompositeCondition()
-                .Add(new FuncCondition(() => entity.IsDead.Value == false));
-
-            ICompositeCondition canRotate = new CompositeCondition()
-                .Add(new FuncCondition(() => entity.IsDead.Value == false));
-
-            ICompositeCondition mustDie = new CompositeCondition()
-                .Add(new FuncCondition(() => entity.IsTouchDeathMask.Value));
-
-            ICompositeCondition mustSelfRelease = new CompositeCondition()
-                .Add(new FuncCondition(() => entity.IsDead.Value == true));
-
-            entity
-                .AddCanMove(canMove)
-                .AddCanRotate(canRotate)
-                .AddMustDie(mustDie)
-                .AddMustSelfRelease(mustSelfRelease);
-
-            entity
-                .AddSystem(new RigidbodyMovementSystem())
-                .AddSystem(new RigidbodyRotationSystem())
-                .AddSystem(new BodyContactsDetectingSystem())
-                .AddSystem(new BodyContactsEntitiesFilterSystem(_collidersRegistryService))
-                .AddSystem(new DealDamageOnContactSystem())
-                .AddSystem(new DeathMaskTouchDetectorSystem())
-                .AddSystem(new DeathSystem())
-                .AddSystem(new DisableCollidersOnDeathSystem())
                 .AddSystem(new SelfReleaseSystem(_entitiesLifeContext));
 
             _entitiesLifeContext.Add(entity);

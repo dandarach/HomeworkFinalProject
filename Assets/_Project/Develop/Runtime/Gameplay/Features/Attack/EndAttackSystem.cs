@@ -29,7 +29,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.Attack
         {
             if (IsTimerDone(currentTime))
             {
-                Debug.Log("Attack end");
+                Debug.Log("Attack ended");
                 _inAttackProcess.Value = false;
                 _endAttackEvent.Invoke();
             }

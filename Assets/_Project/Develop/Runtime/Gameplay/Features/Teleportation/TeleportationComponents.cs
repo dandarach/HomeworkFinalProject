@@ -18,10 +18,15 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.Teleportation
     {
         public ICompositeCondition Value;
     }
-
-    public class InTeleportationProcess : IEntityComponent
+    
+    public class TeleportationProcessInitialTime : IEntityComponent
     {
-        public ReactiveVariable<bool> Value;
+        public ReactiveVariable<float> Value;
+    }
+
+    public class TeleportationProcessCurrentTime : IEntityComponent
+    {
+        public ReactiveVariable<float> Value;
     }
 
     public class StartTeleportationRequest : IEntityComponent
@@ -34,9 +39,9 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.Teleportation
         public ReactiveEvent Value;
     }
 
-    public class EndTeleportationRequest : IEntityComponent
+    public class InTeleportationProcess : IEntityComponent
     {
-        public ReactiveEvent Value;
+        public ReactiveVariable<bool> Value;
     }
 
     public class EndTeleportationEvent : IEntityComponent
