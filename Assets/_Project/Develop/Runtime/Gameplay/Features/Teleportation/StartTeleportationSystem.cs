@@ -15,6 +15,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.Teleportation
         private ICompositeCondition _canStartTeleportation;
 
         private IDisposable _teleportationRequestDispose;
+        private int g = 0;
 
         public void OnInit(Entity entity)
         {
@@ -28,6 +29,9 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.Teleportation
 
         private void OnTeleportationRequest()
         {
+            Debug.LogWarning(g);
+            g++;
+
             if (_canStartTeleportation.Evaluate())
             {
                 _inTeleportationProcess.Value = true;

@@ -60,7 +60,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
                 .AddEnergyRefillCurrentTime()
                 .AddTeleportationRadius(new ReactiveVariable<float>(5f))
                 .AddRequiredEnergyForTeleportation(new ReactiveVariable<float>(25f))
-                .AddTeleportationProcessInitialTime(new ReactiveVariable<float>(5f))
+                .AddTeleportationProcessInitialTime(new ReactiveVariable<float>(0.5f))
                 .AddTeleportationProcessCurrentTime()
                 .AddInTeleportationProcess()
                 .AddStartTeleportationRequest()
@@ -118,7 +118,8 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
                 .AddSystem(new SelfReleaseSystem(_entitiesLifeContext))
                 .AddSystem(new StartTeleportationSystem())
                 .AddSystem(new TeleportationProcessTimerSystem())
-                .AddSystem(new EndTeleportationSystem());
+                .AddSystem(new EndTeleportationSystem())
+                .AddSystem(new TeleportRigidbodyMovementSystem());
 
             _entitiesLifeContext.Add(entity);
 
