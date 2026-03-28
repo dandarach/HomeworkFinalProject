@@ -2,6 +2,7 @@
 using Assets._Project.Develop.Runtime.Gameplay.Features.ApplyDamage;
 using Assets._Project.Develop.Runtime.Gameplay.Features.Attack;
 using Assets._Project.Develop.Runtime.Gameplay.Features.Attack.Shoot;
+using Assets._Project.Develop.Runtime.Gameplay.Features.Energy;
 using Assets._Project.Develop.Runtime.Gameplay.Features.LyfeCycle;
 using Assets._Project.Develop.Runtime.Gameplay.Features.MovementFeature;
 using Assets._Project.Develop.Runtime.Gameplay.Features.Sensors;
@@ -95,7 +96,8 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
 
             ICompositeCondition canRefillEnergy = new CompositeCondition()
                 .Add(new FuncCondition(() => entity.IsDead.Value == false))
-                .Add(new FuncCondition(() => entity.CurrentEnergy.Value < entity.MaxEnergy.Value));
+                .Add(new FuncCondition(() => entity.CurrentEnergy.Value < entity.MaxEnergy.Value))
+                .Add(new FuncCondition(() => entity.InTeleportationProcess.Value == false));
 
             entity
                 .AddMustDie(mustDie)
@@ -121,7 +123,8 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
                 .AddSystem(new TeleportationProcessTimerSystem())
                 .AddSystem(new EndTeleportationSystem())
                 .AddSystem(new RandomMovementSystem())
-                .AddSystem(new TeleportRigidbodyMovementSystem());
+                .AddSystem(new TeleportRigidbodyMovementSystem())
+                .AddSystem(new EnergySystem());
 
             _entitiesLifeContext.Add(entity);
 
