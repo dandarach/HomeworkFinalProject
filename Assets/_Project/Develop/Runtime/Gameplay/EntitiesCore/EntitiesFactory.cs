@@ -56,7 +56,6 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
                 .AddInstantAttackDamage(new ReactiveVariable<float>(50f))
                 .AddCurrentEnergy(new ReactiveVariable<float>(100f))
                 .AddMaxEnergy(new ReactiveVariable<float>(100f))
-                .AddEnergyRefillValue()
                 .AddEnergyRefillInitialTime(new ReactiveVariable<float>(5f))
                 .AddEnergyRefillCurrentTime()
                 .AddTeleportationRadius(new ReactiveVariable<float>(5f))

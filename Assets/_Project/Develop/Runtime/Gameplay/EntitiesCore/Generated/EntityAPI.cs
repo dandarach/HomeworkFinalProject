@@ -428,20 +428,6 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
 			return AddComponent(new Assets._Project.Develop.Runtime.Gameplay.Features.Energy.MaxEnergy() { Value = value });
 		}
 
-		public Assets._Project.Develop.Runtime.Gameplay.Features.Energy.EnergyRefillValue EnergyRefillValueC => GetComponent<Assets._Project.Develop.Runtime.Gameplay.Features.Energy.EnergyRefillValue>();
-
-		public Assets._Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Single> EnergyRefillValue => EnergyRefillValueC.Value;
-
-		public Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Entity AddEnergyRefillValue()
-		{
-			return AddComponent(new Assets._Project.Develop.Runtime.Gameplay.Features.Energy.EnergyRefillValue() { Value = new Assets._Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Single>() });
-		}
-
-		public Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Entity AddEnergyRefillValue(Assets._Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Single> value)
-		{
-			return AddComponent(new Assets._Project.Develop.Runtime.Gameplay.Features.Energy.EnergyRefillValue() { Value = value });
-		}
-
 		public Assets._Project.Develop.Runtime.Gameplay.Features.Energy.EnergyRefillInitialTime EnergyRefillInitialTimeC => GetComponent<Assets._Project.Develop.Runtime.Gameplay.Features.Energy.EnergyRefillInitialTime>();
 
 		public Assets._Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Single> EnergyRefillInitialTime => EnergyRefillInitialTimeC.Value;

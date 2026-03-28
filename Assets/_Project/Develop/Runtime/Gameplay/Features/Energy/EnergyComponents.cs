@@ -14,11 +14,6 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.Energy
         public ReactiveVariable<float> Value;
     }
 
-    public class EnergyRefillValue : IEntityComponent
-    {
-        public ReactiveVariable<float> Value;
-    }
-
     public class EnergyRefillInitialTime : IEntityComponent
     {
         public ReactiveVariable<float> Value;
