@@ -35,11 +35,6 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
             _monoEntitiesFactory.Create(entity, position, "Entities/Hero");
 
             entity
-                .AddMoveDirection()
-                .AddMoveSpeed(new ReactiveVariable<float>(10f))
-                .AddIsMoving()
-                .AddRotationDirection()
-                .AddRotationSpeed(new ReactiveVariable<float>(900f))
                 .AddMaxHealth(new ReactiveVariable<float>(100f))
                 .AddCurrentHealth(new ReactiveVariable<float>(100f))
                 .AddIsDead()
@@ -54,19 +49,21 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
                 .AddStartAttackRequest()
                 .AddStartAttackEvent()
                 .AddEndAttackEvent()
-                .AddAttackDelayTime(new ReactiveVariable<float>(1f))
+                .AddAttackDelayTime(new ReactiveVariable<float>(0.2f))
                 .AddAttackDelayEndEvent()
                 .AddInstantAttackDamage(new ReactiveVariable<float>(50f))
-                .AddAttackCanceledEvent()
-                .AddAttackCooldownInitialTime(new ReactiveVariable<float>(2f))
-                .AddAttackCooldownCurrentTime()
-                .AddInAttackCooldown();
-
-            ICompositeCondition canMove = new CompositeCondition()
-                .Add(new FuncCondition(() => entity.IsDead.Value == false));
-
-            ICompositeCondition canRotate = new CompositeCondition()
-                .Add(new FuncCondition(() => entity.IsDead.Value == false));
+                .AddCurrentEnergy(new ReactiveVariable<float>(100f))
+                .AddMaxEnergy(new ReactiveVariable<float>(100f))
+                .AddEnergyRefillValue()
+                .AddEnergyRefillInitialTime(new ReactiveVariable<float>(5f))
+                .AddEnergyRefillCurrentTime()
+                .AddTeleportationRadius(new ReactiveVariable<float>(5f))
+                .AddRequiredEnergyForTeleportation(new ReactiveVariable<float>(25f))
+                .AddInTeleportationProcess()
+                .AddStartTeleportationRequest()
+                .AddStartTeleportationEvent()
+                .AddEndTeleportationRequest()
+                .AddEndTeleportationEvent();
 
             ICompositeCondition mustDie = new CompositeCondition()
                 .Add(new FuncCondition(() => entity.CurrentHealth.Value <= 0));
@@ -88,25 +85,24 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
                 .Add(new FuncCondition(() => entity.IsDead.Value))
                 .Add(new FuncCondition(() => entity.IsMoving.Value));
 
+            ICompositeCondition canTeleport = new CompositeCondition()
+                .Add(new FuncCondition(() => entity.IsDead.Value == false))
+                .Add(new FuncCondition(() => entity.CurrentEnergy.Value >= entity.RequiredEnergyForTeleportation.Value));
+
             entity
-                .AddCanMove(canMove)
-                .AddCanRotate(canRotate)
                 .AddMustDie(mustDie)
                 .AddMustSelfRelease(mustSelfRelease)
                 .AddCanApplyDamage(canApplyDamage)
                 .AddCanStartAttack(canStartAttack)
-                .AddMustCancelAttack(mustCancelAttack);
+                .AddMustCancelAttack(mustCancelAttack)
+                .AddCanMove(canTeleport);
 
             entity
-                .AddSystem(new RigidbodyMovementSystem())
-                .AddSystem(new RigidbodyRotationSystem())
-                .AddSystem(new AttackCancelSystem())
                 .AddSystem(new StartAttackSystem())
                 .AddSystem(new AttackProcessTimerSystem())
                 .AddSystem(new AttackDelayEndTriggerSystem())
                 .AddSystem(new InstantShootSystem(this))
                 .AddSystem(new EndAttackSystem())
-                .AddSystem(new AttackCooldownTimerSystem())
                 .AddSystem(new ApplyDamageSystem())
                 .AddSystem(new DeathSystem())
                 .AddSystem(new DisableCollidersOnDeathSystem())
