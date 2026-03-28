@@ -15,7 +15,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.Teleportation
         private ICompositeCondition _canStartTeleportation;
 
         private IDisposable _teleportationRequestDispose;
-        private int g = 0;
+        private int g = 1;
 
         public void OnInit(Entity entity)
         {

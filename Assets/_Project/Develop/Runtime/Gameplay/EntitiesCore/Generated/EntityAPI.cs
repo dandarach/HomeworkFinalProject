@@ -30,6 +30,20 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
 			return AddComponent(new Assets._Project.Develop.Runtime.Gameplay.Features.Teleportation.TeleportationRadius() { Value = value });
 		}
 
+		public Assets._Project.Develop.Runtime.Gameplay.Features.Teleportation.RandomTeleportationPosition RandomTeleportationPositionC => GetComponent<Assets._Project.Develop.Runtime.Gameplay.Features.Teleportation.RandomTeleportationPosition>();
+
+		public Assets._Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<UnityEngine.Vector3> RandomTeleportationPosition => RandomTeleportationPositionC.Value;
+
+		public Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Entity AddRandomTeleportationPosition()
+		{
+			return AddComponent(new Assets._Project.Develop.Runtime.Gameplay.Features.Teleportation.RandomTeleportationPosition() { Value = new Assets._Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<UnityEngine.Vector3>() });
+		}
+
+		public Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Entity AddRandomTeleportationPosition(Assets._Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<UnityEngine.Vector3> value)
+		{
+			return AddComponent(new Assets._Project.Develop.Runtime.Gameplay.Features.Teleportation.RandomTeleportationPosition() { Value = value });
+		}
+
 		public Assets._Project.Develop.Runtime.Gameplay.Features.Teleportation.CanTeleport CanTeleportC => GetComponent<Assets._Project.Develop.Runtime.Gameplay.Features.Teleportation.CanTeleport>();
 
 		public Assets._Project.Develop.Runtime.Utilities.Conditions.ICompositeCondition CanTeleport => CanTeleportC.Value;
