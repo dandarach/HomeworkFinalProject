@@ -45,11 +45,11 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
                 .AddTakeDamageRequest()
                 .AddTakeDamageEvent()
 
+                .AddContactsDetectingRadius(new ReactiveVariable<float>(3f))
+                .AddDistanceDamage(new ReactiveVariable<float>(50))
                 .AddContactsDetectingMask(1 << LayerMask.NameToLayer("Characters"))
                 .AddContactCollidersBuffer(new Buffer<Collider>(64))
                 .AddContactEntitiesBuffer(new Buffer<Entity>(64))
-                .AddContactsDetectingRadius(new ReactiveVariable<float>(3f))
-                .AddDistanceDamage(new ReactiveVariable<float>(50))
 
                 .AddCurrentEnergy(new ReactiveVariable<float>(100f))
                 .AddMaxEnergy(new ReactiveVariable<float>(100f))

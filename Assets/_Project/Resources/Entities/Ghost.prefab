@@ -178,7 +178,7 @@ PrefabInstance:
     - target: {fileID: 2969958584333137955, guid: dca61b936f7afe242a161984143e6b31,
         type: 3}
       propertyPath: m_Name
-      value: Ghost1
+      value: Ghost
       objectReference: {fileID: 0}
     - target: {fileID: 6063678949329275980, guid: dca61b936f7afe242a161984143e6b31,
         type: 3}
@@ -344,7 +344,7 @@ CapsuleCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 0
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
