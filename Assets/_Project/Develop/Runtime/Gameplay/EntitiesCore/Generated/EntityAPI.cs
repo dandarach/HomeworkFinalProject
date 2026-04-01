@@ -414,20 +414,6 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
 			return AddComponent(new Assets._Project.Develop.Runtime.Gameplay.Features.LyfeCycle.DisableCollidersOnDeath() { Value = value });
 		}
 
-		public Assets._Project.Develop.Runtime.Gameplay.Features.ExplodeTakeDamage.ExplodeDamage ExplodeDamageC => GetComponent<Assets._Project.Develop.Runtime.Gameplay.Features.ExplodeTakeDamage.ExplodeDamage>();
-
-		public Assets._Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Single> ExplodeDamage => ExplodeDamageC.Value;
-
-		public Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Entity AddExplodeDamage()
-		{
-			return AddComponent(new Assets._Project.Develop.Runtime.Gameplay.Features.ExplodeTakeDamage.ExplodeDamage() { Value = new Assets._Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Single>() });
-		}
-
-		public Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Entity AddExplodeDamage(Assets._Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Single> value)
-		{
-			return AddComponent(new Assets._Project.Develop.Runtime.Gameplay.Features.ExplodeTakeDamage.ExplodeDamage() { Value = value });
-		}
-
 		public Assets._Project.Develop.Runtime.Gameplay.Features.Energy.CurrentEnergy CurrentEnergyC => GetComponent<Assets._Project.Develop.Runtime.Gameplay.Features.Energy.CurrentEnergy>();
 
 		public Assets._Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Single> CurrentEnergy => CurrentEnergyC.Value;
@@ -491,6 +477,20 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
 		public Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Entity AddCanRefillEnergy(Assets._Project.Develop.Runtime.Utilities.Conditions.ICompositeCondition value)
 		{
 			return AddComponent(new Assets._Project.Develop.Runtime.Gameplay.Features.Energy.CanRefillEnergy() { Value = value });
+		}
+
+		public Assets._Project.Develop.Runtime.Gameplay.Features.DistanceTakeDamage.DistanceDamage DistanceDamageC => GetComponent<Assets._Project.Develop.Runtime.Gameplay.Features.DistanceTakeDamage.DistanceDamage>();
+
+		public Assets._Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Single> DistanceDamage => DistanceDamageC.Value;
+
+		public Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Entity AddDistanceDamage()
+		{
+			return AddComponent(new Assets._Project.Develop.Runtime.Gameplay.Features.DistanceTakeDamage.DistanceDamage() { Value = new Assets._Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Single>() });
+		}
+
+		public Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Entity AddDistanceDamage(Assets._Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Single> value)
+		{
+			return AddComponent(new Assets._Project.Develop.Runtime.Gameplay.Features.DistanceTakeDamage.DistanceDamage() { Value = value });
 		}
 
 		public Assets._Project.Develop.Runtime.Gameplay.Features.ContactTakeDamage.BodyContactDamage BodyContactDamageC => GetComponent<Assets._Project.Develop.Runtime.Gameplay.Features.ContactTakeDamage.BodyContactDamage>();

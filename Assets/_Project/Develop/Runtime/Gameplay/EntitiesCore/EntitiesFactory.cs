@@ -44,10 +44,11 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
                 .AddTakeDamageRequest()
                 .AddTakeDamageEvent()
 
-                //.AddContactsDetectingMask(1 << LayerMask.NameToLayer("Characters"))
-                //.AddContactCollidersBuffer(new Buffer<Collider>(64))
-                //.AddContactEntitiesBuffer(new Buffer<Entity>(64))
-                //.AddBodyContactDamage(new ReactiveVariable<float>(50))
+                .AddContactsDetectingMask(1 << LayerMask.NameToLayer("Characters"))
+                .AddContactCollidersBuffer(new Buffer<Collider>(64))
+                .AddContactEntitiesBuffer(new Buffer<Entity>(64))
+                .AddContactsDetectingRadius(new ReactiveVariable<float>(4f))
+                .AddDistanceDamage(new ReactiveVariable<float>(50))
 
                 .AddCurrentEnergy(new ReactiveVariable<float>(100f))
                 .AddMaxEnergy(new ReactiveVariable<float>(100f))
@@ -91,10 +92,9 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
                 .AddCanRefillEnergy(canRefillEnergy);
 
             entity
-                //.AddSystem(new BodyContactsDetectingSystem())
-                //.AddSystem(new SphereContactsDetectingSystem())
-                //.AddSystem(new BodyContactsEntitiesFilterSystem(_collidersRegistryService))
-                //.AddSystem(new DealDamageOnContactSystem())
+                .AddSystem(new BodyContactsEntitiesFilterSystem(_collidersRegistryService))
+                .AddSystem(new SphereContactsDetectingSystem())
+                //.AddSystem(new DealDamageOnDistanceSystem())
 
                 .AddSystem(new ApplyDamageSystem())
                 .AddSystem(new DeathSystem())

@@ -5,7 +5,7 @@ using Assets._Project.Develop.Runtime.Utilities.Reactive;
 
 namespace Assets._Project.Develop.Runtime.Gameplay.Features.LyfeCycle
 {
-    public class DeathProcessTimerSystem : IInitializableSystem, IDisposableSystem, IUpdatableSystem
+    public class DeathProcessTimerSystem : IInitializableSystem, IUpdatableSystem, IDisposableSystem
     {
         private ReactiveVariable<bool> _isDead;
         private ReactiveVariable<bool> _inDeathProcess;

@@ -5,7 +5,7 @@ using Assets._Project.Develop.Runtime.Utilities.Reactive;
 
 namespace Assets._Project.Develop.Runtime.Gameplay.Features.Teleportation
 {
-    public class TeleportationProcessTimerSystem : IInitializableSystem, IDisposableSystem, IUpdatableSystem
+    public class TeleportationProcessTimerSystem : IInitializableSystem, IUpdatableSystem, IDisposableSystem
     {
         private ReactiveVariable<float> _currentTime;
         private ReactiveVariable<bool> _inTeleportationProcess;

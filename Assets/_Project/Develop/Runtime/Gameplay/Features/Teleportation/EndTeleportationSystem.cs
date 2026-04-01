@@ -41,5 +41,10 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.Teleportation
         }
 
         private bool IsTimerDone(float currentTime) => currentTime >= _teleportationProcessInitialTime.Value;
+
+        public void OnUpdate(float deltaTime)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

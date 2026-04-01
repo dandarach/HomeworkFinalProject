@@ -7,12 +7,15 @@ using UnityEngine;
 
 namespace Assets._Project.Develop.Runtime.Gameplay.Features.Sensors
 {
-    public class SphereContactsDetectingSystem : IInitializableSystem, IUpdatableSystem
+    public class SphereContactsDetectingSystem : IInitializableSystem, IDisposableSystem
     {
         private Buffer<Collider> _contacts;
         private LayerMask _mask;
         private CapsuleCollider _body;
         private ReactiveVariable<float> _radius;
+        private ReactiveEvent _endTeleportationEvent;
+
+        private IDisposable _endTeleportationDisposable;
 
         public void OnInit(Entity entity)
         {
@@ -20,9 +23,17 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.Sensors
             _mask = entity.ContactsDetectingMask;
             _body = entity.BodyCollider;
             _radius = entity.ContactsDetectingRadius;
+            _endTeleportationEvent = entity.EndTeleportationEvent;
+
+            _endTeleportationDisposable = _endTeleportationEvent.Subscribe(DetectContacts);
         }
 
-        public void OnUpdate(float deltaTime)
+        public void OnDispose()
+        {
+            _endTeleportationDisposable.Dispose();
+        }
+
+        private void DetectContacts()
         {
             _contacts.Count = Physics.OverlapSphereNonAlloc(
                 _body.transform.position,
@@ -32,6 +43,8 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.Sensors
                 QueryTriggerInteraction.Ignore);
 
             RemoveSelfFromContacts();
+            
+            Debug.Log($"SphereContactsDetectingSystem. Contacts detected: {_contacts.Count}");
         }
 
         private void RemoveSelfFromContacts()

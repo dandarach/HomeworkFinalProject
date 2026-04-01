@@ -6,7 +6,7 @@ using Assets._Project.Develop.Runtime.Utilities.Reactive;
 
 namespace Assets._Project.Develop.Runtime.Gameplay.Features.ApplyDamage
 {
-    public class DealDamageOnExplodeSystem : IInitializableSystem, IUpdatableSystem
+    public class DealDamageOnDistanceSystem : IInitializableSystem//, IDisposableSystemccccccccccccccccccccccccccccccccccccccccccc
     {
         private Buffer<Entity> _contacts;
         private ReactiveVariable<float> _damage;
@@ -15,7 +15,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.ApplyDamage
         public void OnInit(Entity entity)
         {
             _contacts = entity.ContactEntitiesBuffer;
-            _damage = entity.ExplodeDamage;
+            _damage = entity.DistanceDamage;
             
             _processedEntities = new List<Entity>(_contacts.Items.Length);
         }
