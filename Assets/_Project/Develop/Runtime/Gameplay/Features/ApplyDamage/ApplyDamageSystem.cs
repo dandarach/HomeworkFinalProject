@@ -17,12 +17,15 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.ApplyDamage
         private ICompositeCondition _canApplyDamage;
         private IDisposable _requestDisposable;
 
+        private string _entityID;
+
         public void OnInit(Entity entity)
         {
             _damageRequest = entity.TakeDamageRequest;
             _damageEvent = entity.TakeDamageEvent;
             _health = entity.CurrentHealth;
             _canApplyDamage = entity.CanApplyDamage;
+            _entityID = entity.ID;
 
             _requestDisposable = _damageRequest.Subscribe(OnDamageRequest);
         }
@@ -43,7 +46,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.ApplyDamage
             _health.Value = MathF.Max(_health.Value - damage, 0);
             _damageEvent.Invoke(damage);
             
-            Debug.LogWarning($"I took {damage} damage! Health: {_health.Value}");
+            Debug.LogWarning($"{_entityID} took {damage} damage! Health: {_health.Value}");
         }
     }
 }

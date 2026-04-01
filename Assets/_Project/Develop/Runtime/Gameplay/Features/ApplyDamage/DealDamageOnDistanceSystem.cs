@@ -33,13 +33,15 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.ApplyDamage
 
         private void ApplyDamage()
         {
+            Debug.LogWarning($"DealDamageOnDistanceSystem");
+
             for (int i = 0;  i < _contacts.Count; i++)
             {
                 Entity contactEntity = _contacts.Items[i];
 
                 if (contactEntity.HasComponent<TakeDamageRequest>())
                 {
-                    Debug.Log($"DealDamageOnDistanceSystem. Apply {_damage.Value} damage to {contactEntity.ID}");
+                    Debug.LogWarning($"DealDamageOnDistanceSystem. Apply {_damage.Value} damage to {contactEntity.ID}");
                     contactEntity.TakeDamageRequest.Invoke(_damage.Value);
                 }
             }
