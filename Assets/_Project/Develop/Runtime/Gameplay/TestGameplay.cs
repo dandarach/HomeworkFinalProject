@@ -22,16 +22,16 @@ namespace Assets._Project.Develop.Runtime.Gameplay
         {
             Debug.LogWarning("*** TEST GAMEPLAY ***");
 
-            _entity = _entitiesFactory.CreateHero(Vector3.zero);
+            _entity = _entitiesFactory.CreateHero(Vector3.zero, "Hero");
 
-            _entitiesFactory.CreateGhost(Vector3.zero + Vector3.forward * 5f);
-            _entitiesFactory.CreateGhost(Vector3.zero + Vector3.back * 5f);
-            _entitiesFactory.CreateGhost(Vector3.zero + Vector3.left * 5f);
-            _entitiesFactory.CreateGhost(Vector3.zero + Vector3.right * 5f);
-            _entitiesFactory.CreateGhost(Vector3.zero + Vector3.forward * 2.5f + Vector3.right * 2.5f);
-            _entitiesFactory.CreateGhost(Vector3.zero + Vector3.forward * 2.5f + Vector3.left * 2.5f);
-            _entitiesFactory.CreateGhost(Vector3.zero + Vector3.back * 2.5f + Vector3.right * 2.5f);
-            _entitiesFactory.CreateGhost(Vector3.zero + Vector3.back * 2.5f + Vector3.left * 2.5f);
+            _entitiesFactory.CreateGhost(Vector3.zero + Vector3.forward * 5f, "Ghost1");
+            _entitiesFactory.CreateGhost(Vector3.zero + Vector3.back * 5f, "Ghost2");
+            _entitiesFactory.CreateGhost(Vector3.zero + Vector3.left * 5f, "Ghost3");
+            _entitiesFactory.CreateGhost(Vector3.zero + Vector3.right * 5f, "Ghost4");
+            _entitiesFactory.CreateGhost(Vector3.zero + Vector3.forward * 2.5f + Vector3.right * 2.5f, "Ghost5");
+            _entitiesFactory.CreateGhost(Vector3.zero + Vector3.forward * 2.5f + Vector3.left * 2.5f, "Ghost6");
+            _entitiesFactory.CreateGhost(Vector3.zero + Vector3.back * 2.5f + Vector3.right * 2.5f, "Ghost7");
+            _entitiesFactory.CreateGhost(Vector3.zero + Vector3.back * 2.5f + Vector3.left * 2.5f, "Ghost8");
 
             _isRunning = true;
         }
@@ -43,6 +43,9 @@ namespace Assets._Project.Develop.Runtime.Gameplay
 
             if (Input.GetKeyDown(KeyCode.Space))
                 _entity.StartTeleportationRequest.Invoke();
+
+            if (Input.GetKeyDown(KeyCode.F))
+                _entity.EndTeleportationEvent.Invoke();
         }
     }
 }

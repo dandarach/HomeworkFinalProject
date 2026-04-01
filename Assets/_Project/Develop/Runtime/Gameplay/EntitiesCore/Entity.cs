@@ -16,6 +16,8 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
 
         private bool _isInit;
 
+        public string ID { get; private set; }
+
         public void Initialize()
         {
             foreach (IInitializableSystem initializable in _initializables)
@@ -40,6 +42,8 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
 
             _isInit = false;
         }
+
+        public void SetID(string id) => ID = id;
 
         public Entity AddComponent<TComponent>(TComponent component) where TComponent : class, IEntityComponent
         {

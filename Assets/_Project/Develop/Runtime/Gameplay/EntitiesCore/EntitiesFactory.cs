@@ -30,9 +30,10 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
             _monoEntitiesFactory = _container.Resolve<MonoEntitiesFactory>();
         }
 
-        public Entity CreateHero(Vector3 position)
+        public Entity CreateHero(Vector3 position, string id = "")
         {
             Entity entity = CreateEmpty();
+            entity.SetID(id);
 
             _monoEntitiesFactory.Create(entity, position, "Entities/Hero");
 
@@ -47,7 +48,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
                 .AddContactsDetectingMask(1 << LayerMask.NameToLayer("Characters"))
                 .AddContactCollidersBuffer(new Buffer<Collider>(64))
                 .AddContactEntitiesBuffer(new Buffer<Entity>(64))
-                .AddContactsDetectingRadius(new ReactiveVariable<float>(4f))
+                .AddContactsDetectingRadius(new ReactiveVariable<float>(2f))
                 .AddDistanceDamage(new ReactiveVariable<float>(50))
 
                 .AddCurrentEnergy(new ReactiveVariable<float>(100f))
@@ -56,7 +57,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
                 .AddEnergyRefillCurrentTime()
                 .AddTeleportationRadius(new ReactiveVariable<float>(5f))
                 .AddRandomTeleportationPosition()
-                .AddRequiredEnergyForTeleportation(new ReactiveVariable<float>(25f))
+                .AddRequiredEnergyForTeleportation(new ReactiveVariable<float>(15f))
                 .AddTeleportationProcessInitialTime(new ReactiveVariable<float>(0.5f))
                 .AddTeleportationProcessCurrentTime()
                 .AddInTeleportationProcess()
@@ -94,7 +95,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
             entity
                 .AddSystem(new BodyContactsEntitiesFilterSystem(_collidersRegistryService))
                 .AddSystem(new SphereContactsDetectingSystem())
-                //.AddSystem(new DealDamageOnDistanceSystem())
+                .AddSystem(new DealDamageOnDistanceSystem())
 
                 .AddSystem(new ApplyDamageSystem())
                 .AddSystem(new DeathSystem())
@@ -112,9 +113,10 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
             return entity;
         }
 
-        public Entity CreateGhost(Vector3 position)
+        public Entity CreateGhost(Vector3 position, string id = "")
         {
             Entity entity = CreateEmpty();
+            entity.SetID(id);
 
             _monoEntitiesFactory.Create(entity, position, "Entities/Ghost");
 
