@@ -23,7 +23,15 @@ namespace Assets._Project.Develop.Runtime.Gameplay
             Debug.LogWarning("*** TEST GAMEPLAY ***");
 
             _entity = _entitiesFactory.CreateHero(Vector3.zero);
+
             _entitiesFactory.CreateGhost(Vector3.zero + Vector3.forward * 5f);
+            _entitiesFactory.CreateGhost(Vector3.zero + Vector3.back * 5f);
+            _entitiesFactory.CreateGhost(Vector3.zero + Vector3.left * 5f);
+            _entitiesFactory.CreateGhost(Vector3.zero + Vector3.right * 5f);
+            _entitiesFactory.CreateGhost(Vector3.zero + Vector3.forward * 2.5f + Vector3.right * 2.5f);
+            _entitiesFactory.CreateGhost(Vector3.zero + Vector3.forward * 2.5f + Vector3.left * 2.5f);
+            _entitiesFactory.CreateGhost(Vector3.zero + Vector3.back * 2.5f + Vector3.right * 2.5f);
+            _entitiesFactory.CreateGhost(Vector3.zero + Vector3.back * 2.5f + Vector3.left * 2.5f);
 
             _isRunning = true;
         }
