@@ -36,7 +36,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.Teleportation
             }
             else
             {
-                Debug.Log("Cannot teleport");
+                Debug.LogWarning("Cannot teleport");
             }
         }
 
