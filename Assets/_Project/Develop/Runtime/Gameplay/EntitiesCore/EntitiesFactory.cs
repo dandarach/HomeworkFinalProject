@@ -45,12 +45,6 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
                 .AddTakeDamageRequest()
                 .AddTakeDamageEvent()
 
-                .AddContactsDetectingRadius(new ReactiveVariable<float>(3f))
-                .AddDistanceDamage(new ReactiveVariable<float>(50))
-                .AddContactsDetectingMask(1 << LayerMask.NameToLayer("Characters"))
-                .AddContactCollidersBuffer(new Buffer<Collider>(64))
-                .AddContactEntitiesBuffer(new Buffer<Entity>(64))
-
                 .AddCurrentEnergy(new ReactiveVariable<float>(100f))
                 .AddMaxEnergy(new ReactiveVariable<float>(100f))
                 .AddEnergyRefillInitialTime(new ReactiveVariable<float>(5f))
@@ -63,7 +57,14 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
                 .AddInTeleportationProcess()
                 .AddStartTeleportationRequest()
                 .AddStartTeleportationEvent()
-                .AddEndTeleportationEvent();
+                .AddEndTeleportationEvent()
+
+                .AddContactsDetectingRadius(new ReactiveVariable<float>(13f))
+                .AddDistanceDamage(new ReactiveVariable<float>(50))
+                .AddContactsDetectingMask(1 << LayerMask.NameToLayer("Characters"))
+                .AddContactCollidersBuffer(new Buffer<Collider>(64))
+                .AddContactEntitiesBuffer(new Buffer<Entity>(64));
+
 
             ICompositeCondition mustDie = new CompositeCondition()
                 .Add(new FuncCondition(() => entity.CurrentHealth.Value <= 0));
@@ -93,10 +94,6 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
                 .AddCanRefillEnergy(canRefillEnergy);
 
             entity
-                .AddSystem(new SphereContactsDetectingSystem())
-                .AddSystem(new BodyContactsEntitiesFilterSystem(_collidersRegistryService))
-                .AddSystem(new DealDamageOnDistanceSystem())
-
                 .AddSystem(new ApplyDamageSystem())
                 .AddSystem(new DeathSystem())
                 .AddSystem(new DisableCollidersOnDeathSystem())
@@ -106,7 +103,11 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
                 .AddSystem(new EndTeleportationSystem())
                 .AddSystem(new RandomMovementSystem())
                 .AddSystem(new TeleportRigidbodyMovementSystem())
-                .AddSystem(new EnergySystem());
+                .AddSystem(new EnergySystem())
+
+                .AddSystem(new SphereContactsDetectingSystem())
+                .AddSystem(new BodyContactsEntitiesFilterSystem(_collidersRegistryService))
+                .AddSystem(new DealDamageOnDistanceSystem());
 
             _entitiesLifeContext.Add(entity);
 
@@ -126,12 +127,12 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
                 .AddIsDead()
                 .AddInDeathProcess()
                 .AddTakeDamageRequest()
-                .AddTakeDamageEvent()
+                .AddTakeDamageEvent();
 
-                .AddContactsDetectingMask(1 << LayerMask.NameToLayer("Characters"))
-                .AddContactCollidersBuffer(new Buffer<Collider>(64))
-                .AddContactEntitiesBuffer(new Buffer<Entity>(64))
-                .AddBodyContactDamage(new ReactiveVariable<float>(50));
+                //.AddContactsDetectingMask(1 << LayerMask.NameToLayer("Characters"))
+                //.AddContactCollidersBuffer(new Buffer<Collider>(64))
+                //.AddContactEntitiesBuffer(new Buffer<Entity>(64))
+                //.AddBodyContactDamage(new ReactiveVariable<float>(50));
 
             ICompositeCondition mustDie = new CompositeCondition()
                 .Add(new FuncCondition(() => entity.CurrentHealth.Value <= 0));
@@ -149,9 +150,9 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
                 .AddCanApplyDamage(canApplyDamage);
 
             entity
-                .AddSystem(new BodyContactsDetectingSystem())
-                .AddSystem(new BodyContactsEntitiesFilterSystem(_collidersRegistryService))
-                .AddSystem(new DealDamageOnContactSystem())
+                //.AddSystem(new BodyContactsDetectingSystem())
+                //.AddSystem(new BodyContactsEntitiesFilterSystem(_collidersRegistryService))
+                //.AddSystem(new DealDamageOnContactSystem())
 
                 .AddSystem(new ApplyDamageSystem())
                 .AddSystem(new DeathSystem())

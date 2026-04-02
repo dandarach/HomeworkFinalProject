@@ -22,7 +22,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.ApplyDamage
             _contacts = entity.ContactEntitiesBuffer;
             _damage = entity.DistanceDamage;
             _endTeleportationEvent = entity.EndTeleportationEvent;
-
+            
             _endTeleportationDisposable = _endTeleportationEvent.Subscribe(ApplyDamage);
         }
 
@@ -47,5 +47,6 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.ApplyDamage
                 }
             }
         }
+
     }
 }
