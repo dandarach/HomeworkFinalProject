@@ -4,7 +4,7 @@ using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Systems;
 
 namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
 {
-    public partial class Entity : IDisposable, IEquatable<Entity>
+    public partial class Entity : IDisposable
     {
         private readonly Dictionary<Type, IEntityComponent> _components = new();
 
@@ -97,7 +97,5 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
 
             return this;
         }
-
-        public bool Equals(Entity other) => other == this;
     }
 }
