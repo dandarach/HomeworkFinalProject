@@ -7,7 +7,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.InputFeature
         private const string HorizontalAxisName = "Horizontal";
         private const string VerticalAxisName = "Vertical";
 
-        public bool IsEnabled { get; set } = true;
+        public bool IsEnabled { get; set; } = true;
 
         public Vector3 Direction
         {
