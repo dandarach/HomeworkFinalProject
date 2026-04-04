@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore;
+using Assets._Project.Develop.Runtime.Gameplay.Features.ApplyDamage;
+using Assets._Project.Develop.Runtime.Utilities.Conditions;
 using UnityEngine;
 
 namespace Assets._Project.Develop.Runtime.Gameplay.Features.AI.States
@@ -18,12 +20,40 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.AI.States
 
         public Entity SelectTargetFrom(IEnumerable<Entity> targets)
         {
-            IEnumerable<Entity> selectedTragets = targets.Where(target =>
+            IEnumerable<Entity> selectedTargets = targets.Where(target =>
             {
-                return false;
+                bool result = target.HasComponent<TakeDamageRequest>();
+
+                if (target.TryGetCanApplyDamage(out ICompositeCondition canAppyDamage))
+                {
+                    result = result && canAppyDamage.Evaluate();
+                }
+
+                result = result && target != _source;
+
+                return result;
             });
 
-            return null;
+            if (selectedTargets.Any() == false)
+                return null;
+
+            Entity closestTarget = selectedTargets.First();
+            float minDistance = GetDistanceTo(closestTarget);
+
+            foreach (Entity target in selectedTargets)
+            {
+                float distance = GetDistanceTo(target);
+
+                if (distance < minDistance)
+                {
+                    minDistance = distance;
+                    closestTarget = target;
+                }
+            }
+            
+            return closestTarget;
         }
+
+        private float GetDistanceTo(Entity target) => (_sourceTransform.position - target.Transform.position).magnitude;
     }
 }
