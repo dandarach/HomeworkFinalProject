@@ -27,6 +27,9 @@ namespace Assets._Project.Develop.Runtime.Gameplay
         public void Run()
         {
             _entity = _entitiesFactory.CreateHero(Vector3.zero);
+            _entity.AddCurrentTarget();
+            _brainsFactory.CreateMainHeroBrain(_entity);
+
             _ghost = _entitiesFactory.CreateGhost(Vector3.zero + Vector3.forward * 5f);
 
             _isRunning = true;
@@ -45,11 +48,6 @@ namespace Assets._Project.Develop.Runtime.Gameplay
 
             if (Input.GetKeyDown(KeyCode.I))
                 _brainsFactory.CreateGhostBrain(_ghost);
-
-            Vector3 input = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
-
-            _entity.MoveDirection.Value = input;
-            _entity.RotationDirection.Value = input;
         }
     }
 }
