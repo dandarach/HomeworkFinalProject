@@ -19,6 +19,7 @@ using UnityEngine;
 using Object = UnityEngine.Object;
 using Assets._Project.Develop.Runtime.UI.Core;
 using Assets._Project.Develop.Runtime.Meta.Features.LevelsProgression;
+using Assets._Project.Develop.Runtime.Utilities.Timer;
 
 namespace Assets._Project.Develop.Runtime.Infrastructure.EntryPoint
 {
@@ -46,12 +47,17 @@ namespace Assets._Project.Develop.Runtime.Infrastructure.EntryPoint
             
             container.RegisterAsSingle(CreateViewsFactory);
 
+            container.RegisterAsSingle(CreateTimerServiceFactory);
+
             container.RegisterAsSingle(CreateGameplayProgressService).NonLazy();
 
             container.RegisterAsSingle(CreateLevelsProgressionService).NonLazy();
 
             container.RegisterAsSingle<ISaveLoadService>(CreateSaveLoadService);
         }
+
+        private static TimerServiceFactory CreateTimerServiceFactory(DIContainer c)
+            => new TimerServiceFactory(c);
 
         private static LevelsProgressionService CreateLevelsProgressionService(DIContainer c)
             => new LevelsProgressionService(c.Resolve<PlayerDataProvider>());
