@@ -8,6 +8,7 @@ using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore;
 using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Mono;
 using Assets._Project.Develop.Runtime.Utilities.AssetsManagement;
 using Assets._Project.Develop.Runtime.Gameplay.Features.AI;
+using Assets._Project.Develop.Runtime.Gameplay.Features.InputFeature;
 
 namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
 {
@@ -31,8 +32,13 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
 
             container.RegisterAsSingle(CreateAIBrainsContext);
 
+            container.RegisterAsSingle<IInputService>(CreateDesktopInput);
+
             container.RegisterAsSingle(CreateMonoEntitiesFactory).NonLazy();
         }
+
+        private static DesktopInput CreateDesktopInput(DIContainer c)
+            => new DesktopInput();
 
         private static AIBrainsContext CreateAIBrainsContext(DIContainer c)
             => new AIBrainsContext();
