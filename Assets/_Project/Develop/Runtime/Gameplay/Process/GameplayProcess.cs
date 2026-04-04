@@ -21,7 +21,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Process
         public void Run(string symbols, int symbolsToGuess)
         {
             string generatedString = _generator.Generate(symbols, symbolsToGuess);
-            Debug.LogWarning($"*** Generated string: {generatedString}");
+            //Debug.LogWarning($"*** Generated string: {generatedString}");
 
             _validator.OnStringValidate += OnStringValidationEnd;
             _validator.Run(generatedString);

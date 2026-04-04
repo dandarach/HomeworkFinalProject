@@ -1,4 +1,6 @@
-﻿namespace Assets._Project.Develop.Runtime.Gameplay.Features.AI
+﻿using UnityEngine;
+
+namespace Assets._Project.Develop.Runtime.Gameplay.Features.AI
 {
     public class StateMachineBrain : IBrain
     {
@@ -30,7 +32,7 @@
 
         public void Update(float deltaTime)
         {
-            if (_isEndabled)
+            if (_isEndabled == false)
                 return;
 
             _stateMachine.Update(deltaTime);

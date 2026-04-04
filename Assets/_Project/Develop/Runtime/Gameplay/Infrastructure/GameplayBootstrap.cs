@@ -41,7 +41,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
             LevelsListConfig levelConfigs = _container.Resolve<ConfigsProviderService>().GetConfig<LevelsListConfig>();
             _levelConfig = levelConfigs.GetLevelConfig(_inputArgs.GameplayMode);
 
-            Debug.Log($"Gameplay mode symbols: '{_levelConfig.Symbols}', SymbolsToGuess: {_levelConfig.SymbolsToGuess}");
+            //Debug.Log($"Gameplay mode symbols: '{_levelConfig.Symbols}', SymbolsToGuess: {_levelConfig.SymbolsToGuess}");
 
             _gameplayCycle = _container.Resolve<IGameplayCycle>();
             

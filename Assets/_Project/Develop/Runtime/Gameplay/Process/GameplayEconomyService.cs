@@ -22,8 +22,6 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Process
 
             _gameplayProcess.OnWin += ProcessWin;
             _gameplayProcess.OnDefeat += ProcessDefeat;
-            
-            Debug.LogWarning(_gameplayProcess);
         }
 
         public void Initialize(CurrencyConfig winAward, CurrencyConfig losePenalty)

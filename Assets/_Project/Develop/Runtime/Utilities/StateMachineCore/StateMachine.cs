@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Assets._Project.Develop.Runtime.Utilities.Conditions;
+using UnityEngine;
 
 namespace Assets._Project.Develop.Runtime.Utilities.StateMachineCore
 {

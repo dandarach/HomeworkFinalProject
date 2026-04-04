@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Assets._Project.Develop.Runtime.Utilities.StateMachineCore;
+using UnityEngine;
 
 namespace Assets._Project.Develop.Runtime.Gameplay.Features.AI
 {
