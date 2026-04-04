@@ -2,6 +2,7 @@
 using System.Collections;
 using Assets._Project.Develop.Runtime.Configs.Gameplay.Levels;
 using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore;
+using Assets._Project.Develop.Runtime.Gameplay.Features.AI;
 using Assets._Project.Develop.Runtime.Gameplay.Process;
 using Assets._Project.Develop.Runtime.Infrastructure;
 using Assets._Project.Develop.Runtime.Infrastructure.DI;
@@ -21,6 +22,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
         private IGameplayCycle _gameplayCycle;
         private GameplayEconomyService _economyService;
         private EntitiesLifeContext _entitiesLifeContext;
+        private AIBrainsContext _brainsContext;
 
         public override void ProcessRegistrations(DIContainer container, IInputSceneArgs sceneArgs = null)
         {
@@ -46,6 +48,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
             _economyService = _container.Resolve<GameplayEconomyService>();
 
             _entitiesLifeContext = _container.Resolve<EntitiesLifeContext>();
+            _brainsContext = _container.Resolve<AIBrainsContext>();
 
             _testGameplay.Initialize(_container);
 
@@ -64,6 +67,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
 
         private void Update()
         {
+            _brainsContext?.Update(Time.deltaTime);
             _entitiesLifeContext?.Update(Time.deltaTime);
 
             _gameplayCycle?.Update();
