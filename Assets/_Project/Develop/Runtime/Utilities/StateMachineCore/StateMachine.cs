@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Assets._Project.Develop.Runtime.Utilities.StateMachineCore
 {
-    public abstract class StateMachine<TState> : IDisposable where TState : class, IState
+    public abstract class StateMachine<TState> : State, IUpdatableState, IDisposable where TState : class, IState
     {
         private List<StateNode<TState>> _states = new();
         private StateNode<TState> _currenState;
@@ -65,18 +65,22 @@ namespace Assets._Project.Develop.Runtime.Utilities.StateMachineCore
             _disposables.Clear();
         }
 
-        public void Enter()
+        public override void Enter()
         {
+            base.Enter();
+
             if (_currenState == null)
                 SwitchState(_states[0]);
             else
                 _currenState.State.Enter();
 
-                _isRunning = true;
+            _isRunning = true;
         }
 
-        public void Exit()
+        public override void Exit()
         {
+            base.Exit();
+
             _currenState?.State.Exit();
             _isRunning = false;
         }
