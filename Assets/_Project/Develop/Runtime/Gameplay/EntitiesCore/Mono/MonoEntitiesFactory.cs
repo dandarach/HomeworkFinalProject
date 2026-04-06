@@ -36,7 +36,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Mono
 
             return viewInstance;
         }
-        
+
         public void Initialize()
         {
             _entitiesLifeContext.Released += OnEntityReleased;

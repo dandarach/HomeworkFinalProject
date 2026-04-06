@@ -1,6 +1,5 @@
 ﻿using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore;
 using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Mono;
-using Assets._Project.Develop.Runtime.Gameplay.Features.InputSystem;
 using Assets._Project.Develop.Runtime.Gameplay.Process;
 using Assets._Project.Develop.Runtime.Infrastructure.DI;
 using Assets._Project.Develop.Runtime.Meta.Features.Stats;
@@ -25,8 +24,6 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
             container.RegisterAsSingle(CreateGameplayPresentersFactory);
 
             container.RegisterAsSingle(CreateGameplayGameplayUIRoot);
-            
-            container.RegisterAsSingle(CreateGameplayInput);
             
             container.RegisterAsSingle<IGameplayCycle>(CreateGameplayCycle);
             
@@ -58,9 +55,6 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
             => new GameplayEconomyService(
                 c.Resolve<GameplayProcess>(),
                 c.Resolve<WalletService>());
-
-        private static IGameplayInput CreateGameplayInput(DIContainer c)
-            => new GameplayInput();
 
         private static GameplayPopupService CreateGameplayPopupService(DIContainer c)
             => new GameplayPopupService(

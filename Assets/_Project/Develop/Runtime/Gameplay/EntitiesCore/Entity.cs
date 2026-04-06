@@ -4,7 +4,7 @@ using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Systems;
 
 namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
 {
-    public partial class Entity : IUpdatableSystem
+    public partial class Entity : IDisposable
     {
         private readonly Dictionary<Type, IEntityComponent> _components = new();
 
@@ -17,6 +17,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
         private bool _isInit;
 
         public string ID { get; private set; }
+        public bool IsInit => _isInit;
 
         public void Initialize()
         {
@@ -42,8 +43,6 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
 
             _isInit = false;
         }
-
-        public void SetID(string id) => ID = id;
 
         public Entity AddComponent<TComponent>(TComponent component) where TComponent : class, IEntityComponent
         {
@@ -99,5 +98,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
 
             return this;
         }
+
+        public void SetID(string id = "") => ID = id;
     }
 }
