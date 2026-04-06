@@ -36,6 +36,9 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
             _monoEntitiesFactory.Create(entity, position, "Entities/Hero");
 
             entity
+                .AddRotationDirection(new ReactiveVariable<Vector3>())
+                .AddRotationSpeed(new ReactiveVariable<float>(900f))
+
                 .AddMaxHealth(new ReactiveVariable<float>(100f))
                 .AddCurrentHealth(new ReactiveVariable<float>(100f))
                 .AddIsDead()
@@ -120,12 +123,23 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
             _monoEntitiesFactory.Create(entity, position, "Entities/Ghost");
 
             entity
+                .AddMoveDirection()
+                .AddMoveSpeed(new ReactiveVariable<float>(10f))
+                .AddIsMoving()
+                .AddRotationDirection(new ReactiveVariable<Vector3>())
+                .AddRotationSpeed(new ReactiveVariable<float>(900f))
                 .AddMaxHealth(new ReactiveVariable<float>(100f))
                 .AddCurrentHealth(new ReactiveVariable<float>(100f))
                 .AddIsDead()
                 .AddInDeathProcess()
                 .AddTakeDamageRequest()
                 .AddTakeDamageEvent();
+
+            ICompositeCondition canMove = new CompositeCondition()
+                .Add(new FuncCondition(() => entity.IsDead.Value == false));
+
+            ICompositeCondition canRotate = new CompositeCondition()
+                .Add(new FuncCondition(() => entity.IsDead.Value == false));
 
             ICompositeCondition mustDie = new CompositeCondition()
                 .Add(new FuncCondition(() => entity.CurrentHealth.Value <= 0));
@@ -138,11 +152,15 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
                 .Add(new FuncCondition(() => entity.IsDead.Value == false));
 
             entity
+                .AddCanMove(canMove)
+                .AddCanRotate(canRotate)
                 .AddMustDie(mustDie)
                 .AddMustSelfRelease(mustSelfRelease)
                 .AddCanApplyDamage(canApplyDamage);
 
             entity
+                .AddSystem(new RigidbodyMovementSystem())
+                .AddSystem(new RigidbodyRotationSystem())
                 .AddSystem(new ApplyDamageSystem())
                 .AddSystem(new DeathSystem())
                 .AddSystem(new DisableCollidersOnDeathSystem())

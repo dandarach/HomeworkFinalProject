@@ -34,13 +34,14 @@ namespace Assets._Project.Develop.Runtime.Gameplay
             _brainsFactory.CreateMainHeroBrain(_entity, new NearestDamageableTargetSelector(_entity));
 
             _ghost = _entitiesFactory.CreateGhost(Vector3.zero + Vector3.forward * 5f, "Ghost1");
-            _entitiesFactory.CreateGhost(Vector3.zero + Vector3.back * 5f, "Ghost2");
-            _entitiesFactory.CreateGhost(Vector3.zero + Vector3.left * 5f, "Ghost3");
-            _entitiesFactory.CreateGhost(Vector3.zero + Vector3.right * 5f, "Ghost4");
-            _entitiesFactory.CreateGhost(Vector3.zero + Vector3.forward * 2.5f + Vector3.right * 2.5f, "Ghost5");
-            _entitiesFactory.CreateGhost(Vector3.zero + Vector3.forward * 2.5f + Vector3.left * 2.5f, "Ghost6");
-            _entitiesFactory.CreateGhost(Vector3.zero + Vector3.back * 2.5f + Vector3.right * 2.5f, "Ghost7");
-            _entitiesFactory.CreateGhost(Vector3.zero + Vector3.back * 2.5f + Vector3.left * 2.5f, "Ghost8");
+
+            //_entitiesFactory.CreateGhost(Vector3.zero + Vector3.back * 5f, "Ghost2");
+            //_entitiesFactory.CreateGhost(Vector3.zero + Vector3.left * 5f, "Ghost3");
+            //_entitiesFactory.CreateGhost(Vector3.zero + Vector3.right * 5f, "Ghost4");
+            //_entitiesFactory.CreateGhost(Vector3.zero + Vector3.forward * 2.5f + Vector3.right * 2.5f, "Ghost5");
+            //_entitiesFactory.CreateGhost(Vector3.zero + Vector3.forward * 2.5f + Vector3.left * 2.5f, "Ghost6");
+            //_entitiesFactory.CreateGhost(Vector3.zero + Vector3.back * 2.5f + Vector3.right * 2.5f, "Ghost7");
+            //_entitiesFactory.CreateGhost(Vector3.zero + Vector3.back * 2.5f + Vector3.left * 2.5f, "Ghost8");
 
             _isRunning = true;
         }
