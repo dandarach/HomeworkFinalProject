@@ -1,7 +1,5 @@
 ﻿using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Mono;
 using Assets._Project.Develop.Runtime.Gameplay.Features.ApplyDamage;
-using Assets._Project.Develop.Runtime.Gameplay.Features.Attack;
-using Assets._Project.Develop.Runtime.Gameplay.Features.Attack.Shoot;
 using Assets._Project.Develop.Runtime.Gameplay.Features.Energy;
 using Assets._Project.Develop.Runtime.Gameplay.Features.LifeCycle;
 using Assets._Project.Develop.Runtime.Gameplay.Features.MovementFeature;
@@ -59,7 +57,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
                 .AddStartTeleportationEvent()
                 .AddEndTeleportationEvent()
 
-                .AddContactsDetectingRadius(new ReactiveVariable<float>(13f))
+                .AddContactsDetectingRadius(new ReactiveVariable<float>(2f))
                 .AddDistanceDamage(new ReactiveVariable<float>(50))
                 .AddContactsDetectingMask(1 << LayerMask.NameToLayer("Characters"))
                 .AddContactCollidersBuffer(new Buffer<Collider>(64))
@@ -106,7 +104,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
                 .AddSystem(new EnergySystem())
 
                 .AddSystem(new SphereContactsDetectingSystem())
-                .AddSystem(new BodyContactsEntitiesFilterSystem(_collidersRegistryService))
+                .AddSystem(new SphereContactsEntitiesFilterSystem(_collidersRegistryService))
                 .AddSystem(new DealDamageOnDistanceSystem());
 
             _entitiesLifeContext.Add(entity);
@@ -129,11 +127,6 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
                 .AddTakeDamageRequest()
                 .AddTakeDamageEvent();
 
-                //.AddContactsDetectingMask(1 << LayerMask.NameToLayer("Characters"))
-                //.AddContactCollidersBuffer(new Buffer<Collider>(64))
-                //.AddContactEntitiesBuffer(new Buffer<Entity>(64))
-                //.AddBodyContactDamage(new ReactiveVariable<float>(50));
-
             ICompositeCondition mustDie = new CompositeCondition()
                 .Add(new FuncCondition(() => entity.CurrentHealth.Value <= 0));
 
@@ -150,10 +143,6 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
                 .AddCanApplyDamage(canApplyDamage);
 
             entity
-                //.AddSystem(new BodyContactsDetectingSystem())
-                //.AddSystem(new BodyContactsEntitiesFilterSystem(_collidersRegistryService))
-                //.AddSystem(new DealDamageOnContactSystem())
-
                 .AddSystem(new ApplyDamageSystem())
                 .AddSystem(new DeathSystem())
                 .AddSystem(new DisableCollidersOnDeathSystem())

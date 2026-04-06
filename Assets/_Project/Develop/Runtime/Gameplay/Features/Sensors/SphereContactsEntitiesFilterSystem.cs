@@ -1,18 +1,23 @@
-﻿using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore;
+﻿using System;
+using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore;
 using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Systems;
 using Assets._Project.Develop.Runtime.Utilities;
+using Assets._Project.Develop.Runtime.Utilities.Reactive;
 using UnityEngine;
 
 namespace Assets._Project.Develop.Runtime.Gameplay.Features.Sensors
 {
-    public class BodyContactsEntitiesFilterSystem : IInitializableSystem, IUpdatableSystem
+    public class SphereContactsEntitiesFilterSystem : IInitializableSystem, IDisposableSystem
     {
         private Buffer<Collider> _contacts;
         private Buffer<Entity> _contactsEntities;
-        
-        private readonly CollidersRegistryService _collidersRegistryService;
+        private ReactiveEvent _endTeleportationEvent;
 
-        public BodyContactsEntitiesFilterSystem(CollidersRegistryService collidersRegistryService)
+        private readonly CollidersRegistryService _collidersRegistryService;
+        
+        private IDisposable _endTeleportationDisposable;
+
+        public SphereContactsEntitiesFilterSystem(CollidersRegistryService collidersRegistryService)
         {
             _collidersRegistryService = collidersRegistryService;
         }
@@ -21,9 +26,17 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.Sensors
         {
             _contacts = entity.ContactCollidersBuffer;
             _contactsEntities = entity.ContactEntitiesBuffer;
+            _endTeleportationEvent = entity.EndTeleportationEvent;
+
+            _endTeleportationDisposable = _endTeleportationEvent.Subscribe(FilterContacts);
         }
 
-        public void OnUpdate(float deltaTime)
+        public void OnDispose()
+        {
+            _endTeleportationDisposable.Dispose();
+        }
+
+        private void FilterContacts()
         {
             _contactsEntities.Count = 0;
 

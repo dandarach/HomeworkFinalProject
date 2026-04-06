@@ -38,11 +38,10 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.ApplyDamage
             for (int i = 0;  i < _contacts.Count; i++)
             {
                 Entity contactEntity = _contacts.Items[i];
-                Debug.Log(contactEntity.ID);
 
                 if (contactEntity.HasComponent<TakeDamageRequest>())
                 {
-                    Debug.LogWarning($"DealDamageOnDistanceSystem. Apply {_damage.Value} damage to {contactEntity.ID}");
+                    //Debug.LogWarning($"DealDamageOnDistanceSystem. Apply {_damage.Value} damage to {contactEntity.ID}");
                     contactEntity.TakeDamageRequest.Invoke(_damage.Value);
                 }
             }
