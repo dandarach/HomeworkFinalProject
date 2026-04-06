@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using Assets._Project.Develop.Runtime.Meta.Features.Stats;
 using Assets._Project.Develop.Runtime.Infrastructure.DI;
+using Assets._Project.Develop.Runtime.Meta.Features.Stats;
 using Assets._Project.Develop.Runtime.Meta.Features.Wallet;
+using Assets._Project.Develop.Runtime.UI;
+using Assets._Project.Develop.Runtime.UI.Core;
 using Assets._Project.Develop.Runtime.Utilities.AssetsManagement;
 using Assets._Project.Develop.Runtime.Utilities.ConfigsManagement;
 using Assets._Project.Develop.Runtime.Utilities.CoroutinesManagement;
@@ -14,10 +16,9 @@ using Assets._Project.Develop.Runtime.Utilities.DataManagement.Serializers;
 using Assets._Project.Develop.Runtime.Utilities.LoadingScreen;
 using Assets._Project.Develop.Runtime.Utilities.Reactive;
 using Assets._Project.Develop.Runtime.Utilities.SceneManagement;
-using Assets._Project.Develop.Runtime.UI;
+using Assets._Project.Develop.Runtime.Utilities.Timer;
 using UnityEngine;
 using Object = UnityEngine.Object;
-using Assets._Project.Develop.Runtime.UI.Core;
 
 namespace Assets._Project.Develop.Runtime.Infrastructure.EntryPoint
 {
@@ -45,10 +46,20 @@ namespace Assets._Project.Develop.Runtime.Infrastructure.EntryPoint
             
             container.RegisterAsSingle(CreateViewsFactory);
 
+            container.RegisterAsSingle(CreateTimerServiceFactory);
+
             container.RegisterAsSingle(CreateGameplayProgressService).NonLazy();
+
+            //container.RegisterAsSingle(CreateLevelsProgressionService).NonLazy();
 
             container.RegisterAsSingle<ISaveLoadService>(CreateSaveLoadService);
         }
+
+        private static TimerServiceFactory CreateTimerServiceFactory(DIContainer c)
+            => new TimerServiceFactory(c);
+
+        //private static LevelsProgressionService CreateLevelsProgressionService(DIContainer c)
+        //    => new LevelsProgressionService(c.Resolve<PlayerDataProvider>());
 
         private static GameplayProgressService CreateGameplayProgressService(DIContainer c)
         {
