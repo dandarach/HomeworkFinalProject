@@ -34,7 +34,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.Teleportation
 
         private void OnTeleportEnd()
         {
-            Debug.Log($"Teleported to {_randomPosition.Value}");
+            //Debug.Log($"Teleported to {_randomPosition.Value}");
 
             _rigidbody.gameObject.SetActive(true);
             _rigidbody.transform.position = _randomPosition.Value;

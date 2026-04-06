@@ -68,7 +68,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
 
             _gameplayCycle?.Update();
 
-            _testGameplay.Update();
+            //_testGameplay.Update();
         }
     }
 }

@@ -1,9 +1,8 @@
 ﻿using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore;
 using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Systems;
 using Assets._Project.Develop.Runtime.Utilities.Conditions;
-using Assets._Project.Develop.Runtime.Utilities.Reactive;
 
-namespace Assets._Project.Develop.Runtime.Gameplay.Features.LyfeCycle
+namespace Assets._Project.Develop.Runtime.Gameplay.Features.LifeCycle
 {
     public class SelfReleaseSystem : IInitializableSystem, IUpdatableSystem
     {

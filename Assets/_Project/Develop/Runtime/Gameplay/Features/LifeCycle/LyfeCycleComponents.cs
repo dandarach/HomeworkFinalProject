@@ -4,7 +4,7 @@ using Assets._Project.Develop.Runtime.Utilities.Conditions;
 using Assets._Project.Develop.Runtime.Utilities.Reactive;
 using UnityEngine;
 
-namespace Assets._Project.Develop.Runtime.Gameplay.Features.LyfeCycle
+namespace Assets._Project.Develop.Runtime.Gameplay.Features.LifeCycle
 {
     public class CurrentHealth : IEntityComponent
     {
