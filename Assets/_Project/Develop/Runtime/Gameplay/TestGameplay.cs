@@ -29,11 +29,12 @@ namespace Assets._Project.Develop.Runtime.Gameplay
             Debug.LogWarning("*** TEST GAMEPLAY ***");
 
             _entity = _entitiesFactory.CreateHero(Vector3.zero, "Hero");
-            _entity.AddCurrentTarget();
+            //_entity.AddCurrentTarget();
             
-            _brainsFactory.CreateMainHeroBrain(_entity, new NearestDamageableTargetSelector(_entity));
+            _brainsFactory.CreateRandomTeleportationBrain(_entity);
+            //_brainsFactory.CreateMainHeroBrain(_entity, new NearestDamageableTargetSelector(_entity));
 
-            _ghost = _entitiesFactory.CreateGhost(Vector3.zero + Vector3.forward * 5f, "Ghost1");
+            //_ghost = _entitiesFactory.CreateGhost(Vector3.zero + Vector3.forward * 5f, "Ghost1");
 
             //_entitiesFactory.CreateGhost(Vector3.zero + Vector3.back * 5f, "Ghost2");
             //_entitiesFactory.CreateGhost(Vector3.zero + Vector3.left * 5f, "Ghost3");
@@ -50,15 +51,6 @@ namespace Assets._Project.Develop.Runtime.Gameplay
         {
             if (_isRunning == false)
                 return;
-
-            if (Input.GetKeyDown(KeyCode.Space))
-                _entity.StartTeleportationRequest.Invoke();
-
-            if (Input.GetKeyDown(KeyCode.F))
-                _entity.EndTeleportationEvent.Invoke();
-
-            if (Input.GetKeyDown(KeyCode.I))
-                _brainsFactory.CreateGhostBrain(_ghost);
         }
     }
 }
