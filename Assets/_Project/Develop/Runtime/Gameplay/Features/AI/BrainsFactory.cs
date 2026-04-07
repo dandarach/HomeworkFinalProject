@@ -88,25 +88,26 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.AI
             List<IDisposable> disposables = new();
 
             EmptyState idleState = new EmptyState();
-            RandomTeleportationState randomTeleportationState = new RandomTeleportationState(entity, 2f);
+            RandomTeleportationState randomTeleportationState = new RandomTeleportationState(entity,1f);
             
-            TimerService timerBetweenTeleportation = _timerServiceFactory.Create(2f);
-            disposables.Add(timerBetweenTeleportation);
-            disposables.Add(randomTeleportationState.Entered.Subscribe(timerBetweenTeleportation.Restart));
+            TimerService teleportationTimer = _timerServiceFactory.Create(5f);
+            disposables.Add(teleportationTimer);
+            disposables.Add(randomTeleportationState.Entered.Subscribe(teleportationTimer.Restart));
 
-            ICompositeCondition fromIdleToTeleportationCondition = new CompositeCondition()
-                .Add(new FuncCondition(() => timerBetweenTeleportation.IsOver))
-                .Add(entity.CanTeleport);
+            TimerService idleTimer = _timerServiceFactory.Create(3f);
+            disposables.Add(idleTimer);
+            disposables.Add(idleState.Entered.Subscribe(idleTimer.Restart));
 
-            FuncCondition fromTeleportationToIdleCondition = new FuncCondition(() => timerBetweenTeleportation.IsOver);
+            FuncCondition teleportationTimerEndedCondition = new FuncCondition(() => teleportationTimer.IsOver);
+            FuncCondition idleTimerEndedCondition = new FuncCondition(() => idleTimer.IsOver);
 
             AIStateMachine stateMachine = new AIStateMachine(disposables);
             
             stateMachine.AddState(idleState);
             stateMachine.AddState(randomTeleportationState);
 
-            stateMachine.AddTransition(idleState, randomTeleportationState, fromIdleToTeleportationCondition);
-            stateMachine.AddTransition(randomTeleportationState, idleState, fromTeleportationToIdleCondition);
+            stateMachine.AddTransition(idleState, randomTeleportationState, idleTimerEndedCondition);
+            stateMachine.AddTransition(randomTeleportationState, idleState, teleportationTimerEndedCondition);
 
             return stateMachine;
         }

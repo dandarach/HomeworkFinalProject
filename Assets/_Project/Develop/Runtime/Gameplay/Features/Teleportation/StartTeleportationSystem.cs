@@ -32,7 +32,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.Teleportation
             {
                 _inTeleportationProcess.Value = true;
                 _startTeleportationEvent.Invoke();
-                Debug.Log("Start teleportation");
+                //Debug.Log("Teleportation started");
             }
             else
             {

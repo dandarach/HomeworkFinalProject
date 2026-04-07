@@ -31,11 +31,6 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.AI.States
             _time = 0;
         }
 
-        public override void Exit()
-        {
-            base.Exit();
-        }
-
         public void Update(float deltaTime)
         {
             _time += deltaTime;

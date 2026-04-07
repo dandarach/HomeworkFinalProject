@@ -4,6 +4,7 @@ using Assets._Project.Develop.Runtime.Gameplay.Features.Energy;
 using Assets._Project.Develop.Runtime.Gameplay.Features.LifeCycle;
 using Assets._Project.Develop.Runtime.Gameplay.Features.MovementFeature;
 using Assets._Project.Develop.Runtime.Gameplay.Features.Sensors;
+using Assets._Project.Develop.Runtime.Gameplay.Features.Teleportation;
 using Assets._Project.Develop.Runtime.Infrastructure.DI;
 using Assets._Project.Develop.Runtime.Utilities;
 using Assets._Project.Develop.Runtime.Utilities.Conditions;
@@ -52,7 +53,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
                 .AddTeleportationRadius(new ReactiveVariable<float>(5f))
                 .AddRandomTeleportationPosition()
                 .AddRequiredEnergyForTeleportation(new ReactiveVariable<float>(15f))
-                .AddTeleportationProcessInitialTime(new ReactiveVariable<float>(0.5f))
+                .AddTeleportationProcessInitialTime(new ReactiveVariable<float>(0.25f))
                 .AddTeleportationProcessCurrentTime()
                 .AddInTeleportationProcess()
                 .AddStartTeleportationRequest()
@@ -103,7 +104,14 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
 
                 .AddSystem(new SphereContactsDetectingSystem())
                 .AddSystem(new SphereContactsEntitiesFilterSystem(_collidersRegistryService))
-                .AddSystem(new DealDamageOnDistanceSystem());
+                .AddSystem(new DealDamageOnDistanceSystem())
+
+                .AddSystem(new StartTeleportationSystem())
+                .AddSystem(new TeleportationProcessTimerSystem())
+                .AddSystem(new EndTeleportationSystem())
+                .AddSystem(new RandomMovementSystem())
+                .AddSystem(new TeleportRigidbodyMovementSystem())
+                .AddSystem(new EnergySystem());
 
             _entitiesLifeContext.Add(entity);
 

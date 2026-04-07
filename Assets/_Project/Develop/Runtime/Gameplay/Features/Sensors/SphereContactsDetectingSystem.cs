@@ -44,7 +44,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.Sensors
 
             RemoveSelfFromContacts();
             
-            Debug.Log($"SphereContactsDetectingSystem. Contacts detected: {_contacts.Count}");
+            //Debug.Log($"SphereContactsDetectingSystem. Contacts detected: {_contacts.Count}");
         }
 
         private void RemoveSelfFromContacts()
