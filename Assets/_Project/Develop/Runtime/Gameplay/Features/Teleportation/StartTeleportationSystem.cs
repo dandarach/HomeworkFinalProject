@@ -28,16 +28,20 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.Teleportation
 
         private void OnTeleportationRequest()
         {
+            Debug.LogWarning($"OnTeleportationRequest. _canStartTeleportation.Evaluate(): {_canStartTeleportation.Evaluate()}");
+
             if (_canStartTeleportation.Evaluate())
             {
                 _inTeleportationProcess.Value = true;
                 _startTeleportationEvent.Invoke();
-                //Debug.Log("Teleportation started");
+                Debug.Log("Teleportation started");
             }
             else
             {
                 Debug.LogWarning("Cannot teleport");
             }
+            
+            Debug.LogWarning($"OnTeleportationRequest. _inTeleportationProcess.Value = {_inTeleportationProcess.Value}");
         }
 
         public void OnDispose()

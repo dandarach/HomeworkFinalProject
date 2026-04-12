@@ -50,7 +50,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
                 .AddMaxEnergy(new ReactiveVariable<float>(100f))
                 .AddEnergyRefillInitialTime(new ReactiveVariable<float>(5f))
                 .AddEnergyRefillCurrentTime()
-                .AddTeleportationRadius(new ReactiveVariable<float>(5f))
+                //.AddTeleportationRadius(new ReactiveVariable<float>(5f))
                 .AddRandomTeleportationPosition()
                 .AddRequiredEnergyForTeleportation(new ReactiveVariable<float>(15f))
                 .AddTeleportationProcessInitialTime(new ReactiveVariable<float>(0.25f))
@@ -99,8 +99,6 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
                 .AddSystem(new DeathSystem())
                 .AddSystem(new DisableCollidersOnDeathSystem())
                 .AddSystem(new SelfReleaseSystem(_entitiesLifeContext))
-                .AddSystem(new RandomMovementSystem())
-                .AddSystem(new EnergySystem())
 
                 .AddSystem(new SphereContactsDetectingSystem())
                 .AddSystem(new SphereContactsEntitiesFilterSystem(_collidersRegistryService))
@@ -109,7 +107,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
                 .AddSystem(new StartTeleportationSystem())
                 .AddSystem(new TeleportationProcessTimerSystem())
                 .AddSystem(new EndTeleportationSystem())
-                .AddSystem(new RandomMovementSystem())
+                //.AddSystem(new RandomMovementSystem())
                 .AddSystem(new TeleportRigidbodyMovementSystem())
                 .AddSystem(new EnergySystem());
 

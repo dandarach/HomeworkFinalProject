@@ -2,6 +2,7 @@
 using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore;
 using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Systems;
 using Assets._Project.Develop.Runtime.Utilities.Reactive;
+using UnityEngine;
 
 namespace Assets._Project.Develop.Runtime.Gameplay.Features.Teleportation
 {
@@ -29,10 +30,15 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.Teleportation
 
         public void OnUpdate(float deltaTime)
         {
+            Debug.Log($"_inTeleportationProcess.Value: {_inTeleportationProcess.Value}");
+
             if (_inTeleportationProcess.Value == false)
                 return;
 
             _currentTime.Value += deltaTime;
+            
+            Debug.Log($"_currentTime.Value: {_currentTime.Value}");
+            //Debug.Log($"_inTeleportationProcess.Value: {_inTeleportationProcess.Value}");
         }
 
         public void OnDispose()

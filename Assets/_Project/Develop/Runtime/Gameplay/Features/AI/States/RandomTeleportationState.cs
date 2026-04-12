@@ -1,4 +1,6 @@
-﻿using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore;
+﻿using System;
+using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore;
+using Assets._Project.Develop.Runtime.Gameplay.Features.Teleportation;
 using Assets._Project.Develop.Runtime.Utilities.Conditions;
 using Assets._Project.Develop.Runtime.Utilities.Reactive;
 using Assets._Project.Develop.Runtime.Utilities.StateMachineCore;
@@ -9,37 +11,46 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.AI.States
     public class RandomTeleportationState : State, IUpdatableState
     {
         private readonly ReactiveEvent _startTeleportationRequest;
-        private readonly ICompositeCondition _startTeleportationCondition;
-
-        private float _cooldownBetweenTeleportation;
-        private float _time;
+        private readonly float _teleportationRadius;
+        
+        private ReactiveVariable<Vector3> _randomPosition;
 
         public RandomTeleportationState(
             Entity entity,
-            float cooldownBetweenTeleportation)
+            float teleportationRadius)
         {
             _startTeleportationRequest = entity.StartTeleportationRequest;
-            _startTeleportationCondition = entity.CanTeleport;
+            _randomPosition = entity.RandomTeleportationPosition;
 
-            _cooldownBetweenTeleportation = cooldownBetweenTeleportation;
+            _teleportationRadius = teleportationRadius;
         }
 
         public override void Enter()
         {
             base.Enter();
 
-            _time = 0;
+            Debug.Log($"RandomTeleportationState.Enter()");
+            UpdateRandomPosition();
+            _startTeleportationRequest?.Invoke();
+        }
+
+        public override void Exit()
+        {
+            base.Exit();
+
+            Debug.Log($"RandomTeleportationState.Exit()");
         }
 
         public void Update(float deltaTime)
         {
-            _time += deltaTime;
+        }
 
-            if (_time >= _cooldownBetweenTeleportation && _startTeleportationCondition.Evaluate())
-            {
-                _startTeleportationRequest?.Invoke();
-                _time = 0;
-            }
+        private void UpdateRandomPosition()
+        {
+            Vector3 randomPoint = UnityEngine.Random.insideUnitSphere * _teleportationRadius;
+            _randomPosition.Value = new Vector3(randomPoint.x, 0, randomPoint.y);
+
+            Debug.Log($"UpdateRandomPosition: {_randomPosition.Value}");
         }
     }
 }

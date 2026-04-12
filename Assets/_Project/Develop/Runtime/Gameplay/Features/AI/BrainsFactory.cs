@@ -88,18 +88,14 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.AI
             List<IDisposable> disposables = new();
 
             EmptyState idleState = new EmptyState();
-            RandomTeleportationState randomTeleportationState = new RandomTeleportationState(entity,1f);
+            RandomTeleportationState randomTeleportationState = new RandomTeleportationState(entity, 5f);
             
-            TimerService teleportationTimer = _timerServiceFactory.Create(5f);
-            disposables.Add(teleportationTimer);
-            disposables.Add(randomTeleportationState.Entered.Subscribe(teleportationTimer.Restart));
-
-            TimerService idleTimer = _timerServiceFactory.Create(3f);
+            TimerService idleTimer = _timerServiceFactory.Create(2f);
             disposables.Add(idleTimer);
-            disposables.Add(idleState.Entered.Subscribe(idleTimer.Restart));
+            disposables.Add(randomTeleportationState.Entered.Subscribe(idleTimer.Restart));
 
-            FuncCondition teleportationTimerEndedCondition = new FuncCondition(() => teleportationTimer.IsOver);
             FuncCondition idleTimerEndedCondition = new FuncCondition(() => idleTimer.IsOver);
+            FuncCondition teleportationEndedCondition = new FuncCondition(() => entity.InTeleportationProcess.Value == false);
 
             AIStateMachine stateMachine = new AIStateMachine(disposables);
             
@@ -107,7 +103,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.AI
             stateMachine.AddState(randomTeleportationState);
 
             stateMachine.AddTransition(idleState, randomTeleportationState, idleTimerEndedCondition);
-            stateMachine.AddTransition(randomTeleportationState, idleState, teleportationTimerEndedCondition);
+            stateMachine.AddTransition(randomTeleportationState, idleState, teleportationEndedCondition);
 
             return stateMachine;
         }
