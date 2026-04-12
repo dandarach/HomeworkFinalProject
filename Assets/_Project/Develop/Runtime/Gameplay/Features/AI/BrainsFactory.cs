@@ -86,6 +86,48 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.AI
             return brain;
         }
 
+        public AIStateMachine CreateTeleportationToTargetWithMinHealthStateMachine(
+            Entity entity,
+            ITargetSelector targetSelector)
+        {
+            RotateToTargetState rotateToTargetState = new RotateToTargetState(entity);
+            AttackTriggerState attackTriggerState = new AttackTriggerState(entity);
+
+            ICondition canAttack = entity.CanStartAttack;
+            Transform transform = entity.Transform;
+            ReactiveVariable<Entity> currentTarget = entity.CurrentTarget;
+
+            ICompositeCondition fromRotateToAttackCondition = new CompositeCondition()
+                .Add(canAttack)
+                .Add(new FuncCondition(() =>
+                {
+                    Entity target = currentTarget.Value;
+
+                    if (target == null)
+                        return false;
+
+                    float angleToTarget = Quaternion.Angle(
+                        transform.rotation,
+                        Quaternion.LookRotation(target.Transform.position - transform.position));
+
+                    return angleToTarget < 1f;
+                }));
+
+            ReactiveVariable<bool> inAttackProcess = entity.InAttackProcess;
+
+            ICondition fromAttackToRotateStateCondition = new FuncCondition(() => inAttackProcess.Value == false);
+
+            AIStateMachine stateMachine = new AIStateMachine();
+
+            stateMachine.AddState(rotateToTargetState);
+            stateMachine.AddState(attackTriggerState);
+
+            stateMachine.AddTransition(rotateToTargetState, attackTriggerState, fromRotateToAttackCondition);
+            stateMachine.AddTransition(attackTriggerState, rotateToTargetState, fromAttackToRotateStateCondition);
+
+            return stateMachine;
+        }
+
         private AIStateMachine CreateRandomTeleportationStateMachine(
             Entity entity,
             float teleportationCooldown,

@@ -12,7 +12,8 @@ namespace Assets._Project.Develop.Runtime.Gameplay
         private EntitiesFactory _entitiesFactory;
         private BrainsFactory _brainsFactory;
 
-        private Entity _entity;
+        private Entity _hero1;
+        private Entity _hero2;
         private Entity _ghost;
 
         private bool _isRunning;
@@ -28,11 +29,12 @@ namespace Assets._Project.Develop.Runtime.Gameplay
         {
             Debug.LogWarning("*** TEST GAMEPLAY ***");
 
-            _entity = _entitiesFactory.CreateHero(Vector3.zero, "Hero");
-            //_entity.AddCurrentTarget();
-            
-            _brainsFactory.CreateRandomTeleportationBrain(_entity, 2f, 5f);
-            //_brainsFactory.CreateMainHeroBrain(_entity, new NearestDamageableTargetSelector(_entity));
+            _hero1 = _entitiesFactory.CreateHero(Vector3.zero, "Hero1");
+            _brainsFactory.CreateRandomTeleportationBrain(_hero1, 2f, 5f);
+
+            _hero2 = _entitiesFactory.CreateHero(Vector3.zero + Vector3.back * 2f, "Hero2");
+            _hero2.AddCurrentTarget();
+            _brainsFactory.CreateRandomTeleportationToTargetBrain(_hero2, new MinimalHealthTargetSelector(_hero2));
 
             //_ghost = _entitiesFactory.CreateGhost(Vector3.zero + Vector3.forward * 5f, "Ghost1");
 
