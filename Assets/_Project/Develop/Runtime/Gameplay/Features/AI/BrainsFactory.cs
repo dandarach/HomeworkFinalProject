@@ -73,9 +73,12 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.AI
             return brain;
         }
 
-        public StateMachineBrain CreateRandomTeleportationBrain(Entity entity)
+        public StateMachineBrain CreateRandomTeleportationBrain(
+            Entity entity,
+            float teleportationCooldown,
+            float teleportationRadius)
         {
-            AIStateMachine stateMachine = CreateRandomTeleportationStateMachine(entity);
+            AIStateMachine stateMachine = CreateRandomTeleportationStateMachine(entity, teleportationCooldown, teleportationRadius);
             StateMachineBrain brain = new StateMachineBrain(stateMachine);
 
             _brainsContext.SetFor(entity, brain);
@@ -83,14 +86,17 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.AI
             return brain;
         }
 
-        private AIStateMachine CreateRandomTeleportationStateMachine(Entity entity)
+        private AIStateMachine CreateRandomTeleportationStateMachine(
+            Entity entity,
+            float teleportationCooldown,
+            float teleportationRadius)
         {
             List<IDisposable> disposables = new();
 
             EmptyState idleState = new EmptyState();
-            RandomTeleportationState randomTeleportationState = new RandomTeleportationState(entity, 5f);
+            RandomTeleportationState randomTeleportationState = new RandomTeleportationState(entity, teleportationRadius);
             
-            TimerService idleTimer = _timerServiceFactory.Create(2f);
+            TimerService idleTimer = _timerServiceFactory.Create(teleportationCooldown);
             disposables.Add(idleTimer);
             disposables.Add(randomTeleportationState.Entered.Subscribe(idleTimer.Restart));
 

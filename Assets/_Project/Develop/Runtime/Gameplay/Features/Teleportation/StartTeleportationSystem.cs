@@ -28,8 +28,6 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.Teleportation
 
         private void OnTeleportationRequest()
         {
-            Debug.LogWarning($"OnTeleportationRequest. _canStartTeleportation.Evaluate(): {_canStartTeleportation.Evaluate()}");
-
             if (_canStartTeleportation.Evaluate())
             {
                 _inTeleportationProcess.Value = true;
@@ -40,8 +38,6 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.Teleportation
             {
                 Debug.LogWarning("Cannot teleport");
             }
-            
-            Debug.LogWarning($"OnTeleportationRequest. _inTeleportationProcess.Value = {_inTeleportationProcess.Value}");
         }
 
         public void OnDispose()

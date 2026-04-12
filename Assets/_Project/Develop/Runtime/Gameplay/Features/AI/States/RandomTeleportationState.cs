@@ -49,8 +49,6 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.AI.States
         {
             Vector3 randomPoint = UnityEngine.Random.insideUnitSphere * _teleportationRadius;
             _randomPosition.Value = new Vector3(randomPoint.x, 0, randomPoint.y);
-
-            Debug.Log($"UpdateRandomPosition: {_randomPosition.Value}");
         }
     }
 }

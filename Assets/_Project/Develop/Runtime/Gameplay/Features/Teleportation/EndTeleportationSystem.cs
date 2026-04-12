@@ -27,16 +27,12 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.Teleportation
 
         private void OnTimerChanged(float arg1, float currentTime)
         {
-            Debug.Log($"currentTime = {currentTime} / {_teleportationProcessInitialTime.Value}");
-
             if (IsTimerDone(currentTime))
             {
                 _inTeleportationProcess.Value = false;
-                Debug.Log("Teleportation ended");
                 _endTeleportationEvent.Invoke();
+                Debug.Log("Teleportation ended");
             }
-
-            Debug.LogWarning($"_inTeleportationProcess.Value = {_inTeleportationProcess.Value}");
         }
 
         public void OnDispose()
