@@ -36,9 +36,10 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.AI
             ITargetSelector targetSelector)
         {
             //AIStateMachine teleportationStateMachine = CreateRandomTeleportationStateMachine(entity, teleportationCooldown, teleportationRadius);
+            
             AIStateMachine teleportationState = CreateTeleportationToTargetWithMinHealthStateMachine(entity);
-            //PlayerInputMovementState movementState = new PlayerInputMovementState(entity, _inputService);
-
+            //AIStateMachine teleportationState = CreateRandomTeleportationStateMachine(entity, 2f, 2f);
+            
             ReactiveVariable<Entity> currentTarget = entity.CurrentTarget;
 
             ICompositeCondition fromIdleToTeleportationStateCondition = new CompositeCondition()
@@ -141,7 +142,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.AI
 
             ICompositeCondition fromRotateToTeleportationCondition = new CompositeCondition()
                 .Add(canTeleport)
-                .Add(new FuncCondition(() => entity.CurrentEnergy.Value < entity.MaxEnergy.Value * 0.4f))
+                //.Add(new FuncCondition(() => entity.CurrentEnergy.Value < entity.MaxEnergy.Value * 0.4f))
                 .Add(new FuncCondition(() =>
                 {
                     Entity target = currentTarget.Value;
@@ -152,8 +153,8 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.AI
                     float angleToTarget = Quaternion.Angle(
                         transform.rotation,
                         Quaternion.LookRotation(target.Transform.position - transform.position));
-
-                    return angleToTarget < 1f;
+                    
+                    return angleToTarget > 1f;
                 }));
 
             ReactiveVariable<bool> inTeleportationProcess = entity.InTeleportationProcess;

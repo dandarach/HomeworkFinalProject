@@ -21,7 +21,11 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.AI.States
         public void Update(float deltaTime)
         {
             if (_currentTarget.Value != null)
+            {
                 _rotationDirection.Value = (_currentTarget.Value.Transform.position - _transform.position).normalized;
+                //Debug.Log($"_currentTarget = {_currentTarget.Value.ID}");
+                //Debug.Log($"_rotationDirection = {_rotationDirection.Value}");
+            }
         }
     }
 }
