@@ -29,13 +29,12 @@ namespace Assets._Project.Develop.Runtime.Gameplay
         {
             Debug.LogWarning("*** TEST GAMEPLAY ***");
 
-            _hero1 = _entitiesFactory.CreateHero(Vector3.zero, "Hero1");
-            _brainsFactory.CreateRandomTeleportationBrain(_hero1, 2f, 5f);
+            //_hero1 = _entitiesFactory.CreateHero(Vector3.zero, "Hero1");
+            //_brainsFactory.CreateRandomTeleportationBrain(_hero1, 2f, 5f);
 
             _hero2 = _entitiesFactory.CreateHero(Vector3.zero + Vector3.back * 2f, "Hero2");
             _hero2.AddCurrentTarget();
-            _brainsFactory.CreateRandomTeleportationBrain(_hero2, 1f, 2f);
-            //_brainsFactory.CreateRandomTeleportationToTargetBrain(_hero2, new MinimalHealthTargetSelector(_hero2));
+            _brainsFactory.CreateTeleportationToTragetWithMinHealthBrain(_hero2, new MinimalHealthTargetSelector(_hero2));
 
             //_ghost = _entitiesFactory.CreateGhost(Vector3.zero + Vector3.forward * 5f, "Ghost1");
 

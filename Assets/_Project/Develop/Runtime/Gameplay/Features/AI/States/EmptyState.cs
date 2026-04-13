@@ -9,14 +9,14 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.AI.States
         {
             base.Enter();
 
-            Debug.Log($"EmptyState.Enter()");
+            //Debug.Log($"EmptyState.Enter()");
         }
 
         public override void Exit()
         {
             base.Exit();
 
-            Debug.Log($"EmptyState.Exit()");
+            //Debug.Log($"EmptyState.Exit()");
         }
 
         public void Update(float deltaTime)

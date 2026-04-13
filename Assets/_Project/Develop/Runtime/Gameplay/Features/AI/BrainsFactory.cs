@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore;
 using Assets._Project.Develop.Runtime.Gameplay.Features.AI.States;
 using Assets._Project.Develop.Runtime.Gameplay.Features.InputFeature;
+using Assets._Project.Develop.Runtime.Gameplay.Features.Teleportation;
 using Assets._Project.Develop.Runtime.Infrastructure.DI;
 using Assets._Project.Develop.Runtime.Utilities.Conditions;
 using Assets._Project.Develop.Runtime.Utilities.Reactive;
@@ -26,6 +27,49 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.AI
             _brainsContext = _container.Resolve<AIBrainsContext>();
             _inputService = _container.Resolve<IInputService>();
             _entitiesLifeContext = _container.Resolve<EntitiesLifeContext>();
+        }
+
+        public StateMachineBrain CreateTeleportationToTragetWithMinHealthBrain(
+            Entity entity,
+            //float teleportationCooldown,
+            //float teleportationRadius,
+            ITargetSelector targetSelector)
+        {
+            //AIStateMachine teleportationStateMachine = CreateRandomTeleportationStateMachine(entity, teleportationCooldown, teleportationRadius);
+            AIStateMachine teleportationState = CreateTeleportationToTargetWithMinHealthStateMachine(entity);
+            //PlayerInputMovementState movementState = new PlayerInputMovementState(entity, _inputService);
+
+            ReactiveVariable<Entity> currentTarget = entity.CurrentTarget;
+
+            ICompositeCondition fromIdleToTeleportationStateCondition = new CompositeCondition()
+                .Add(new FuncCondition(() => currentTarget.Value != null));
+//                .Add(new FuncCondition(() => entity.CanTeleport.Evaluate() == true))
+//                .Add(new FuncCondition(() => entity.CurrentEnergy.Value >= entity.MaxEnergy.Value * 0.4f));
+
+            ICompositeCondition fromTeleportationToIdleStateCondition = new CompositeCondition(LogicOperations.Or)
+                .Add(new FuncCondition(() => currentTarget.Value == null));
+//                .Add(new FuncCondition(() => entity.CanTeleport.Evaluate() == false))
+//                .Add(new FuncCondition(() => entity.CurrentEnergy.Value < entity.MaxEnergy.Value * 0.4f));
+
+            //AIStateMachine behaviour = new AIStateMachine();
+
+            //behaviour.AddState(movementState);
+            //behaviour.AddState(combatState);
+
+            //behaviour.AddTransition(movementState, combatState, fromMovementToCombatStateCondition);
+            //behaviour.AddTransition(combatState, movementState, fromCombatToMovementStateCondition);
+
+            FindTargetState findTargetState = new FindTargetState(targetSelector, _entitiesLifeContext, entity);
+            //AIParallelState parallelState = new AIParallelState(findTargetState, behaviour);
+            AIParallelState parallelState = new AIParallelState(findTargetState, teleportationState);
+
+            AIStateMachine rootStateMachine = new AIStateMachine();
+            rootStateMachine.AddState(parallelState);
+
+            StateMachineBrain brain = new StateMachineBrain(rootStateMachine);
+            _brainsContext.SetFor(entity, brain);
+
+            return brain;
         }
 
         public StateMachineBrain CreateMainHeroBrain(Entity entity, ITargetSelector targetSelector)
@@ -86,19 +130,18 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.AI
             return brain;
         }
 
-        public AIStateMachine CreateTeleportationToTargetWithMinHealthStateMachine(
-            Entity entity,
-            ITargetSelector targetSelector)
+        public AIStateMachine CreateTeleportationToTargetWithMinHealthStateMachine(Entity entity)
         {
             RotateToTargetState rotateToTargetState = new RotateToTargetState(entity);
-            AttackTriggerState attackTriggerState = new AttackTriggerState(entity);
+            TeleportationTriggerState teleportationTriggerState = new TeleportationTriggerState(entity);
 
-            ICondition canAttack = entity.CanStartAttack;
+            ICondition canTeleport = entity.CanTeleport;
             Transform transform = entity.Transform;
             ReactiveVariable<Entity> currentTarget = entity.CurrentTarget;
 
-            ICompositeCondition fromRotateToAttackCondition = new CompositeCondition()
-                .Add(canAttack)
+            ICompositeCondition fromRotateToTeleportationCondition = new CompositeCondition()
+                .Add(canTeleport)
+                .Add(new FuncCondition(() => entity.CurrentEnergy.Value < entity.MaxEnergy.Value * 0.4f))
                 .Add(new FuncCondition(() =>
                 {
                     Entity target = currentTarget.Value;
@@ -113,17 +156,17 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.AI
                     return angleToTarget < 1f;
                 }));
 
-            ReactiveVariable<bool> inAttackProcess = entity.InAttackProcess;
+            ReactiveVariable<bool> inTeleportationProcess = entity.InTeleportationProcess;
 
-            ICondition fromAttackToRotateStateCondition = new FuncCondition(() => inAttackProcess.Value == false);
+            ICondition fromTeleportationToRotateStateCondition = new FuncCondition(() => inTeleportationProcess.Value == false);
 
             AIStateMachine stateMachine = new AIStateMachine();
 
             stateMachine.AddState(rotateToTargetState);
-            stateMachine.AddState(attackTriggerState);
+            stateMachine.AddState(teleportationTriggerState);
 
-            stateMachine.AddTransition(rotateToTargetState, attackTriggerState, fromRotateToAttackCondition);
-            stateMachine.AddTransition(attackTriggerState, rotateToTargetState, fromAttackToRotateStateCondition);
+            stateMachine.AddTransition(rotateToTargetState, teleportationTriggerState, fromRotateToTeleportationCondition);
+            stateMachine.AddTransition(teleportationTriggerState, rotateToTargetState, fromTeleportationToRotateStateCondition);
 
             return stateMachine;
         }

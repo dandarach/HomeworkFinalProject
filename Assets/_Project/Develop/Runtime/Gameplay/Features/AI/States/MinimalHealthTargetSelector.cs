@@ -4,7 +4,6 @@ using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore;
 using Assets._Project.Develop.Runtime.Gameplay.Features.ApplyDamage;
 using Assets._Project.Develop.Runtime.Utilities.Conditions;
 using UnityEngine;
-using static UnityEngine.EventSystems.EventTrigger;
 
 namespace Assets._Project.Develop.Runtime.Gameplay.Features.AI.States
 {
@@ -36,8 +35,8 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.AI.States
             if (selectedTargets.Any() == false)
                 return null;
 
-            Entity closestTarget = selectedTargets.First();
-            float minHealth = GetHeath(closestTarget);
+            Entity minHealthTarget = selectedTargets.First();
+            float minHealth = GetHeath(minHealthTarget);
 
             foreach (Entity target in selectedTargets)
             {
@@ -46,11 +45,11 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.AI.States
                 if (health < minHealth)
                 {
                     minHealth = health;
-                    closestTarget = target;
+                    minHealthTarget = target;
                 }
             }
             
-            return closestTarget;
+            return minHealthTarget;
         }
 
         private float GetHeath(Entity target) => target.CurrentHealth.Value;
