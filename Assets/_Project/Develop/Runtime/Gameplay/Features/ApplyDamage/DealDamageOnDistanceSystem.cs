@@ -31,7 +31,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.ApplyDamage
 
         private void ApplyDamage()
         {
-            Debug.Log($"DealDamageOnDistanceSystem. _contacts.Count = {_contacts.Count}");
+            //Debug.Log($"DealDamageOnDistanceSystem. _contacts.Count = {_contacts.Count}");
 
             for (int i = 0;  i < _contacts.Count; i++)
             {

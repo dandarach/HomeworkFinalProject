@@ -166,8 +166,8 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.AI
             Transform transform = entity.Transform;
 
             ICompositeCondition idleToTeleportationCondition = new CompositeCondition()
-                .Add(new FuncCondition(() => idleTimer.IsOver));
-                //.Add(new FuncCondition(() => entity.CurrentEnergy.Value >= entity.MaxEnergy.Value * 0.4f))
+                .Add(new FuncCondition(() => idleTimer.IsOver))
+                .Add(new FuncCondition(() => entity.CurrentEnergy.Value >= entity.MaxEnergy.Value * 0.4f));
                 //.Add(new FuncCondition(() =>
                 //{
                 //    Entity target = currentTarget.Value;
@@ -186,7 +186,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.AI
 
             ICompositeCondition fromCombatToMovementStateCondition = new CompositeCondition(LogicOperations.Or)
                 .Add(new FuncCondition(() => currentTarget.Value == null))
-                //.Add(new FuncCondition(() => entity.CurrentEnergy.Value >= entity.MaxEnergy.Value * 0.4f))
+                .Add(new FuncCondition(() => entity.CurrentEnergy.Value >= entity.MaxEnergy.Value * 0.4f))
                 .Add(new FuncCondition(() => entity.InTeleportationProcess.Value == false));
 
             AIStateMachine stateMachine = new AIStateMachine(disposables);

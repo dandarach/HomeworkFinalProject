@@ -30,7 +30,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.AI.States
         {
             base.Enter();
 
-            Debug.Log($"{_id} TeleportationToTargetState.Enter()");
+            //Debug.Log($"{_id} TeleportationToTargetState.Enter()");
             UpdatePosition();
             _startTeleportationRequest?.Invoke();
         }
@@ -39,7 +39,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.AI.States
         {
             base.Exit();
 
-            Debug.Log($"{_id} TeleportationToTargetState.Exit()");
+            //Debug.Log($"{_id} TeleportationToTargetState.Exit()");
         }
 
         public void Update(float deltaTime)
@@ -50,7 +50,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.AI.States
         {
             Entity target = _currentTarget.Value;
             _position.Value = CalculateTeleportPoint(_position.Value, target.Transform.position, _teleportationRadius);
-            Debug.Log($"{_id} TeleportationToTargetState.UpdatePosition: {_position.Value}");
+           // Debug.Log($"{_id} TeleportationToTargetState.UpdatePosition: {_position.Value}");
         }
 
         private Vector3 CalculateTeleportPoint(Vector3 position, Vector3 targetPosition, float teleportationRadius)

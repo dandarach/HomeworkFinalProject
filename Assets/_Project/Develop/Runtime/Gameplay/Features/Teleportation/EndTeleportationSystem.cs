@@ -14,6 +14,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.Teleportation
         private ReactiveVariable<float> _teleportationProcessCurrentTime;
 
         private IDisposable _timerDisposable;
+        private string _id = "";
 
         public void OnInit(Entity entity)
         {
@@ -21,6 +22,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.Teleportation
             _inTeleportationProcess = entity.InTeleportationProcess;
             _teleportationProcessInitialTime = entity.TeleportationProcessInitialTime;
             _teleportationProcessCurrentTime = entity.TeleportationProcessCurrentTime;
+            _id = entity.ID;
 
             _timerDisposable = _teleportationProcessCurrentTime.Subscribe(OnTimerChanged);
         }
@@ -31,7 +33,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.Teleportation
             {
                 _inTeleportationProcess.Value = false;
                 _endTeleportationEvent.Invoke();
-                Debug.Log("Teleportation ended");
+                //Debug.Log($"{_id} Teleportation ended");
             }
         }
 
