@@ -47,7 +47,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay
             _brainsFactory.CreateTeleportationToTragetWithMinHealthBrain(_hero2, 2f, 2f, new MinimalHealthTargetSelector(_hero2));
 
             _hero3 = _entitiesFactory.CreateHero(Vector3.zero + Vector3.forward * 2f, "Hero3");
-            //_brainsFactory.CreateMainHeroBrain(_hero3, new MinimalHealthTargetSelector(_hero3));
+            _brainsFactory.CreateMainHeroBrain(_hero3, new MinimalHealthTargetSelector(_hero3));
 
             _isRunning = true;
         }
