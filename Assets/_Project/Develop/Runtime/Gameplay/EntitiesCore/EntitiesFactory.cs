@@ -50,7 +50,6 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
                 .AddMaxEnergy(new ReactiveVariable<float>(100f))
                 .AddEnergyRefillInitialTime(new ReactiveVariable<float>(4f))
                 .AddEnergyRefillCurrentTime()
-                //.AddTeleportationRadius(new ReactiveVariable<float>(5f))
                 .AddTeleportationPosition()
                 .AddRequiredEnergyForTeleportation(new ReactiveVariable<float>(10f))
                 .AddTeleportationProcessInitialTime(new ReactiveVariable<float>(0.25f))
