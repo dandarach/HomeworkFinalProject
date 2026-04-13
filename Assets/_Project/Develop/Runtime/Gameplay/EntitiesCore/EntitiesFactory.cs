@@ -28,7 +28,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
             _monoEntitiesFactory = _container.Resolve<MonoEntitiesFactory>();
         }
 
-        public Entity CreateHero(Vector3 position, string id = "")
+        public Entity CreateHero(Vector3 position, string id = "", float health = 100f)
         {
             Entity entity = CreateEmpty();
             entity.SetID(id);
@@ -39,8 +39,8 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
                 .AddRotationDirection(new ReactiveVariable<Vector3>())
                 .AddRotationSpeed(new ReactiveVariable<float>(900f))
 
-                .AddMaxHealth(new ReactiveVariable<float>(100f))
-                .AddCurrentHealth(new ReactiveVariable<float>(100f))
+                .AddMaxHealth(new ReactiveVariable<float>(health))
+                .AddCurrentHealth(new ReactiveVariable<float>(entity.MaxHealth.Value))
                 .AddIsDead()
                 .AddInDeathProcess()
                 .AddTakeDamageRequest()
@@ -95,10 +95,10 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
                 .AddCanRefillEnergy(canRefillEnergy);
 
             entity
-                .AddSystem(new ApplyDamageSystem())
-                .AddSystem(new DeathSystem())
-                .AddSystem(new DisableCollidersOnDeathSystem())
-                .AddSystem(new SelfReleaseSystem(_entitiesLifeContext))
+                //.AddSystem(new ApplyDamageSystem())
+                //.AddSystem(new DeathSystem())
+                //.AddSystem(new DisableCollidersOnDeathSystem())
+                //.AddSystem(new SelfReleaseSystem(_entitiesLifeContext))
 
                 .AddSystem(new SphereContactsDetectingSystem())
                 .AddSystem(new SphereContactsEntitiesFilterSystem(_collidersRegistryService))
@@ -116,7 +116,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
             return entity;
         }
 
-        public Entity CreateGhost(Vector3 position, string id = "")
+        public Entity CreateGhost(Vector3 position, string id = "", float health = 100f)
         {
             Entity entity = CreateEmpty();
             entity.SetID(id);
@@ -129,8 +129,8 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
                 .AddIsMoving()
                 .AddRotationDirection(new ReactiveVariable<Vector3>())
                 .AddRotationSpeed(new ReactiveVariable<float>(900f))
-                .AddMaxHealth(new ReactiveVariable<float>(100f))
-                .AddCurrentHealth(new ReactiveVariable<float>(100f))
+                .AddMaxHealth(new ReactiveVariable<float>(health))
+                .AddCurrentHealth(new ReactiveVariable<float>(entity.MaxHealth.Value))
                 .AddIsDead()
                 .AddInDeathProcess()
                 .AddTakeDamageRequest()

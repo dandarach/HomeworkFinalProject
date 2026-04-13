@@ -30,18 +30,18 @@ namespace Assets._Project.Develop.Runtime.Gameplay
             Debug.LogWarning("*** TEST GAMEPLAY ***");
 
             //_hero1 = _entitiesFactory.CreateHero(Vector3.zero, "Hero1");
-            //_brainsFactory.CreateRandomTeleportationBrain(_hero1, 2f, 5f);
+            //_brainsFactory.CreateRandomTeleportationBrain(_hero1, 3f, 5f);
 
             _hero2 = _entitiesFactory.CreateHero(Vector3.zero + Vector3.back * 2f, "Hero2");
             _hero2.AddCurrentTarget();
-            _brainsFactory.CreateTeleportationToTragetWithMinHealthBrain(_hero2, new MinimalHealthTargetSelector(_hero2));
+            _brainsFactory.CreateTeleportationToTragetWithMinHealthBrain(_hero2, 2f, 2f, new MinimalHealthTargetSelector(_hero2));
 
-            _entitiesFactory.CreateGhost(Vector3.zero + Vector3.forward * 2.5f + Vector3.right * 2.5f, "Ghost1");
-            _entitiesFactory.CreateGhost(Vector3.zero + Vector3.forward * 5f, "Ghost5");
-            _entitiesFactory.CreateGhost(Vector3.zero + Vector3.back * 5f, "Ghost2");
-            _entitiesFactory.CreateGhost(Vector3.zero + Vector3.left * 5f, "Ghost3");
-            _entitiesFactory.CreateGhost(Vector3.zero + Vector3.right * 5f, "Ghost4");
-            _entitiesFactory.CreateGhost(Vector3.zero + Vector3.forward * 2.5f + Vector3.left * 2.5f, "Ghost6");
+            _entitiesFactory.CreateGhost(Vector3.zero + Vector3.forward * 2.5f + Vector3.right * 2.5f, "Ghost1", 50f);
+            _entitiesFactory.CreateGhost(Vector3.zero + Vector3.forward * 5f, "Ghost5", 100f);
+            _entitiesFactory.CreateGhost(Vector3.zero + Vector3.back * 5f, "Ghost2", 90f);
+            _entitiesFactory.CreateGhost(Vector3.zero + Vector3.left * 5f, "Ghost3", 80f);
+            _entitiesFactory.CreateGhost(Vector3.zero + Vector3.right * 5f, "Ghost4", 70f);
+            _entitiesFactory.CreateGhost(Vector3.zero + Vector3.forward * 2.5f + Vector3.left * 2.5f, "Ghost6", 60f);
             _entitiesFactory.CreateGhost(Vector3.zero + Vector3.back * 2.5f + Vector3.right * 2.5f, "Ghost7");
             _entitiesFactory.CreateGhost(Vector3.zero + Vector3.back * 2.5f + Vector3.left * 2.5f, "Ghost8");
 
