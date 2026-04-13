@@ -51,7 +51,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
                 .AddEnergyRefillInitialTime(new ReactiveVariable<float>(5f))
                 .AddEnergyRefillCurrentTime()
                 //.AddTeleportationRadius(new ReactiveVariable<float>(5f))
-                .AddRandomTeleportationPosition()
+                .AddTeleportationPosition()
                 .AddRequiredEnergyForTeleportation(new ReactiveVariable<float>(15f))
                 .AddTeleportationProcessInitialTime(new ReactiveVariable<float>(0.25f))
                 .AddTeleportationProcessCurrentTime()

@@ -17,7 +17,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.MovementFeature
         public void OnInit(Entity entity)
         {
             _startTeleportationEvent = entity.StartTeleportationEvent;
-            _randomPosition = entity.RandomTeleportationPosition;
+            _randomPosition = entity.TeleportationPosition;
             _teleportationRadius = entity.TeleportationRadius;
             _teleportationStartDisposable = _startTeleportationEvent.Subscribe(OnTeleportStart);
         }

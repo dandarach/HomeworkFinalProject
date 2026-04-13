@@ -36,10 +36,10 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.AI
             ITargetSelector targetSelector)
         {
             //AIStateMachine teleportationStateMachine = CreateRandomTeleportationStateMachine(entity, teleportationCooldown, teleportationRadius);
-            
-            AIStateMachine teleportationState = CreateTeleportationToTargetWithMinHealthStateMachine(entity);
-            //AIStateMachine teleportationState = CreateRandomTeleportationStateMachine(entity, 2f, 2f);
-            
+            RotateToTargetState rotateToTargetState = new RotateToTargetState(entity);
+            //AIStateMachine stateMachine = CreateRandomTeleportationStateMachine(entity, teleportationCooldown, teleportationRadius);
+            AIStateMachine teleportationState = CreateRandomTeleportationStateMachine(entity, 2f, 2f);
+
             ReactiveVariable<Entity> currentTarget = entity.CurrentTarget;
 
             ICompositeCondition fromIdleToTeleportationStateCondition = new CompositeCondition()
@@ -52,17 +52,9 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.AI
 //                .Add(new FuncCondition(() => entity.CanTeleport.Evaluate() == false))
 //                .Add(new FuncCondition(() => entity.CurrentEnergy.Value < entity.MaxEnergy.Value * 0.4f));
 
-            //AIStateMachine behaviour = new AIStateMachine();
-
-            //behaviour.AddState(movementState);
-            //behaviour.AddState(combatState);
-
-            //behaviour.AddTransition(movementState, combatState, fromMovementToCombatStateCondition);
-            //behaviour.AddTransition(combatState, movementState, fromCombatToMovementStateCondition);
 
             FindTargetState findTargetState = new FindTargetState(targetSelector, _entitiesLifeContext, entity);
-            //AIParallelState parallelState = new AIParallelState(findTargetState, behaviour);
-            AIParallelState parallelState = new AIParallelState(findTargetState, teleportationState);
+            AIParallelState parallelState = new AIParallelState(findTargetState, rotateToTargetState, teleportationState);
 
             AIStateMachine rootStateMachine = new AIStateMachine();
             rootStateMachine.AddState(parallelState);
@@ -180,7 +172,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.AI
             List<IDisposable> disposables = new();
 
             EmptyState idleState = new EmptyState();
-            RandomTeleportationState randomTeleportationState = new RandomTeleportationState(entity, teleportationRadius);
+            TeleportationToMinHealthTargetState randomTeleportationState = new TeleportationToMinHealthTargetState(entity, teleportationRadius);
             
             TimerService idleTimer = _timerServiceFactory.Create(teleportationCooldown);
             disposables.Add(idleTimer);

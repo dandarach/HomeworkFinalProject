@@ -21,7 +21,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.Teleportation
             _startTeleportationEvent = entity.StartTeleportationEvent;
             _endTeleportationEvent = entity.EndTeleportationEvent;
             _rigidbody = entity.Rigidbody;
-            _randomPosition = entity.RandomTeleportationPosition;
+            _randomPosition = entity.TeleportationPosition;
 
             _teleportationStartDisposable = _startTeleportationEvent.Subscribe(OnTeleportStart);
             _teleportationEndDisposable = _endTeleportationEvent.Subscribe(OnTeleportEnd);

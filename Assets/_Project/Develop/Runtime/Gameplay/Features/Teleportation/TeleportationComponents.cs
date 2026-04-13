@@ -19,6 +19,11 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.Teleportation
     {
         public ReactiveVariable<Vector3> Value;
     }
+
+    public class TeleportationPosition : IEntityComponent
+    {
+        public ReactiveVariable<Vector3> Value;
+    }
     
     public class CanTeleport : IEntityComponent
     {

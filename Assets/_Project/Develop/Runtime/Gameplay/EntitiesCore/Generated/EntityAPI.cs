@@ -74,6 +74,30 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
 			return AddComponent(new Assets._Project.Develop.Runtime.Gameplay.Features.Teleportation.RandomTeleportationPosition() { Value = value });
 		}
 
+		public Assets._Project.Develop.Runtime.Gameplay.Features.Teleportation.TeleportationPosition TeleportationPositionC => GetComponent<Assets._Project.Develop.Runtime.Gameplay.Features.Teleportation.TeleportationPosition>();
+
+		public Assets._Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<UnityEngine.Vector3> TeleportationPosition => TeleportationPositionC.Value;
+
+		public bool TryGetTeleportationPosition(out Assets._Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<UnityEngine.Vector3> value)
+		{
+			bool result = TryGetComponent(out Assets._Project.Develop.Runtime.Gameplay.Features.Teleportation.TeleportationPosition component);
+			if (result)
+				value = component.Value;
+			else
+				value = default(Assets._Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<UnityEngine.Vector3>);
+			return result;
+		}
+
+		public Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Entity AddTeleportationPosition()
+		{
+			return AddComponent(new Assets._Project.Develop.Runtime.Gameplay.Features.Teleportation.TeleportationPosition() { Value = new Assets._Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<UnityEngine.Vector3>() });
+		}
+
+		public Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Entity AddTeleportationPosition(Assets._Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<UnityEngine.Vector3> value)
+		{
+			return AddComponent(new Assets._Project.Develop.Runtime.Gameplay.Features.Teleportation.TeleportationPosition() { Value = value });
+		}
+
 		public Assets._Project.Develop.Runtime.Gameplay.Features.Teleportation.CanTeleport CanTeleportC => GetComponent<Assets._Project.Develop.Runtime.Gameplay.Features.Teleportation.CanTeleport>();
 
 		public Assets._Project.Develop.Runtime.Utilities.Conditions.ICompositeCondition CanTeleport => CanTeleportC.Value;
