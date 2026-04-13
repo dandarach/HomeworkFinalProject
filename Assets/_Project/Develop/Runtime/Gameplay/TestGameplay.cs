@@ -34,7 +34,8 @@ namespace Assets._Project.Develop.Runtime.Gameplay
 
             _hero2 = _entitiesFactory.CreateHero(Vector3.zero + Vector3.back * 2f, "Hero2");
             _hero2.AddCurrentTarget();
-            _brainsFactory.CreateRandomTeleportationToTargetBrain(_hero2, new MinimalHealthTargetSelector(_hero2));
+            _brainsFactory.CreateRandomTeleportationBrain(_hero2, 1f, 2f);
+            //_brainsFactory.CreateRandomTeleportationToTargetBrain(_hero2, new MinimalHealthTargetSelector(_hero2));
 
             //_ghost = _entitiesFactory.CreateGhost(Vector3.zero + Vector3.forward * 5f, "Ghost1");
 
@@ -53,6 +54,13 @@ namespace Assets._Project.Develop.Runtime.Gameplay
         {
             if (_isRunning == false)
                 return;
+
+            //if (Input.GetKeyDown(KeyCode.Alpha1))
+            //    _brainsFactory.CreateRandomTeleportationBrain(_hero1, 2f, 5f);
+
+            //if (Input.GetKeyDown(KeyCode.Alpha2))
+            //    _brainsFactory.CreateRandomTeleportationBrain(_hero1, 1f, 2f);
+
         }
     }
 }

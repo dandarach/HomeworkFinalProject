@@ -18,6 +18,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.Energy
         private ICompositeCondition _canRefillEnergy;
 
         private IDisposable _teleportationEndDisposable;
+        private string _id;
 
         public void OnInit(Entity entity)
         {
@@ -28,6 +29,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.Energy
             _refillCurrentTime = entity.EnergyRefillCurrentTime;
             _refillInitialTime = entity.EnergyRefillInitialTime;
             _canRefillEnergy = entity.CanRefillEnergy;
+            _id = entity.ID;
 
             _refillCurrentTime.Value = _refillInitialTime.Value;
 
@@ -50,7 +52,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.Energy
             _currentEnergy.Value -= _requiredEnergyForTeleportation.Value;
             _currentEnergy.Value = Mathf.Max(_currentEnergy.Value, 0);
 
-            Debug.Log($"Wasted {_requiredEnergyForTeleportation.Value} energy. Current energy: {_currentEnergy.Value}");
+            Debug.Log($"{_id} Wasted {_requiredEnergyForTeleportation.Value} energy. Current energy: {_currentEnergy.Value}");
         }
 
         private void RefillEnergy()
@@ -58,7 +60,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.Energy
             _currentEnergy.Value += _maxEnergy.Value / 10;
             _currentEnergy.Value = Mathf.Min(_currentEnergy.Value, _maxEnergy.Value);
 
-            Debug.Log($"Refilled {_maxEnergy.Value / 10} energy. Current energy: {_currentEnergy.Value}");
+            Debug.Log($"{_id} Refilled {_maxEnergy.Value / 10} energy. Current energy: {_currentEnergy.Value}");
             
             _refillCurrentTime.Value = _refillInitialTime.Value;
         }

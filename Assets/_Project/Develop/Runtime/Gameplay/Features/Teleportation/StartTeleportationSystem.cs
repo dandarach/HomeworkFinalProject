@@ -15,6 +15,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.Teleportation
         private ICompositeCondition _canStartTeleportation;
 
         private IDisposable _teleportationRequestDispose;
+        private string _id = "";
 
         public void OnInit(Entity entity)
         {
@@ -22,6 +23,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.Teleportation
             _startTeleportationEvent = entity.StartTeleportationEvent;
             _inTeleportationProcess = entity.InTeleportationProcess;
             _canStartTeleportation = entity.CanTeleport;
+            _id = entity.ID;
 
             _teleportationRequestDispose = _startTeleportationRequest.Subscribe(OnTeleportationRequest);
         }
@@ -32,11 +34,11 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.Teleportation
             {
                 _inTeleportationProcess.Value = true;
                 _startTeleportationEvent.Invoke();
-                Debug.Log("Teleportation started");
+                Debug.Log($"{_id} Teleportation started");
             }
             else
             {
-                Debug.LogWarning("Cannot teleport");
+                Debug.LogWarning($"{_id} Cannot teleport");
             }
         }
 

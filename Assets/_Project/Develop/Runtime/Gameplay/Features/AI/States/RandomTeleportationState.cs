@@ -14,6 +14,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.AI.States
         private readonly float _teleportationRadius;
         
         private ReactiveVariable<Vector3> _randomPosition;
+        private string _id = "";
 
         public RandomTeleportationState(
             Entity entity,
@@ -21,6 +22,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.AI.States
         {
             _startTeleportationRequest = entity.StartTeleportationRequest;
             _randomPosition = entity.RandomTeleportationPosition;
+            _id = entity.ID;
 
             _teleportationRadius = teleportationRadius;
         }
@@ -29,7 +31,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.AI.States
         {
             base.Enter();
 
-            Debug.Log($"RandomTeleportationState.Enter()");
+            Debug.Log($"{_id} RandomTeleportationState.Enter()");
             UpdateRandomPosition();
             _startTeleportationRequest?.Invoke();
         }
@@ -38,7 +40,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.AI.States
         {
             base.Exit();
 
-            Debug.Log($"RandomTeleportationState.Exit()");
+            Debug.Log($"{_id} RandomTeleportationState.Exit()");
         }
 
         public void Update(float deltaTime)
