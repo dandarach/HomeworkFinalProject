@@ -76,6 +76,9 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
             ICompositeCondition canApplyDamage = new CompositeCondition()
                 .Add(new FuncCondition(() => entity.IsDead.Value == false));
 
+            ICompositeCondition canRotate = new CompositeCondition()
+                .Add(new FuncCondition(() => entity.IsDead.Value == false));
+
             ICompositeCondition canStartTeleport = new CompositeCondition()
                 .Add(new FuncCondition(() => entity.IsDead.Value == false))
                 .Add(new FuncCondition(() => entity.CurrentEnergy.Value >= entity.RequiredEnergyForTeleportation.Value))
@@ -90,6 +93,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
                 .AddMustDie(mustDie)
                 .AddMustSelfRelease(mustSelfRelease)
                 .AddCanApplyDamage(canApplyDamage)
+                .AddCanRotate(canRotate)
                 .AddCanTeleport(canStartTeleport)
                 .AddCanRefillEnergy(canRefillEnergy);
 
@@ -98,6 +102,8 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
                 //.AddSystem(new DeathSystem())
                 //.AddSystem(new DisableCollidersOnDeathSystem())
                 //.AddSystem(new SelfReleaseSystem(_entitiesLifeContext))
+                
+                .AddSystem(new RigidbodyRotationSystem())
 
                 .AddSystem(new SphereContactsDetectingSystem())
                 .AddSystem(new SphereContactsEntitiesFilterSystem(_collidersRegistryService))

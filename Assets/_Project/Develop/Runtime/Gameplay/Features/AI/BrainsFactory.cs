@@ -35,19 +35,8 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.AI
             float teleportationRadius,
             ITargetSelector targetSelector)
         {
-            RotateToTargetState rotateToTargetState = new RotateToTargetState(entity);
+            //RotateToTargetState rotateToTargetState = new RotateToTargetState(entity);
             AIStateMachine teleportationState = CreateTeleportationToTragetStateMachine(entity, teleportationCooldown, teleportationRadius);
-
-            //ICompositeCondition fromIdleToTeleportationStateCondition = new CompositeCondition()
-            //    .Add(canTeleport)
-            //    .Add(new FuncCondition(() => currentTarget.Value != null))
-            //    .Add(new FuncCondition(() => entity.CurrentEnergy.Value >= entity.MaxEnergy.Value * 0.4f));
-
-            //ICompositeCondition fromTeleportationToIdleStateCondition = new CompositeCondition(LogicOperations.Or)
-            //    .Add(new FuncCondition(() => currentTarget.Value == null));
-            //    //.Add(canTeleport)
-            //    //.Add(new FuncCondition(() => entity.CurrentEnergy.Value < entity.MaxEnergy.Value * 0.4f));
-
 
             FindTargetState findTargetState = new FindTargetState(targetSelector, _entitiesLifeContext, entity);
             AIParallelState parallelState = new AIParallelState(findTargetState, teleportationState);
@@ -154,7 +143,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.AI
         {
             List<IDisposable> disposables = new();
 
-            EmptyState idleState = new EmptyState();
+            RotateToTargetState rotateToTargetState = new RotateToTargetState(entity);
             TeleportationToTargetState randomTeleportationState = new TeleportationToTargetState(entity, teleportationRadius);
             
             TimerService idleTimer = _timerServiceFactory.Create(teleportationCooldown);
@@ -168,19 +157,6 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.AI
             ICompositeCondition idleToTeleportationCondition = new CompositeCondition()
                 .Add(new FuncCondition(() => idleTimer.IsOver))
                 .Add(new FuncCondition(() => entity.CurrentEnergy.Value >= entity.MaxEnergy.Value * 0.4f));
-                //.Add(new FuncCondition(() =>
-                //{
-                //    Entity target = currentTarget.Value;
-
-                //    if (target == null)
-                //        return false;
-
-                //    float angleToTarget = Quaternion.Angle(
-                //        transform.rotation,
-                //        Quaternion.LookRotation(target.Transform.position - transform.position));
-
-                //    return angleToTarget > 1f;
-                //}));
 
             FuncCondition teleportationToIdleCondition = new FuncCondition(() => entity.InTeleportationProcess.Value == false);
 
@@ -191,11 +167,11 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.AI
 
             AIStateMachine stateMachine = new AIStateMachine(disposables);
             
-            stateMachine.AddState(idleState);
+            stateMachine.AddState(rotateToTargetState);
             stateMachine.AddState(randomTeleportationState);
 
-            stateMachine.AddTransition(idleState, randomTeleportationState, idleToTeleportationCondition);
-            stateMachine.AddTransition(randomTeleportationState, idleState, teleportationToIdleCondition);
+            stateMachine.AddTransition(rotateToTargetState, randomTeleportationState, idleToTeleportationCondition);
+            stateMachine.AddTransition(randomTeleportationState, rotateToTargetState, teleportationToIdleCondition);
 
             return stateMachine;
         }
