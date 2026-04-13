@@ -29,8 +29,8 @@ namespace Assets._Project.Develop.Runtime.Gameplay
         {
             Debug.LogWarning("*** TEST GAMEPLAY ***");
 
-            //_hero1 = _entitiesFactory.CreateHero(Vector3.zero, "Hero1");
-            //_brainsFactory.CreateRandomTeleportationBrain(_hero1, 3f, 5f);
+            _hero1 = _entitiesFactory.CreateHero(Vector3.zero, "Hero1");
+            _brainsFactory.CreateRandomTeleportationBrain(_hero1, 3f, 5f);
 
             _hero2 = _entitiesFactory.CreateHero(Vector3.zero + Vector3.back * 2f, "Hero2");
             _hero2.AddCurrentTarget();

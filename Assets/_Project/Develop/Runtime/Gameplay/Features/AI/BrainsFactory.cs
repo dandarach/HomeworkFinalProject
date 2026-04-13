@@ -35,7 +35,6 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.AI
             float teleportationRadius,
             ITargetSelector targetSelector)
         {
-            //RotateToTargetState rotateToTargetState = new RotateToTargetState(entity);
             AIStateMachine teleportationState = CreateTeleportationToTragetStateMachine(entity, teleportationCooldown, teleportationRadius);
 
             FindTargetState findTargetState = new FindTargetState(targetSelector, _entitiesLifeContext, entity);
