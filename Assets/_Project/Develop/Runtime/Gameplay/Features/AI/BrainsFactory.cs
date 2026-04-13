@@ -172,7 +172,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.AI
             List<IDisposable> disposables = new();
 
             EmptyState idleState = new EmptyState();
-            TeleportationToMinHealthTargetState randomTeleportationState = new TeleportationToMinHealthTargetState(entity, teleportationRadius);
+            TeleportationToTargetState randomTeleportationState = new TeleportationToTargetState(entity, teleportationRadius);
             
             TimerService idleTimer = _timerServiceFactory.Create(teleportationCooldown);
             disposables.Add(idleTimer);
