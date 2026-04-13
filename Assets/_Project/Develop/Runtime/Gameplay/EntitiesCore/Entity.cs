@@ -70,7 +70,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
         public TComponent GetComponent<TComponent>() where TComponent : class, IEntityComponent
         {
             if (TryGetComponent(out TComponent component) == false)
-                throw new ArgumentException($"Entity doesn't exist {typeof(TComponent)}");
+                throw new ArgumentException($"Entity {ID} doesn't exist {typeof(TComponent)}");
 
             return component;
         }

@@ -56,6 +56,8 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.AI
 
             ReactiveVariable<Entity> currentTarget = entity.CurrentTarget;
 
+            Debug.LogWarning($"{entity.ID} currentTarget = {currentTarget.Value.ID}");
+
             ICompositeCondition fromMovementToCombatStateCondition = new CompositeCondition()
                 .Add(new FuncCondition(() => currentTarget.Value != null))
                 .Add(new FuncCondition(() => _inputService.Direction == Vector3.zero));

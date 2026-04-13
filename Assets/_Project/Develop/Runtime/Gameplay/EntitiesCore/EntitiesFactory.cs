@@ -36,6 +36,9 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
             _monoEntitiesFactory.Create(entity, position, "Entities/Hero");
 
             entity
+                .AddMoveDirection()
+                .AddMoveSpeed(new ReactiveVariable<float>(10f))
+                .AddIsMoving()
                 .AddRotationDirection(new ReactiveVariable<Vector3>())
                 .AddRotationSpeed(new ReactiveVariable<float>(900f))
 
@@ -50,8 +53,9 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
                 .AddMaxEnergy(new ReactiveVariable<float>(100f))
                 .AddEnergyRefillInitialTime(new ReactiveVariable<float>(4f))
                 .AddEnergyRefillCurrentTime()
-                .AddTeleportationPosition()
                 .AddRequiredEnergyForTeleportation(new ReactiveVariable<float>(10f))
+
+                .AddTeleportationPosition()
                 .AddTeleportationProcessInitialTime(new ReactiveVariable<float>(0.25f))
                 .AddTeleportationProcessCurrentTime()
                 .AddInTeleportationProcess()
@@ -66,6 +70,12 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
                 .AddContactEntitiesBuffer(new Buffer<Entity>(64));
 
 
+            ICompositeCondition canMove = new CompositeCondition()
+                .Add(new FuncCondition(() => entity.IsDead.Value == false));
+
+            ICompositeCondition canRotate = new CompositeCondition()
+                .Add(new FuncCondition(() => entity.IsDead.Value == false));
+
             ICompositeCondition mustDie = new CompositeCondition()
                 .Add(new FuncCondition(() => entity.CurrentHealth.Value <= 0));
 
@@ -74,9 +84,6 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
                 .Add(new FuncCondition(() => entity.InDeathProcess.Value == false));
 
             ICompositeCondition canApplyDamage = new CompositeCondition()
-                .Add(new FuncCondition(() => entity.IsDead.Value == false));
-
-            ICompositeCondition canRotate = new CompositeCondition()
                 .Add(new FuncCondition(() => entity.IsDead.Value == false));
 
             ICompositeCondition canStartTeleport = new CompositeCondition()
@@ -90,10 +97,11 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
                 .Add(new FuncCondition(() => entity.InTeleportationProcess.Value == false));
 
             entity
+                .AddCanMove(canMove)
+                .AddCanRotate(canRotate)
                 .AddMustDie(mustDie)
                 .AddMustSelfRelease(mustSelfRelease)
                 .AddCanApplyDamage(canApplyDamage)
-                .AddCanRotate(canRotate)
                 .AddCanTeleport(canStartTeleport)
                 .AddCanRefillEnergy(canRefillEnergy);
 
@@ -103,6 +111,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
                 //.AddSystem(new DisableCollidersOnDeathSystem())
                 //.AddSystem(new SelfReleaseSystem(_entitiesLifeContext))
                 
+                .AddSystem(new RigidbodyMovementSystem())
                 .AddSystem(new RigidbodyRotationSystem())
 
                 .AddSystem(new SphereContactsDetectingSystem())
