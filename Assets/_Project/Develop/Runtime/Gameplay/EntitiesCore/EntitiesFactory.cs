@@ -71,7 +71,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
                 .AddContactCollidersBuffer(new Buffer<Collider>(64))
                 .AddContactEntitiesBuffer(new Buffer<Entity>(64))
 
-                .AddAttackProcessInitialTime(new ReactiveVariable<float>(0.25f))
+                .AddAttackProcessInitialTime(new ReactiveVariable<float>(0.1f))
                 .AddAttackProcessCurrentTime()
                 .AddInAttackProcess()
                 .AddStartAttackRequest()
@@ -79,9 +79,9 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
                 .AddEndAttackEvent()
                 .AddAttackDelayTime(new ReactiveVariable<float>(0))
                 .AddAttackDelayEndEvent()
-                .AddInstantAttackDamage(new ReactiveVariable<float>(5))
+                .AddInstantAttackDamage(new ReactiveVariable<float>(10f))
                 .AddAttackCanceledEvent()
-                .AddAttackCooldownInitialTime(new ReactiveVariable<float>(0))
+                .AddAttackCooldownInitialTime(new ReactiveVariable<float>(0f))
                 .AddAttackCooldownCurrentTime()
                 .AddInAttackCooldown();
 

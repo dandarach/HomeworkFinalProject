@@ -26,7 +26,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.Attack
 
             if (_mustCancelAttack.Evaluate())
             {
-                Debug.Log("Attack process canceled");
+                Debug.LogWarning("Attack process canceled");
                 _inAttackProcess.Value = false;
                 _attackCanceledEvent.Invoke();
             }

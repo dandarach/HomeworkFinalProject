@@ -15,6 +15,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay
         private Entity _hero1;
         private Entity _hero2;
         private Entity _hero3;
+        private Entity _hero5;
         private Entity _ghost1;
 
         private bool _isRunning;
@@ -39,12 +40,12 @@ namespace Assets._Project.Develop.Runtime.Gameplay
             _entitiesFactory.CreateGhost(Vector3.zero + Vector3.back * 2.5f + Vector3.right * 2.5f, "Ghost7");
             _entitiesFactory.CreateGhost(Vector3.zero + Vector3.back * 2.5f + Vector3.left * 2.5f, "Ghost8");
 
-            //_hero1 = _entitiesFactory.CreateHero(Vector3.zero, "Hero1");
-            //_brainsFactory.CreateRandomTeleportationBrain(_hero1, 3f, 5f);
+            _hero1 = _entitiesFactory.CreateHero(Vector3.zero, "Hero1");
+            _brainsFactory.CreateRandomTeleportationBrain(_hero1, 3f, 5f);
 
-            //_hero2 = _entitiesFactory.CreateHero(Vector3.zero + Vector3.back * 2f, "Hero2");
-            //_hero2.AddCurrentTarget();
-            //_brainsFactory.CreateTeleportationToTragetWithMinHealthBrain(_hero2, 2f, 2f, new MinimalHealthTargetSelector(_hero2));
+            _hero2 = _entitiesFactory.CreateHero(Vector3.zero + Vector3.back * 2f, "Hero2");
+            _hero2.AddCurrentTarget();
+            _brainsFactory.CreateTeleportationToTragetWithMinHealthBrain(_hero2, 2f, 2f, new MinimalHealthTargetSelector(_hero2));
 
             _hero3 = _entitiesFactory.CreateHero(Vector3.zero + Vector3.forward * 2f, "Hero3");
             _hero3.AddCurrentTarget();
@@ -52,7 +53,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay
 
             //_hero5 = _entitiesFactory.CreateHero(Vector3.zero + Vector3.forward * 2f, "Hero5");
             //_hero5.AddCurrentTarget();
-            //_brainsFactory.CreateMainHeroBrain(_hero5, new NearestDamageableTargetSelector(_hero5));
+            //_brainsFactory.CreateAutoAttackBrain(_hero5, new NearestDamageableTargetSelector(_hero5));
 
             _isRunning = true;
         }

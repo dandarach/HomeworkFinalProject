@@ -43,7 +43,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.InputFeature
                 if (IsEnabled == false)
                     return false;
 
-                return Input.GetMouseButtonDown(LeftMouseButton);
+                return Input.GetMouseButton(LeftMouseButton);
             }
         }
 

@@ -19,13 +19,12 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.AI.States
             _inputService = inputService;
             _rotationDirection = entity.RotationDirection;
 
-            //if (_rotationDirection.Value.sqrMagnitude > 0.001f)
-            //    _currentRotationY = Quaternion.LookRotation(_rotationDirection.Value).eulerAngles.y;
+            _currentRotationY = _rotationDirection.Value.y;
         }
 
         public override void Enter()
         {
-            Debug.Log("PlayerInputRotationState.Enter()");
+            //Debug.Log("PlayerInputRotationState.Enter()");
         }
 
         public void Update(float deltaTime)
@@ -38,6 +37,8 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.AI.States
         public override void Exit()
         {
             base.Exit();
+            
+            //Debug.Log("PlayerInputRotationState.Exit()");
         }
     }
 }
