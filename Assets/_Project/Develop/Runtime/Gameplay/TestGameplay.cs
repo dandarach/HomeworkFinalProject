@@ -42,12 +42,13 @@ namespace Assets._Project.Develop.Runtime.Gameplay
             _hero1 = _entitiesFactory.CreateHero(Vector3.zero, "Hero1");
             _brainsFactory.CreateRandomTeleportationBrain(_hero1, 3f, 5f);
 
-            _hero2 = _entitiesFactory.CreateHero(Vector3.zero + Vector3.back * 2f, "Hero2");
-            _hero2.AddCurrentTarget();
-            _brainsFactory.CreateTeleportationToTragetWithMinHealthBrain(_hero2, 2f, 2f, new MinimalHealthTargetSelector(_hero2));
+            //_hero2 = _entitiesFactory.CreateHero(Vector3.zero + Vector3.back * 2f, "Hero2");
+            //_hero2.AddCurrentTarget();
+           // _brainsFactory.CreateTeleportationToTragetWithMinHealthBrain(_hero2, 2f, 2f, new MinimalHealthTargetSelector(_hero2));
 
             _hero3 = _entitiesFactory.CreateHero(Vector3.zero + Vector3.forward * 2f, "Hero3");
-            _brainsFactory.CreateMainHeroBrain(_hero3, new MinimalHealthTargetSelector(_hero3));
+            _hero3.AddCurrentTarget();
+            _brainsFactory.CreateMainHeroBrain(_hero3, new NearestDamageableTargetSelector(_hero3));
 
             _isRunning = true;
         }

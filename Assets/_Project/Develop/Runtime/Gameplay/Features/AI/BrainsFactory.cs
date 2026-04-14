@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore;
 using Assets._Project.Develop.Runtime.Gameplay.Features.AI.States;
 using Assets._Project.Develop.Runtime.Gameplay.Features.InputFeature;
-using Assets._Project.Develop.Runtime.Gameplay.Features.Teleportation;
 using Assets._Project.Develop.Runtime.Infrastructure.DI;
 using Assets._Project.Develop.Runtime.Utilities.Conditions;
 using Assets._Project.Develop.Runtime.Utilities.Reactive;
@@ -55,8 +54,6 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.AI
             PlayerInputMovementState movementState = new PlayerInputMovementState(entity, _inputService);
 
             ReactiveVariable<Entity> currentTarget = entity.CurrentTarget;
-
-            Debug.LogWarning($"{entity.ID} currentTarget = {currentTarget.Value.ID}");
 
             ICompositeCondition fromMovementToCombatStateCondition = new CompositeCondition()
                 .Add(new FuncCondition(() => currentTarget.Value != null))

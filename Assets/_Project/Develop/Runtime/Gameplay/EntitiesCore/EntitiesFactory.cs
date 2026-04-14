@@ -1,5 +1,7 @@
 ﻿using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Mono;
 using Assets._Project.Develop.Runtime.Gameplay.Features.ApplyDamage;
+using Assets._Project.Develop.Runtime.Gameplay.Features.Attack;
+using Assets._Project.Develop.Runtime.Gameplay.Features.Attack.Shoot;
 using Assets._Project.Develop.Runtime.Gameplay.Features.Energy;
 using Assets._Project.Develop.Runtime.Gameplay.Features.LifeCycle;
 using Assets._Project.Develop.Runtime.Gameplay.Features.MovementFeature;
@@ -67,7 +69,21 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
                 .AddDistanceDamage(new ReactiveVariable<float>(50))
                 .AddContactsDetectingMask(1 << LayerMask.NameToLayer("Characters"))
                 .AddContactCollidersBuffer(new Buffer<Collider>(64))
-                .AddContactEntitiesBuffer(new Buffer<Entity>(64));
+                .AddContactEntitiesBuffer(new Buffer<Entity>(64))
+
+                .AddAttackProcessInitialTime(new ReactiveVariable<float>(3))
+                .AddAttackProcessCurrentTime()
+                .AddInAttackProcess()
+                .AddStartAttackRequest()
+                .AddStartAttackEvent()
+                .AddEndAttackEvent()
+                .AddAttackDelayTime(new ReactiveVariable<float>(1))
+                .AddAttackDelayEndEvent()
+                .AddInstantAttackDamage(new ReactiveVariable<float>(50))
+                .AddAttackCanceledEvent()
+                .AddAttackCooldownInitialTime(new ReactiveVariable<float>(2))
+                .AddAttackCooldownCurrentTime()
+                .AddInAttackCooldown();
 
 
             ICompositeCondition canMove = new CompositeCondition()
@@ -96,6 +112,16 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
                 .Add(new FuncCondition(() => entity.CurrentEnergy.Value < entity.MaxEnergy.Value))
                 .Add(new FuncCondition(() => entity.InTeleportationProcess.Value == false));
 
+            ICompositeCondition canStartAttack = new CompositeCondition()
+                .Add(new FuncCondition(() => entity.IsDead.Value == false))
+                .Add(new FuncCondition(() => entity.InAttackProcess.Value == false))
+                .Add(new FuncCondition(() => entity.IsMoving.Value == false))
+                .Add(new FuncCondition(() => entity.InAttackCooldown.Value == false));
+
+            ICompositeCondition mustCancelAttack = new CompositeCondition(LogicOperations.Or)
+                .Add(new FuncCondition(() => entity.IsDead.Value))
+                .Add(new FuncCondition(() => entity.IsMoving.Value));
+
             entity
                 .AddCanMove(canMove)
                 .AddCanRotate(canRotate)
@@ -103,7 +129,9 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
                 .AddMustSelfRelease(mustSelfRelease)
                 .AddCanApplyDamage(canApplyDamage)
                 .AddCanTeleport(canStartTeleport)
-                .AddCanRefillEnergy(canRefillEnergy);
+                .AddCanRefillEnergy(canRefillEnergy)
+                .AddCanStartAttack(canStartAttack)
+                .AddMustCancelAttack(mustCancelAttack);
 
             entity
                 //.AddSystem(new ApplyDamageSystem())
@@ -113,6 +141,14 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
                 
                 .AddSystem(new RigidbodyMovementSystem())
                 .AddSystem(new RigidbodyRotationSystem())
+
+                .AddSystem(new AttackCancelSystem())
+                .AddSystem(new StartAttackSystem())
+                .AddSystem(new AttackProcessTimerSystem())
+                .AddSystem(new AttackDelayEndTriggerSystem())
+                .AddSystem(new InstantShootSystem(this))
+                .AddSystem(new EndAttackSystem())
+                .AddSystem(new AttackCooldownTimerSystem())
 
                 .AddSystem(new SphereContactsDetectingSystem())
                 .AddSystem(new SphereContactsEntitiesFilterSystem(_collidersRegistryService))
