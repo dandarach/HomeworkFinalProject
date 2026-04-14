@@ -27,7 +27,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.Attack
 
         private void OnEndAttack()
         {
-            Debug.Log("Cooldown started");
+            //Debug.Log("Cooldown started");
             _currentTime.Value = _initialTime.Value;
             _inAttackCooldown.Value = true;
         }
@@ -42,7 +42,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.Attack
             if (IsCooldownOver())
             {
                 _inAttackCooldown.Value = false;
-                Debug.Log("Cooldown ended");
+                //Debug.Log("Cooldown ended");
             }
         }
 

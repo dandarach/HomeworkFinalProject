@@ -10,6 +10,8 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.InputFeature
 
         float XAxis { get; }
 
-        bool IsFireButtonPressed { get; }
+        bool IsFireButtonDown { get; }
+        
+        bool IsFireButtonUp { get; }
     }
 }

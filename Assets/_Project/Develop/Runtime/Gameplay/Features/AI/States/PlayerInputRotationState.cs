@@ -23,6 +23,11 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.AI.States
             //    _currentRotationY = Quaternion.LookRotation(_rotationDirection.Value).eulerAngles.y;
         }
 
+        public override void Enter()
+        {
+            Debug.Log("PlayerInputRotationState.Enter()");
+        }
+
         public void Update(float deltaTime)
         {
             _currentRotationY += _inputService.XAxis;
