@@ -39,12 +39,12 @@ namespace Assets._Project.Develop.Runtime.Gameplay
             _entitiesFactory.CreateGhost(Vector3.zero + Vector3.back * 2.5f + Vector3.right * 2.5f, "Ghost7");
             _entitiesFactory.CreateGhost(Vector3.zero + Vector3.back * 2.5f + Vector3.left * 2.5f, "Ghost8");
 
-            _hero1 = _entitiesFactory.CreateHero(Vector3.zero, "Hero1");
-            _brainsFactory.CreateRandomTeleportationBrain(_hero1, 3f, 5f);
+            //_hero1 = _entitiesFactory.CreateHero(Vector3.zero, "Hero1");
+            //_brainsFactory.CreateRandomTeleportationBrain(_hero1, 3f, 5f);
 
-            //_hero2 = _entitiesFactory.CreateHero(Vector3.zero + Vector3.back * 2f, "Hero2");
-            //_hero2.AddCurrentTarget();
-           // _brainsFactory.CreateTeleportationToTragetWithMinHealthBrain(_hero2, 2f, 2f, new MinimalHealthTargetSelector(_hero2));
+            _hero2 = _entitiesFactory.CreateHero(Vector3.zero + Vector3.back * 2f, "Hero2");
+            _hero2.AddCurrentTarget();
+            _brainsFactory.CreateTeleportationToTragetWithMinHealthBrain(_hero2, 2f, 2f, new MinimalHealthTargetSelector(_hero2));
 
             _hero3 = _entitiesFactory.CreateHero(Vector3.zero + Vector3.forward * 2f, "Hero3");
             _hero3.AddCurrentTarget();
