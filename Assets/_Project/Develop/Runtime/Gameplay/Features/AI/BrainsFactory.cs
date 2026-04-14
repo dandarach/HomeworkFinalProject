@@ -48,7 +48,44 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.AI
             return brain;
         }
 
-        public StateMachineBrain CreateMainHeroBrain(Entity entity, ITargetSelector targetSelector)
+        public StateMachineBrain CreateManualAttackStateMachine(Entity entity)
+        {
+            AIStateMachine combatState = CreateManualAttackStateMachine(entity, _inputService);
+            //PlayerInputMovementState movementState = new PlayerInputMovementState(entity, _inputService);
+            PlayerInputRotationState movementState = new PlayerInputRotationState(entity, _inputService);
+
+            ReactiveVariable<Entity> currentTarget = entity.CurrentTarget;
+
+            ICompositeCondition fromMovementToCombatStateCondition = new CompositeCondition()
+                .Add(new FuncCondition(() => currentTarget.Value != null))
+                .Add(new FuncCondition(() => _inputService.Direction == Vector3.zero));
+
+            ICompositeCondition fromCombatToMovementStateCondition = new CompositeCondition(LogicOperations.Or)
+                .Add(new FuncCondition(() => currentTarget.Value == null))
+                .Add(new FuncCondition(() => _inputService.Direction != Vector3.zero));
+
+            AIStateMachine behaviour = new AIStateMachine();
+
+            behaviour.AddState(movementState);
+            behaviour.AddState(combatState);
+
+            behaviour.AddTransition(movementState, combatState, fromMovementToCombatStateCondition);
+            behaviour.AddTransition(combatState, movementState, fromCombatToMovementStateCondition);
+
+            //FindTargetState findTargetState = new FindTargetState(targetSelector, _entitiesLifeContext, entity);
+            //AIParallelState parallelState = new AIParallelState(findTargetState, behaviour);
+
+            AIStateMachine rootStateMachine = new AIStateMachine();
+            //rootStateMachine.AddState(parallelState);
+            rootStateMachine.AddState(behaviour);
+
+            StateMachineBrain brain = new StateMachineBrain(rootStateMachine);
+            _brainsContext.SetFor(entity, brain);
+
+            return brain;
+        }
+
+        public StateMachineBrain CreateAutoAttackBrain(Entity entity, ITargetSelector targetSelector)
         {
             AIStateMachine combatState = CreateAutoAttackStateMachine(entity);
             PlayerInputMovementState movementState = new PlayerInputMovementState(entity, _inputService);
@@ -83,7 +120,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.AI
             return brain;
         }
 
-        public StateMachineBrain CreateGhostBrain(Entity entity)
+        public StateMachineBrain CreateRandomMovementBrain(Entity entity)
         {
             AIStateMachine stateMachine = CreateRandomMovementStateMachine(entity);
             StateMachineBrain brain = new StateMachineBrain(stateMachine);
@@ -239,6 +276,31 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.AI
 
             stateMachine.AddTransition(rotateToTargetState, attackTriggerState, fromRotateToAttackCondition);
             stateMachine.AddTransition(attackTriggerState, rotateToTargetState, fromAttackToRotateStateCondition);
+
+            return stateMachine;
+        }
+
+        private AIStateMachine CreateManualAttackStateMachine(Entity entity, IInputService inputService)
+        {
+            PlayerInputRotationState rotateToTargetState = new PlayerInputRotationState(entity, inputService);
+            //AttackTriggerState attackTriggerState = new AttackTriggerState(entity);
+
+            ICondition canAttack = entity.CanStartAttack;
+
+            //ICompositeCondition fromRotateToAttackCondition = new CompositeCondition()
+            //    .Add(canAttack);
+
+            //ReactiveVariable<bool> inAttackProcess = entity.InAttackProcess;
+
+            //ICondition fromAttackToRotateStateCondition = new FuncCondition(() => inAttackProcess.Value == false);
+
+            AIStateMachine stateMachine = new AIStateMachine();
+
+            stateMachine.AddState(rotateToTargetState);
+           // stateMachine.AddState(attackTriggerState);
+
+            //stateMachine.AddTransition(rotateToTargetState, attackTriggerState, fromRotateToAttackCondition);
+            //stateMachine.AddTransition(attackTriggerState, rotateToTargetState, fromAttackToRotateStateCondition);
 
             return stateMachine;
         }

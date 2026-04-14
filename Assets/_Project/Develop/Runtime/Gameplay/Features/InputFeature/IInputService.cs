@@ -7,5 +7,9 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.InputFeature
         bool IsEnabled { get; set; }
 
         Vector3 Direction { get; }
+
+        float XAxis { get; }
+
+        bool IsFireButtonPressed { get; }
     }
 }

@@ -42,13 +42,17 @@ namespace Assets._Project.Develop.Runtime.Gameplay
             //_hero1 = _entitiesFactory.CreateHero(Vector3.zero, "Hero1");
             //_brainsFactory.CreateRandomTeleportationBrain(_hero1, 3f, 5f);
 
-            _hero2 = _entitiesFactory.CreateHero(Vector3.zero + Vector3.back * 2f, "Hero2");
-            _hero2.AddCurrentTarget();
-            _brainsFactory.CreateTeleportationToTragetWithMinHealthBrain(_hero2, 2f, 2f, new MinimalHealthTargetSelector(_hero2));
+            //_hero2 = _entitiesFactory.CreateHero(Vector3.zero + Vector3.back * 2f, "Hero2");
+            //_hero2.AddCurrentTarget();
+            //_brainsFactory.CreateTeleportationToTragetWithMinHealthBrain(_hero2, 2f, 2f, new MinimalHealthTargetSelector(_hero2));
 
             _hero3 = _entitiesFactory.CreateHero(Vector3.zero + Vector3.forward * 2f, "Hero3");
             _hero3.AddCurrentTarget();
-            _brainsFactory.CreateMainHeroBrain(_hero3, new NearestDamageableTargetSelector(_hero3));
+            _brainsFactory.CreateManualAttackStateMachine(_hero3);
+
+            //_hero5 = _entitiesFactory.CreateHero(Vector3.zero + Vector3.forward * 2f, "Hero5");
+            //_hero5.AddCurrentTarget();
+            //_brainsFactory.CreateMainHeroBrain(_hero5, new NearestDamageableTargetSelector(_hero5));
 
             _isRunning = true;
         }
@@ -62,10 +66,10 @@ namespace Assets._Project.Develop.Runtime.Gameplay
                 _brainsFactory.CreateRandomTeleportationBrain(_hero3, 2f, 5f);
 
             if (Input.GetKeyDown(KeyCode.Alpha2))
-                _brainsFactory.CreateGhostBrain(_hero3);
+                _brainsFactory.CreateRandomMovementBrain(_hero3);
 
             if (Input.GetKeyDown(KeyCode.Alpha3))
-                _brainsFactory.CreateMainHeroBrain(_hero3, new NearestDamageableTargetSelector(_hero3));
+                _brainsFactory.CreateAutoAttackBrain(_hero3, new NearestDamageableTargetSelector(_hero3));
         }
     }
 }
