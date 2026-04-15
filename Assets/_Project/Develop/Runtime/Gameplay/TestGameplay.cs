@@ -1,10 +1,11 @@
-﻿using Assets._Project.Develop.Runtime.Configs.Gameplay.Entities;
+﻿using System;
+using Assets._Project.Develop.Runtime.Configs.Gameplay.Entities;
+using Assets._Project.Develop.Runtime.Configs.Gameplay.Stages;
 using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore;
 using Assets._Project.Develop.Runtime.Gameplay.Features.AI;
-using Assets._Project.Develop.Runtime.Gameplay.Features.AI.States;
 using Assets._Project.Develop.Runtime.Gameplay.Features.Enemies;
 using Assets._Project.Develop.Runtime.Gameplay.Features.MainHero;
-using Assets._Project.Develop.Runtime.Gameplay.Features.MovementFeature;
+using Assets._Project.Develop.Runtime.Gameplay.Features.StagesFeature;
 using Assets._Project.Develop.Runtime.Infrastructure.DI;
 using UnityEngine;
 
@@ -13,9 +14,11 @@ namespace Assets._Project.Develop.Runtime.Gameplay
     public class TestGameplay : MonoBehaviour
     {
         [SerializeField] private HeroConfig _heroConfig;
-        [SerializeField] private GhostConfig _ghostConfig;
+        [SerializeField] private StageConfig _stageConfig;
 
         private DIContainer _container;
+        private StagesFactory _stagesFactory;
+        private IStage _stage;
         private EntitiesFactory _entitiesFactory;
         private BrainsFactory _brainsFactory;
         private MainHeroFactory _mainHeroFactory;
@@ -33,20 +36,32 @@ namespace Assets._Project.Develop.Runtime.Gameplay
             _brainsFactory = _container.Resolve<BrainsFactory>();
             _mainHeroFactory = _container.Resolve<MainHeroFactory>();
             _enemiesFactory = _container.Resolve<EnemiesFactory>();
+            _stagesFactory = _container.Resolve<StagesFactory>();
         }
 
         public void Run()
         {
             _entity = _mainHeroFactory.Create(Vector3.zero);
-            _ghost = _enemiesFactory.Create(Vector3.zero + Vector3.forward * 5f, _ghostConfig);
+            
+            _stage = _stagesFactory.Create(_stageConfig);
+            _stage.Completed.Subscribe(OnCompleted);
+            _stage.Start();
 
             _isRunning = true;
+        }
+
+        private void OnCompleted()
+        {
+            Debug.LogWarning("*** WIN! ***");
+            _stage.Cleanup();
         }
 
         public void Update()
         {
             if (_isRunning == false)
                 return;
+
+            _stage.Update(Time.deltaTime);
         }
     }
 }

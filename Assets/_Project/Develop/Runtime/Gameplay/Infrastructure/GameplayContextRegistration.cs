@@ -11,6 +11,7 @@ using Assets._Project.Develop.Runtime.Gameplay.Features.AI;
 using Assets._Project.Develop.Runtime.Gameplay.Features.InputFeature;
 using Assets._Project.Develop.Runtime.Gameplay.Features.MainHero;
 using Assets._Project.Develop.Runtime.Gameplay.Features.Enemies;
+using Assets._Project.Develop.Runtime.Gameplay.Features.StagesFeature;
 
 namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
 {
@@ -31,13 +32,17 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
             container.RegisterAsSingle(CreateAIBrainsContext);
             
             container.RegisterAsSingle(CreateMainHeroFactory);
-            
             container.RegisterAsSingle(CreateEnemiesFactory);
+            
+            container.RegisterAsSingle(CreateStagesFactory);
 
             container.RegisterAsSingle<IInputService>(CreateDesktopInput);
 
             container.RegisterAsSingle(CreateMonoEntitiesFactory).NonLazy();
         }
+
+        private static StagesFactory CreateStagesFactory(DIContainer c)
+            => new StagesFactory(c);
 
         private static MainHeroFactory CreateMainHeroFactory(DIContainer c)
             => new MainHeroFactory(c);
