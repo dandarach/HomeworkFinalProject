@@ -18,11 +18,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
     {
         public static void Process(DIContainer container)
         {
-            container.RegisterAsSingle(CreateGameplayProcess);
-            
             container.RegisterAsSingle(CreateGameplayEconomySrevice);
-            
-            container.RegisterAsSingle<IGameplayCycle>(CreateGameplayCycle);
             
             container.RegisterAsSingle(CreateEntitiesFactory);
 
@@ -75,18 +71,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
 
         private static GameplayEconomyService CreateGameplayEconomySrevice(DIContainer c)
             => new GameplayEconomyService(
-                c.Resolve<GameplayProcess>(),
+                //c.Resolve<GameplayProcess>(),
                 c.Resolve<WalletService>());
-
-        private static GameplayCycle CreateGameplayCycle(DIContainer c)
-            => new GameplayCycle(
-                c.Resolve<GameplayProcess>(),
-                c.Resolve<SceneSwitcherService>(),
-                c.Resolve<ICoroutinesPerformer>(),
-                c.Resolve<GameplayProgressService>());
-
-        private static GameplayProcess CreateGameplayProcess(DIContainer c)
-            => new GameplayProcess();
-
     }
 }

@@ -7,21 +7,21 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Process
 {
     public class GameplayEconomyService : IDisposable
     {
-        private readonly GameplayProcess _gameplayProcess;
+        //private readonly GameplayProcess _gameplayProcess;
         private readonly WalletService _wallet;
         
         private CurrencyConfig _winAward;
         private CurrencyConfig _losePenalty;
 
         public GameplayEconomyService(
-            GameplayProcess gameplayProcess,
+            //GameplayProcess gameplayProcess,
             WalletService wallet)
         {
-            _gameplayProcess = gameplayProcess;
+            //_gameplayProcess = gameplayProcess;
             _wallet = wallet;
 
-            _gameplayProcess.OnWin += ProcessWin;
-            _gameplayProcess.OnDefeat += ProcessDefeat;
+            //_gameplayProcess.OnWin += ProcessWin;
+            //_gameplayProcess.OnDefeat += ProcessDefeat;
         }
 
         public void Initialize(CurrencyConfig winAward, CurrencyConfig losePenalty)
@@ -46,8 +46,8 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Process
 
         public void Dispose()
         {
-            _gameplayProcess.OnWin -= ProcessWin;
-            _gameplayProcess.OnDefeat -= ProcessDefeat;
+            //_gameplayProcess.OnWin -= ProcessWin;
+            //_gameplayProcess.OnDefeat -= ProcessDefeat;
         }
     }
 }

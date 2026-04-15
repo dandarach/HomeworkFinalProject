@@ -19,7 +19,6 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
         private DIContainer _container;
         private GameplayInputArgs _inputArgs;
         private LevelConfig _levelConfig;
-        private IGameplayCycle _gameplayCycle;
         private GameplayEconomyService _economyService;
         private EntitiesLifeContext _entitiesLifeContext;
         private AIBrainsContext _brainsContext;
@@ -41,10 +40,6 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
             LevelsListConfig levelConfigs = _container.Resolve<ConfigsProviderService>().GetConfig<LevelsListConfig>();
             _levelConfig = levelConfigs.GetLevelConfig(_inputArgs.GameplayMode);
 
-            //Debug.Log($"Gameplay mode symbols: '{_levelConfig.Symbols}', SymbolsToGuess: {_levelConfig.SymbolsToGuess}");
-
-            _gameplayCycle = _container.Resolve<IGameplayCycle>();
-            
             _economyService = _container.Resolve<GameplayEconomyService>();
 
             _entitiesLifeContext = _container.Resolve<EntitiesLifeContext>();
@@ -59,7 +54,6 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
         {
             Debug.Log("Gameplay scene start");
 
-            _gameplayCycle.Run(_levelConfig);
             _economyService.Initialize(_levelConfig.WinAward, _levelConfig.LosePenalty);
 
             _testGameplay.Run();
@@ -69,8 +63,6 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
         {
             _brainsContext?.Update(Time.deltaTime);
             _entitiesLifeContext?.Update(Time.deltaTime);
-
-            _gameplayCycle?.Update();
         }
     }
 }

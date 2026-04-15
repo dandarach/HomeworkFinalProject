@@ -3,8 +3,6 @@ using Assets._Project.Develop.Runtime.Configs.Meta.Menu;
 using Assets._Project.Develop.Runtime.Infrastructure.DI;
 using Assets._Project.Develop.Runtime.Meta.Features.Statistics;
 using Assets._Project.Develop.Runtime.Meta.Features.Wallet;
-using Assets._Project.Develop.Runtime.Meta.GameModeChoose;
-using Assets._Project.Develop.Runtime.Meta.InputSystem;
 using Assets._Project.Develop.Runtime.UI;
 using Assets._Project.Develop.Runtime.UI.Core;
 using Assets._Project.Develop.Runtime.UI.MainMenu;
@@ -22,7 +20,6 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure
         {
             Debug.Log("Services registration process on the Menu scene");
 
-            container.RegisterAsSingle(CreateInputHandler);
             
             container.RegisterAsSingle(CreateStatsResetService);
             
@@ -35,8 +32,6 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure
             container.RegisterAsSingle(CreateMainMenuScreenPresenter).NonLazy();
             
             container.RegisterAsSingle(CreateMainMenuPopupService);
-
-            container.RegisterAsSingle<IGameModeChooseService>(CreateGameModeChooseService);
         }
 
         private static MainMenuPopupService CreateMainMenuPopupService(DIContainer c)
@@ -74,25 +69,6 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure
 
             return presenter;
         }
-
-        private static MainMenuInputHandler CreateInputHandler(DIContainer c)
-        {
-            MenuConfig config = c.Resolve<ConfigsProviderService>().GetConfig<MenuConfig>();
-
-            return new MainMenuInputHandler(
-                config.DigitsGameModeKey,
-                config.LettersGameModeKey,
-                config.ResetGameProgressKey,
-                config.ShowGameProgressKey);
-        }
-
-        private static IGameModeChooseService CreateGameModeChooseService(DIContainer c)
-            => new GameModeChooseService(
-                c.Resolve<MainMenuInputHandler>(),
-                c.Resolve<SceneSwitcherService>(),
-                c.Resolve<ICoroutinesPerformer>(),
-                c.Resolve<StatsInfoService>(),
-                c.Resolve<StatsResetService>());
 
         private static StatsResetService CreateStatsResetService(DIContainer c)
         {

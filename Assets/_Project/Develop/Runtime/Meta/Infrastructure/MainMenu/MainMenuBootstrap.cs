@@ -2,7 +2,6 @@
 using Assets._Project.Develop.Runtime.Infrastructure;
 using Assets._Project.Develop.Runtime.Infrastructure.DI;
 using Assets._Project.Develop.Runtime.Meta.Features.Wallet;
-using Assets._Project.Develop.Runtime.Meta.GameModeChoose;
 using Assets._Project.Develop.Runtime.UI;
 using Assets._Project.Develop.Runtime.UI.CommonViews;
 using Assets._Project.Develop.Runtime.UI.Core;
@@ -18,7 +17,6 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure.MainMenu
         [SerializeField] private IconTextListView _walletView;
 
         private DIContainer _container;
-        private IGameModeChooseService _gameModeChooseService;
         private ProjectPresentersFactory _presentersFactory;
         private WalletService _walletService;
 
@@ -38,7 +36,6 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure.MainMenu
             _walletService = _container.Resolve<WalletService>();
 
             ConfigsProviderService configsProviderService = _container.Resolve<ConfigsProviderService>();
-            _gameModeChooseService = _container.Resolve<IGameModeChooseService>();
 
             yield break;
         }
@@ -53,8 +50,6 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure.MainMenu
         {
             if (_isRunning == false)
                 return;
-
-            _gameModeChooseService.Update();
         }
     }
 }
