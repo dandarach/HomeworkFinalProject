@@ -2,7 +2,9 @@
 using Assets._Project.Develop.Runtime.Configs.Gameplay.Entities;
 using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore;
 using Assets._Project.Develop.Runtime.Gameplay.Features.AI;
+using Assets._Project.Develop.Runtime.Gameplay.Features.TeamsFeature;
 using Assets._Project.Develop.Runtime.Infrastructure.DI;
+using Assets._Project.Develop.Runtime.Utilities.Reactive;
 using UnityEngine;
 
 namespace Assets._Project.Develop.Runtime.Gameplay.Features.Enemies
@@ -37,6 +39,8 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.Enemies
                 default:
                     throw new ArgumentException($"Not support {config.GetType()} type config");
             }
+
+            entity.AddTeam(new ReactiveVariable<Teams>(Teams.Enemies));
 
             _entitiesLifeContext.Add(entity);
 
