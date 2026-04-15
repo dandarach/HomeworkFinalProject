@@ -1,4 +1,5 @@
-﻿using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore;
+﻿using Assets._Project.Develop.Runtime.Configs.Gameplay.Entities;
+using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore;
 using Assets._Project.Develop.Runtime.Gameplay.Features.AI;
 using Assets._Project.Develop.Runtime.Gameplay.Features.AI.States;
 using Assets._Project.Develop.Runtime.Gameplay.Features.MovementFeature;
@@ -9,6 +10,9 @@ namespace Assets._Project.Develop.Runtime.Gameplay
 {
     public class TestGameplay : MonoBehaviour
     {
+        [SerializeField] private HeroConfig _heroConfig;
+        [SerializeField] private GhostConfig _ghostConfig;
+
         private DIContainer _container;
         private EntitiesFactory _entitiesFactory;
         private BrainsFactory _brainsFactory;
@@ -27,11 +31,11 @@ namespace Assets._Project.Develop.Runtime.Gameplay
 
         public void Run()
         {
-            _entity = _entitiesFactory.CreateHero(Vector3.zero);
+            _entity = _entitiesFactory.CreateHero(Vector3.zero, _heroConfig);
             _entity.AddCurrentTarget();
             _brainsFactory.CreateMainHeroBrain(_entity, new NearestDamageableTargetSelector(_entity));
 
-            _ghost = _entitiesFactory.CreateGhost(Vector3.zero + Vector3.forward * 5f);
+            _ghost = _entitiesFactory.CreateGhost(Vector3.zero + Vector3.forward * 5f, _ghostConfig);
 
             _isRunning = true;
         }

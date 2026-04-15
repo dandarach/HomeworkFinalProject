@@ -4,7 +4,7 @@ namespace Assets._Project.Develop.Runtime.Configs.Gameplay.Entities
 {
     [CreateAssetMenu(menuName = "Configs/Gameplay/Entities/NewGhostConfig", fileName = "GhostConfig")]
 
-    public abstract class GhostConfig : EntityConfig
+    public class GhostConfig : EntityConfig
     {
         [field: SerializeField] public string PrefabPath { get; private set; } = "Entities/Ghost";
         [field: SerializeField, Min(0)] public float MoveSpeed { get; private set; } = 9f;
