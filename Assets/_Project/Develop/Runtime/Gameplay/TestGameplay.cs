@@ -2,6 +2,8 @@
 using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore;
 using Assets._Project.Develop.Runtime.Gameplay.Features.AI;
 using Assets._Project.Develop.Runtime.Gameplay.Features.AI.States;
+using Assets._Project.Develop.Runtime.Gameplay.Features.Enemies;
+using Assets._Project.Develop.Runtime.Gameplay.Features.MainHero;
 using Assets._Project.Develop.Runtime.Gameplay.Features.MovementFeature;
 using Assets._Project.Develop.Runtime.Infrastructure.DI;
 using UnityEngine;
@@ -16,6 +18,8 @@ namespace Assets._Project.Develop.Runtime.Gameplay
         private DIContainer _container;
         private EntitiesFactory _entitiesFactory;
         private BrainsFactory _brainsFactory;
+        private MainHeroFactory _mainHeroFactory;
+        private EnemiesFactory _enemiesFactory;
 
         private Entity _entity;
         private Entity _ghost;
@@ -27,15 +31,14 @@ namespace Assets._Project.Develop.Runtime.Gameplay
             _container = container;
             _entitiesFactory = _container.Resolve<EntitiesFactory>();
             _brainsFactory = _container.Resolve<BrainsFactory>();
+            _mainHeroFactory = _container.Resolve<MainHeroFactory>();
+            _enemiesFactory = _container.Resolve<EnemiesFactory>();
         }
 
         public void Run()
         {
-            _entity = _entitiesFactory.CreateHero(Vector3.zero, _heroConfig);
-            _entity.AddCurrentTarget();
-            _brainsFactory.CreateMainHeroBrain(_entity, new NearestDamageableTargetSelector(_entity));
-
-            _ghost = _entitiesFactory.CreateGhost(Vector3.zero + Vector3.forward * 5f, _ghostConfig);
+            _entity = _mainHeroFactory.Create(Vector3.zero);
+            _ghost = _enemiesFactory.Create(Vector3.zero + Vector3.forward * 5f, _ghostConfig);
 
             _isRunning = true;
         }
@@ -44,15 +47,6 @@ namespace Assets._Project.Develop.Runtime.Gameplay
         {
             if (_isRunning == false)
                 return;
-
-            if (Input.GetKeyDown(KeyCode.Space))
-                _entity.TakeDamageRequest.Invoke(30f);
-
-            if (Input.GetKeyDown(KeyCode.R))
-                _entity.StartAttackRequest.Invoke();
-
-            if (Input.GetKeyDown(KeyCode.I))
-                _brainsFactory.CreateGhostBrain(_ghost);
         }
     }
 }
