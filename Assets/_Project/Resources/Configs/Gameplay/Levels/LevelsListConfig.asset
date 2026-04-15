@@ -14,7 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _levels:
   - {fileID: 11400000, guid: 2de4333ce83063541ab467278785102a, type: 2}
-  - {fileID: 11400000, guid: a739ba0d5f7ea234eac8eaec6e74ef35, type: 2}
+  - {fileID: 11400000, guid: 2a1f6c4b2eb655c4782593f619920fdd, type: 2}
+  - {fileID: 11400000, guid: 226719965625e6f45894f85bd2021284, type: 2}
+  - {fileID: 11400000, guid: 5ae851be0917d2445a81d020700c22cc, type: 2}
+  - {fileID: 11400000, guid: 1cf9fb0e72c64da47b6e2c99f8bb4404, type: 2}
   <ResetProgressCost>k__BackingField:
     <Type>k__BackingField: 0
     <Value>k__BackingField: 50
