@@ -10,8 +10,6 @@ namespace Assets._Project.Develop.Runtime.Configs.Gameplay.Levels
     {
         [SerializeField] private List<StageConfig> _stageConfigs;
         [field: SerializeField] public CurrencyConfig WinAward { get; private set; }
-        [field: SerializeField] public CurrencyConfig LosePenalty { get; private set; }
-
         public IReadOnlyList<StageConfig> StageConfigs => _stageConfigs;
     }
 }

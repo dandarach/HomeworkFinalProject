@@ -11,7 +11,6 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Process
         private readonly WalletService _wallet;
         
         private CurrencyConfig _winAward;
-        private CurrencyConfig _losePenalty;
 
         public GameplayEconomyService(
             //GameplayProcess gameplayProcess,
@@ -24,24 +23,14 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Process
             //_gameplayProcess.OnDefeat += ProcessDefeat;
         }
 
-        public void Initialize(CurrencyConfig winAward, CurrencyConfig losePenalty)
+        public void Initialize(CurrencyConfig winAward)
         {
             _winAward = winAward;
-            _losePenalty = losePenalty;
         }
 
         public void ProcessWin()
         {
             _wallet.Add(_winAward.Type, _winAward.Value);
-        }
-
-        public void ProcessDefeat()
-        {
-            if (_losePenalty.Value <= 0)
-                return;
-
-            if (_wallet.Enough(_winAward.Type, _losePenalty.Value))
-                _wallet.Spend(_winAward.Type, _losePenalty.Value);
         }
 
         public void Dispose()

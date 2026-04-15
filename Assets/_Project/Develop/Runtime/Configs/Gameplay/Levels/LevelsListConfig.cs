@@ -5,19 +5,13 @@ using static Assets._Project.Develop.Runtime.Configs.Meta.Wallet.LevelConfig;
 
 namespace Assets._Project.Develop.Runtime.Configs.Gameplay.Levels
 {
-    [CreateAssetMenu(menuName = "Configs/Gameplay/LevelConfigs", fileName = "LevelConfigs")]
+    [CreateAssetMenu(menuName = "Configs/Gameplay/Levels/NewLevelsListConfig", fileName = "LevelsListConfig")]
     public class LevelsListConfig : ScriptableObject
     {
-        [SerializeField] public List<LevelConfig> _levels;
-        
+        [SerializeField] private List<LevelConfig> _levels;
         [field: SerializeField] public CurrencyConfig ResetProgressCost { get; private set; }
 
         public IReadOnlyList<LevelConfig> Levels => _levels;
-
-        public LevelConfig GetLevelConfig(GameplayMode gameplayMode)
-            // TODO: NEED TO FIX
-            //=> _levels.First(config => config.GameplayMode == gameplayMode).LevelConfig;
-            => GetBy(1);
 
         public LevelConfig GetBy(int levelNumber)
         {

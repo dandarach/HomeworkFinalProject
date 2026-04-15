@@ -72,9 +72,8 @@ namespace Assets._Project.Develop.Runtime.UI.LevelsMenuPopup
                 return;
             }
 
-            // TODO: NEED TO FIX
             _coroutinesPerformer
-                .StartPerform(_sceneSwitcherService.ProcessSwitchTo(Scenes.Gameplay, new GameplayInputArgs(Configs.Gameplay.GameplayMode.Digits)));
+                .StartPerform(_sceneSwitcherService.ProcessSwitchTo(Scenes.Gameplay, new GameplayInputArgs(_levelNumber)));
         }
     }
 }

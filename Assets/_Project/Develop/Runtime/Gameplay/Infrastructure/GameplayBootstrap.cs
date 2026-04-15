@@ -32,13 +32,13 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
 
             _inputArgs = gameplayInputArgs;
 
-            GameplayContextRegistration.Process(_container);
+            GameplayContextRegistration.Process(_container, _inputArgs);
         }
 
         public override IEnumerator Initialize()
         {
-            LevelsListConfig levelConfigs = _container.Resolve<ConfigsProviderService>().GetConfig<LevelsListConfig>();
-            _levelConfig = levelConfigs.GetLevelConfig(_inputArgs.GameplayMode);
+            //LevelsListConfig levelConfigs = _container.Resolve<ConfigsProviderService>().GetConfig<LevelsListConfig>();
+            //_levelConfig = levelConfigs.GetLevelConfig(_inputArgs.GameplayMode);
 
             _economyService = _container.Resolve<GameplayEconomyService>();
 
@@ -54,7 +54,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
         {
             Debug.Log("Gameplay scene start");
 
-            _economyService.Initialize(_levelConfig.WinAward, _levelConfig.LosePenalty);
+            _economyService.Initialize(_levelConfig.WinAward);
 
             _testGameplay.Run();
         }
