@@ -33,29 +33,13 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.ApplyDamage
                 {
                     _processedEntities.Add(contactEntity);
 
-                   TryTakeDamageFrom(_entity, contactEntity, _damage.Value);
+                   EntitiesHelper.TryTakeDamageFrom(_entity, contactEntity, _damage.Value);
                 }
             }
 
             for (int i = _processedEntities.Count - 1; i >= 0; i--)
                 if (ContainInContacts(_processedEntities[i]) == false)
                     _processedEntities.RemoveAt(i);
-        }
-
-        public bool TryTakeDamageFrom(Entity source, Entity damageable, float damage)
-        {
-            if (damageable.TryGetTakeDamageRequest(out ReactiveEvent<float> takeDamageRequest) == false)
-                return false;
-
-            if (source.TryGetTeam(out ReactiveVariable<Teams> sourceTeam)
-                && damageable.TryGetTeam(out ReactiveVariable<Teams> damageableTeam))
-            {
-                if (sourceTeam.Value == damageableTeam.Value)
-                    return false;
-            }
-
-            takeDamageRequest.Invoke(damage);
-            return true;
         }
 
         public bool ContainInContacts(Entity entity)
