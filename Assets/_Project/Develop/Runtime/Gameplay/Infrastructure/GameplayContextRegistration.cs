@@ -12,13 +12,19 @@ using Assets._Project.Develop.Runtime.Gameplay.Features.InputFeature;
 using Assets._Project.Develop.Runtime.Gameplay.Features.MainHero;
 using Assets._Project.Develop.Runtime.Gameplay.Features.Enemies;
 using Assets._Project.Develop.Runtime.Gameplay.Features.StagesFeature;
+using Assets._Project.Develop.Runtime.Utilities.ConfigsManagement;
+using Assets._Project.Develop.Runtime.Configs.Gameplay.Levels;
 
 namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
 {
     public class GameplayContextRegistration
     {
-        public static void Process(DIContainer container)
+        private static GameplayInputArgs _inputArgs;
+
+        public static void Process(DIContainer container, GameplayInputArgs args)
         {
+            _inputArgs = args;
+
             container.RegisterAsSingle(CreateGameplayEconomySrevice);
             
             container.RegisterAsSingle(CreateEntitiesFactory);
@@ -35,11 +41,17 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
             container.RegisterAsSingle(CreateEnemiesFactory);
             
             container.RegisterAsSingle(CreateStagesFactory);
+            container.RegisterAsSingle(CreateStageProviderService);
 
             container.RegisterAsSingle<IInputService>(CreateDesktopInput);
 
             container.RegisterAsSingle(CreateMonoEntitiesFactory).NonLazy();
         }
+
+        private static StageProviderService CreateStageProviderService(DIContainer c)
+            => new StageProviderService(
+                c.Resolve<ConfigsProviderService>().GetConfig<LevelsListConfig>().GetBy(_inputArgs.LevelNumber),
+                c.Resolve<StagesFactory>());
 
         private static StagesFactory CreateStagesFactory(DIContainer c)
             => new StagesFactory(c);
