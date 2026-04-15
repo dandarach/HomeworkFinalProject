@@ -42,11 +42,18 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
             
             container.RegisterAsSingle(CreateStagesFactory);
             container.RegisterAsSingle(CreateStageProviderService);
+            
+            container.RegisterAsSingle(CreatePreparationTriggerService);
 
             container.RegisterAsSingle<IInputService>(CreateDesktopInput);
 
             container.RegisterAsSingle(CreateMonoEntitiesFactory).NonLazy();
         }
+
+        private static PreparationTriggerService CreatePreparationTriggerService(DIContainer c)
+            => new PreparationTriggerService(
+                c.Resolve<EntitiesFactory>(),
+                c.Resolve<EntitiesLifeContext>());
 
         private static StageProviderService CreateStageProviderService(DIContainer c)
             => new StageProviderService(
