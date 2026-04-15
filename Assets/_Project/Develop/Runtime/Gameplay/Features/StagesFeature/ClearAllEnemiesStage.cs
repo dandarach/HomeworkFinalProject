@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using Assets._Project.Develop.Runtime.Configs.Gameplay.Stages;
+using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore;
 using Assets._Project.Develop.Runtime.Gameplay.Features.Enemies;
 using Assets._Project.Develop.Runtime.Utilities.Reactive;
 
@@ -10,26 +12,45 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.StagesFeature
         private ClearAllEnemiesStageConfig _config;
         private ReactiveEvent _completed = new();
         private EnemiesFactory _enemiesFactory;
+        private EntitiesLifeContext _entitiesLifeContext;
+        private Dictionary<Entity, IDisposable> _spawnedEnemiesToRemoveReason = new();
         private bool _inProcess;
 
         public ClearAllEnemiesStage(
             ClearAllEnemiesStageConfig config,
-            EnemiesFactory enemiesFactory)
+            EnemiesFactory enemiesFactory,
+            EntitiesLifeContext entitiesLifeContext)
         {
             _config = config;
             _enemiesFactory = enemiesFactory;
+            _entitiesLifeContext = entitiesLifeContext;
         }
 
         public IReadonlyEvent Completed => _completed;
 
         public void Cleanup()
         {
-            throw new System.NotImplementedException();
+            foreach (KeyValuePair<Entity, IDisposable> item in _spawnedEnemiesToRemoveReason)
+            {
+                item.Value.Dispose();
+                _entitiesLifeContext.Release(item.Key);
+            }
+
+            _spawnedEnemiesToRemoveReason.Clear();
+            
+            _inProcess = false;
         }
 
         public void Dispose()
         {
-            throw new System.NotImplementedException();
+            foreach (KeyValuePair<Entity, IDisposable> item in _spawnedEnemiesToRemoveReason)
+            {
+                item.Value.Dispose();
+            }
+
+            _spawnedEnemiesToRemoveReason.Clear();
+
+            _inProcess = false;
         }
 
         public void Start()
@@ -44,7 +65,17 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.StagesFeature
 
         public void Update(float deltaTime)
         {
-            throw new System.NotImplementedException();
+            if (_inProcess == false)
+                return;
+
+            if (_spawnedEnemiesToRemoveReason.Count == 0)
+                ProcessEnd();
+        }
+
+        private void ProcessEnd()
+        {
+            _inProcess = false;
+            _completed.Invoke();
         }
 
         private void SpawnEnemies()
@@ -55,7 +86,19 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.StagesFeature
 
         private void SpawnEnemy(EnemyItemConfig enemyItemConfig)
         {
-            _enemiesFactory.Create(enemyItemConfig.SpawnPosition, enemyItemConfig.EnemyConfig);
+            Entity spawnedEnemy = _enemiesFactory.Create(enemyItemConfig.SpawnPosition, enemyItemConfig.EnemyConfig);
+            
+            IDisposable removeReason = spawnedEnemy.IsDead.Subscribe((oldValue, isDead) =>
+            {
+                if (isDead)
+                {
+                    IDisposable disposable = _spawnedEnemiesToRemoveReason[spawnedEnemy];
+                    disposable.Dispose();
+                    _spawnedEnemiesToRemoveReason.Remove(spawnedEnemy);
+                }
+            });
+
+            _spawnedEnemiesToRemoveReason.Add(spawnedEnemy, removeReason);
         }
     }
 }
