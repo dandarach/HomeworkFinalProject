@@ -7,10 +7,8 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.InputFeature
     {
         private const string HorizontalAxisName = "Horizontal";
         private const string VerticalAxisName = "Vertical";
-        private const string MouseX = "Mouse X";
         
         private const int LeftMouseButton = 0;
-        private const float Sensitivity = 2.5f;
 
         public bool IsEnabled { get; set; } = true;
 
@@ -25,14 +23,14 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.InputFeature
             }
         }
 
-        public float XAxis
+        public Vector3 ScreenPosition
         {
             get
             {
                 if (IsEnabled == false)
-                    return 0;
+                    return Vector3.zero;
 
-                return Input.GetAxisRaw(MouseX) * Sensitivity;
+                return Input.mousePosition;
             }
         }
         

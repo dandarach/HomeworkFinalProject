@@ -8,7 +8,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.InputFeature
 
         Vector3 Direction { get; }
 
-        float XAxis { get; }
+        Vector3 ScreenPosition { get; }
 
         bool IsFireButtonDown { get; }
         

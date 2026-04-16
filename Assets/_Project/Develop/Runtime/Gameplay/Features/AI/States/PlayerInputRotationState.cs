@@ -10,7 +10,9 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.AI.States
     {
         private IInputService _inputService;
         private ReactiveVariable<Vector3> _rotationDirection;
-        private float _currentRotationY;
+        private Transform _transform;
+        
+        private static readonly Plane GroundPlane = new Plane(Vector3.up, Vector3.zero);
 
         public PlayerInputRotationState(
             Entity entity,
@@ -18,8 +20,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.AI.States
         {
             _inputService = inputService;
             _rotationDirection = entity.RotationDirection;
-
-            _currentRotationY = _rotationDirection.Value.y;
+            _transform = entity.Transform;
         }
 
         public override void Enter()
@@ -29,9 +30,13 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.AI.States
 
         public void Update(float deltaTime)
         {
-            _currentRotationY += _inputService.XAxis;
-            Quaternion finalRotation = Quaternion.Euler(0, _currentRotationY, 0);
-            _rotationDirection.Value = finalRotation * Vector3.forward;
+            Ray ray = Camera.main.ScreenPointToRay(_inputService.ScreenPosition);
+
+            if (GroundPlane.Raycast(ray, out var distance))
+            {
+                var worldPoint = ray.GetPoint(distance);
+                _rotationDirection.Value = (worldPoint - _transform.position).normalized;
+            }
         }
 
         public override void Exit()
