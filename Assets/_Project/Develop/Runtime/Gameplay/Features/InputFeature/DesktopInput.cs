@@ -44,16 +44,5 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.InputFeature
                 return Input.GetMouseButton(LeftMouseButton);
             }
         }
-
-        public bool IsFireButtonUp
-        {
-            get
-            {
-                if (IsEnabled == false)
-                    return false;
-
-                return Input.GetMouseButtonUp(LeftMouseButton);
-            }
-        }
     }
 }
