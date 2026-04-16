@@ -268,7 +268,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.AI
         private AIStateMachine CreateManualAttackStateMachine(Entity entity, IInputService inputService)
         {
             PlayerInputRotationState rotateState = new PlayerInputRotationState(entity, inputService);
-            AttackTriggerState attackTriggerState = new AttackTriggerState(entity);
+            AutoShootState autoShootState = new AutoShootState(entity);
 
             ICondition canAttack = entity.CanStartAttack;
             ReactiveVariable<bool> inAttackProcess = entity.InAttackProcess;
@@ -278,15 +278,16 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.AI
                 .Add(new FuncCondition(() => inputService.IsFireButtonDown == true));
 
             ICompositeCondition fromAttackToRotateCondition = new CompositeCondition()
-                .Add(new FuncCondition(() => inAttackProcess.Value == false));
+                .Add(new FuncCondition(() => inAttackProcess.Value == false))
+                .Add(new FuncCondition(() => inputService.IsFireButtonDown == false));
 
             AIStateMachine stateMachine = new AIStateMachine();
 
             stateMachine.AddState(rotateState);
-            stateMachine.AddState(attackTriggerState);
+            stateMachine.AddState(autoShootState);
 
-            stateMachine.AddTransition(rotateState, attackTriggerState, fromRotateToAttackCondition);
-            stateMachine.AddTransition(attackTriggerState, rotateState, fromAttackToRotateCondition);
+            stateMachine.AddTransition(rotateState, autoShootState, fromRotateToAttackCondition);
+            stateMachine.AddTransition(autoShootState, rotateState, fromAttackToRotateCondition);
 
             return stateMachine;
         }
