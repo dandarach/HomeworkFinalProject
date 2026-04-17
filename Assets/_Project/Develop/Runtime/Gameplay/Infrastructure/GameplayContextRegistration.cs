@@ -14,6 +14,7 @@ using Assets._Project.Develop.Runtime.Gameplay.Features.Enemies;
 using Assets._Project.Develop.Runtime.Gameplay.Features.StagesFeature;
 using Assets._Project.Develop.Runtime.Utilities.ConfigsManagement;
 using Assets._Project.Develop.Runtime.Configs.Gameplay.Levels;
+using Assets._Project.Develop.Runtime.Gameplay.States;
 
 namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
 {
@@ -45,12 +46,22 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
             
             container.RegisterAsSingle(CreatePreparationTriggerService);
 
+            container.RegisterAsSingle(CreateGameplayStatesFactory);
+
+            container.RegisterAsSingle(CreateGameplayStatesContext);
+
             container.RegisterAsSingle(CreateMainHeroHolderService).NonLazy();
 
             container.RegisterAsSingle<IInputService>(CreateDesktopInput);
 
             container.RegisterAsSingle(CreateMonoEntitiesFactory).NonLazy();
         }
+
+        private static GameplayStatesContext CreateGameplayStatesContext(DIContainer c)
+            => new GameplayStatesContext(c.Resolve<GameplayStatesFactory>().CreateGameplayStateMachine(_inputArgs));
+
+        private static GameplayStatesFactory CreateGameplayStatesFactory(DIContainer c)
+            => new GameplayStatesFactory(c);
 
         private static MainHeroHolderService CreateMainHeroHolderService(DIContainer c)
             => new MainHeroHolderService(c.Resolve<EntitiesLifeContext>());
