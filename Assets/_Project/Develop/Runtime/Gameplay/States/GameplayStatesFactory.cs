@@ -61,7 +61,18 @@ namespace Assets._Project.Develop.Runtime.Gameplay.States
                 .Add(new FuncCondition(() => preparationTriggerService.HasMainHeroContact.Value))
                 .Add(new FuncCondition(() => stageProviderService.HasNextStage()));
 
-            return null;
+            FuncCondition stageProcessToPreparationCondition =
+                new FuncCondition(() => stageProviderService.CurrentStageResult.Value == StageResults.Completed);
+
+            GameplayStateMachine coreLoopState = new GameplayStateMachine();
+            
+            coreLoopState.AddState(preparationState);
+            coreLoopState.AddState(coreLoopState);
+
+            coreLoopState.AddTransition(preparationState, stageProcessState, preparationToStageProcessCondition);
+            coreLoopState.AddTransition(stageProcessState, preparationState, stageProcessToPreparationCondition);
+
+            return coreLoopState;
         }
     }
 }
