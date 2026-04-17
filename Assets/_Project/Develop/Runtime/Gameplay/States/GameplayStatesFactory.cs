@@ -49,6 +49,24 @@ namespace Assets._Project.Develop.Runtime.Gameplay.States
                 _container.Resolve<ICoroutinesPerformer>());
         }
 
+        public GameplayStateMachine CreateGameplayStateMachine(GameplayInputArgs gameplayInputArgs)
+        {
+            PreparationTriggerService preparationTriggerService = _container.Resolve<PreparationTriggerService>();
+            StageProviderService stageProviderService = _container.Resolve<StageProviderService>();
+
+            GameplayStateMachine coreLoopState = CreateCoreLoopState();
+
+            WinState winState = CreateWinState(gameplayInputArgs);
+            DefeatState defeatState = CreateDefeatState();
+
+            ICompositeCondition coreLoopToWinStateCondition = new CompositeCondition()
+                .Add(new FuncCondition(() => preparationTriggerService.HasMainHeroContact.Value))
+                .Add(new FuncCondition(() => stageProviderService.CurrentStageResult.Value == StageResults.Completed))
+                .Add(new FuncCondition(() => stageProviderService.HasNextStage() == false));
+
+            return null;
+        }
+
         public GameplayStateMachine CreateCoreLoopState()
         {
             PreparationTriggerService preparationTriggerService = _container.Resolve<PreparationTriggerService>();
