@@ -53,7 +53,7 @@ namespace Assets._Project.Develop.Runtime.Meta.Features.Statistics
 
         public void SaveGameplayProgress()
         {
-            _coroutinesPerformer.StartPerform(_playerDataProvider.Save());
+            _coroutinesPerformer.StartPerform(_playerDataProvider.SaveAsync());
             Debug.Log("PlayerData saved");
         }
 

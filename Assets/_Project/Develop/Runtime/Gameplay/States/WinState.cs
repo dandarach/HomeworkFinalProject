@@ -39,7 +39,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.States
             Debug.LogWarning("*** WIN ***");
 
             _levelsProgressionService.AddLevelToCompleted(_gameplayInputArgs.LevelNumber);
-            _playerDataProvider.Save();
+            _coroutinesPerformer.StartPerform(_playerDataProvider.SaveAsync());
         }
 
         public void Update(float deltaTime)
