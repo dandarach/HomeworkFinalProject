@@ -45,10 +45,15 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
             
             container.RegisterAsSingle(CreatePreparationTriggerService);
 
+            container.RegisterAsSingle(CreateMainHeroHolderService).NonLazy();
+
             container.RegisterAsSingle<IInputService>(CreateDesktopInput);
 
             container.RegisterAsSingle(CreateMonoEntitiesFactory).NonLazy();
         }
+
+        private static MainHeroHolderService CreateMainHeroHolderService(DIContainer c)
+            => new MainHeroHolderService(c.Resolve<EntitiesLifeContext>());
 
         private static PreparationTriggerService CreatePreparationTriggerService(DIContainer c)
             => new PreparationTriggerService(
