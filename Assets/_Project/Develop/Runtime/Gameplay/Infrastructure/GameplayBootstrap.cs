@@ -3,10 +3,13 @@ using System.Collections;
 using Assets._Project.Develop.Runtime.Configs.Gameplay.Levels;
 using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore;
 using Assets._Project.Develop.Runtime.Gameplay.Features.AI;
+using Assets._Project.Develop.Runtime.Gameplay.Features.MainHero;
 using Assets._Project.Develop.Runtime.Gameplay.Process;
+using Assets._Project.Develop.Runtime.Gameplay.States;
 using Assets._Project.Develop.Runtime.Infrastructure;
 using Assets._Project.Develop.Runtime.Infrastructure.DI;
 using Assets._Project.Develop.Runtime.Utilities.ConfigsManagement;
+using Assets._Project.Develop.Runtime.Utilities.CoroutinesManagement;
 using Assets._Project.Develop.Runtime.Utilities.SceneManagement;
 using UnityEngine;
 
@@ -14,12 +17,13 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
 {
     public class GameplayBootstrap : SceneBootstrap
     {
-        [SerializeField] private TestGameplay _testGameplay;
-
         private DIContainer _container;
         private GameplayInputArgs _inputArgs;
-        private LevelConfig _levelConfig;
+        
+        //private LevelConfig _levelConfig;
         private GameplayEconomyService _economyService;
+
+        private GameplayStatesContext _gameplayStatesContext;
         private EntitiesLifeContext _entitiesLifeContext;
         private AIBrainsContext _brainsContext;
 
@@ -45,7 +49,9 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
             _entitiesLifeContext = _container.Resolve<EntitiesLifeContext>();
             _brainsContext = _container.Resolve<AIBrainsContext>();
 
-            _testGameplay.Initialize(_container);
+            _gameplayStatesContext = _container.Resolve<GameplayStatesContext>();
+
+            _container.Resolve<MainHeroFactory>().Create(Vector3.zero);
 
             yield break;
         }
@@ -54,15 +60,23 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
         {
             Debug.Log("Gameplay scene start");
 
-            _economyService.Initialize(_levelConfig.WinAward);
+            //_economyService.Initialize(_levelConfig.WinAward);
 
-            _testGameplay.Run();
+            _gameplayStatesContext.Run();
         }
 
         private void Update()
         {
             _brainsContext?.Update(Time.deltaTime);
             _entitiesLifeContext?.Update(Time.deltaTime);
+            _gameplayStatesContext?.Update(Time.deltaTime);
+
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                SceneSwitcherService sceneSwitcherService = _container.Resolve<SceneSwitcherService>();
+                ICoroutinesPerformer coroutinesPerformer = _container.Resolve<CoroutinesPerformer>();
+                coroutinesPerformer.StartPerform(sceneSwitcherService.ProcessSwitchTo(Scenes.MainMenu));
+            }
         }
     }
 }
