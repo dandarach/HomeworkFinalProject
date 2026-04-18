@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Systems;
+using UnityEngine;
 
 namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
 {
     public partial class Entity : IDisposable
     {
+        public event Action<Entity> Initialized;
+        
         private readonly Dictionary<Type, IEntityComponent> _components = new();
 
         private readonly List<IEntitySystem> _systems = new();
@@ -24,6 +27,8 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
                 initializable.OnInit(this);
 
             _isInit = true;
+
+            Initialized?.Invoke(this);
         }
 
         public void OnUpdate(float deltaTime)
