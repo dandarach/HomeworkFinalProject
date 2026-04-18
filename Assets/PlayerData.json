@@ -3,7 +3,9 @@
     "Gold": 20,
     "Diamonds": 50
   },
-  "CompletedLevels": [],
+  "CompletedLevels": [
+    1
+  ],
   "WinCount": 0,
   "LoseCount": 23
 }
