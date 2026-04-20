@@ -63,10 +63,18 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.AI
             return brain;
         }
 
-        public StateMachineBrain CreateGhostBrain(Entity entity)
+        public StateMachineBrain CreateGhostBrain(Entity entity, ITargetSelector targetSelector)
         {
             AIStateMachine stateMachine = CreateMoveToTargetStateMachine(entity);
+
+            FindTargetState findTargetState = new FindTargetState(targetSelector, _entitiesLifeContext, entity);
+
+
+
             StateMachineBrain brain = new StateMachineBrain(stateMachine);
+
+
+
 
             _brainsContext.SetFor(entity, brain);
 
