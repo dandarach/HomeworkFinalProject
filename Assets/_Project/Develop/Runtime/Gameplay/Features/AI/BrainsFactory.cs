@@ -65,12 +65,33 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.AI
 
         public StateMachineBrain CreateGhostBrain(Entity entity)
         {
-            AIStateMachine stateMachine = CreateRandomMovementStateMachine(entity);
+            AIStateMachine stateMachine = CreateMoveToTargetStateMachine(entity);
             StateMachineBrain brain = new StateMachineBrain(stateMachine);
 
             _brainsContext.SetFor(entity, brain);
 
             return brain;
+        }
+
+        private AIStateMachine CreateMoveToTargetStateMachine(Entity entity)
+        {
+            List<IDisposable> disposables = new();
+
+            MoveToTargetState moveToTargetState = new MoveToTargetState(entity);
+            EmptyState emptyState = new EmptyState();
+            
+            FuncCondition movementTimerEndedCondition = new FuncCondition(() => true);
+            FuncCondition idleTimerEndedCondition = new FuncCondition(() => false);
+
+            AIStateMachine stateMachine = new AIStateMachine(disposables);
+            
+            stateMachine.AddState(moveToTargetState);
+            stateMachine.AddState(emptyState);
+
+            stateMachine.AddTransition(moveToTargetState, emptyState, movementTimerEndedCondition);
+            stateMachine.AddTransition(emptyState, moveToTargetState, idleTimerEndedCondition);
+
+            return stateMachine;
         }
 
         private AIStateMachine CreateRandomMovementStateMachine(Entity entity)
