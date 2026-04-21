@@ -96,7 +96,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.States
             StageProcessState stageProcessState = CreateStageProcessState();
 
             ICompositeCondition preparationToStageProcessCondition = new CompositeCondition()
-                .Add(new FuncCondition(() => preparationTriggerService.HasMainHeroContact.Value))
+                //.Add(new FuncCondition(() => preparationTriggerService.HasMainHeroContact.Value))
                 .Add(new FuncCondition(() => stageProviderService.HasNextStage()));
 
             FuncCondition stageProcessToPreparationCondition =
@@ -108,7 +108,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.States
             coreLoopState.AddState(stageProcessState);
 
             coreLoopState.AddTransition(preparationState, stageProcessState, preparationToStageProcessCondition);
-            coreLoopState.AddTransition(stageProcessState, preparationState, stageProcessToPreparationCondition);
+            //coreLoopState.AddTransition(stageProcessState, preparationState, stageProcessToPreparationCondition);
 
             return coreLoopState;
         }

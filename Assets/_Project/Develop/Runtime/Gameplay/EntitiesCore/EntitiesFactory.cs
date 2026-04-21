@@ -34,7 +34,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
         {
             Entity entity = CreateEmpty(id);
 
-            _monoEntitiesFactory.Create(entity, position, "Entities/Hero");
+            _monoEntitiesFactory.Create(entity, position, config.PrefabPath);
 
             entity
                 .AddMaxHealth(new ReactiveVariable<float>(config.MaxHealth))
@@ -100,7 +100,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
         {
             Entity entity = CreateEmpty(id);
 
-            _monoEntitiesFactory.Create(entity, position, "Entities/Hero");
+            _monoEntitiesFactory.Create(entity, position, config.PrefabPath);
 
             entity
                 .AddMoveDirection()
@@ -188,7 +188,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
         {
             Entity entity = CreateEmpty(id);
 
-            _monoEntitiesFactory.Create(entity, position, "Entities/Ghost");
+            _monoEntitiesFactory.Create(entity, position, config.PrefabPath);
 
             entity
                 .AddMoveDirection()
