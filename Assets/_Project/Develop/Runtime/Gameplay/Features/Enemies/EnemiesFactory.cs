@@ -2,6 +2,7 @@
 using Assets._Project.Develop.Runtime.Configs.Gameplay.Entities;
 using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore;
 using Assets._Project.Develop.Runtime.Gameplay.Features.AI;
+using Assets._Project.Develop.Runtime.Gameplay.Features.AI.States;
 using Assets._Project.Develop.Runtime.Gameplay.Features.TeamsFeature;
 using Assets._Project.Develop.Runtime.Infrastructure.DI;
 using Assets._Project.Develop.Runtime.Utilities.Reactive;
@@ -25,24 +26,24 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.Enemies
             _entitiesLifeContext = container.Resolve<EntitiesLifeContext>();
         }
 
-        public Entity Create(Vector3 position, EntityConfig config)
+        public Entity Create(Vector3 position, EntityConfig config, string id = "")
         {
             Entity entity;
 
             switch (config)
             {
                 case GhostConfig ghostConfig:
-                    entity = _entitiesFactory.CreateGhost(position, ghostConfig);
-                    _brainsFactory.CreateGhostBrain(entity);
+                    entity = _entitiesFactory.CreateGhost(position, ghostConfig, id);
+                    entity.AddCurrentTarget();
+
+                    _brainsFactory.CreateGhostBrain(entity, new NearestDamageableTargetSelector(entity));
                     break;
 
                 default:
                     throw new ArgumentException($"Not support {config.GetType()} type config");
             }
 
-            entity
-                .AddTeam(new ReactiveVariable<Teams>(Teams.Enemies))
-                .AddCurrentTarget();
+            entity.AddTeam(new ReactiveVariable<Teams>(Teams.Enemies));
 
             _entitiesLifeContext.Add(entity);
 

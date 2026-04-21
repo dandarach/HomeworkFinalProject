@@ -14,8 +14,15 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
         private readonly List<IUpdatableSystem> _updatables = new();
         private readonly List<IDisposableSystem> _disposables = new();
 
+        private string _id;
         private bool _isInit;
 
+        public Entity(string id = "")
+        {
+            _id = id;
+        }
+
+        public string ID => _id;
         public bool IsInit => _isInit;
 
         public void Initialize()
@@ -69,7 +76,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
         public TComponent GetComponent<TComponent>() where TComponent : class, IEntityComponent
         {
             if (TryGetComponent(out TComponent component) == false)
-                throw new ArgumentException($"Entity doesn't exist {typeof(TComponent)}");
+                throw new ArgumentException($"{_id} Entity doesn't exist {typeof(TComponent)}");
 
             return component;
         }

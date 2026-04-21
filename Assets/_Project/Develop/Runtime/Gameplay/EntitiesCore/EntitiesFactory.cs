@@ -30,9 +30,9 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
             _monoEntitiesFactory = _container.Resolve<MonoEntitiesFactory>();
         }
 
-        public Entity CreateHero(Vector3 position, HeroConfig config)
+        public Entity CreateHero(Vector3 position, HeroConfig config, string id = "")
         {
-            Entity entity = CreateEmpty();
+            Entity entity = CreateEmpty(id);
 
             _monoEntitiesFactory.Create(entity, position, "Entities/Hero");
 
@@ -118,9 +118,9 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
             return entity;
         }
 
-        public Entity CreateGhost(Vector3 position, GhostConfig config)
+        public Entity CreateGhost(Vector3 position, GhostConfig config, string id = "")
         {
-            Entity entity = CreateEmpty();
+            Entity entity = CreateEmpty(id);
 
             _monoEntitiesFactory.Create(entity, position, "Entities/Ghost");
 
@@ -181,9 +181,9 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
             return entity;
         }
 
-        public Entity CreateProjectile(Vector3 position, Vector3 direction, float damage, Entity owner)
+        public Entity CreateProjectile(Vector3 position, Vector3 direction, float damage, Entity owner, string id = "")
         {
-            Entity entity = CreateEmpty();
+            Entity entity = CreateEmpty(id);
 
             _monoEntitiesFactory.Create(entity, position, "Entities/Projectile");
 
@@ -241,9 +241,9 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
             return entity;
         }
 
-        public Entity CreateContactTrigger(Vector3 position)
+        public Entity CreateContactTrigger(Vector3 position, string id = "")
         {
-            Entity entity = CreateEmpty();
+            Entity entity = CreateEmpty(id);
 
             _monoEntitiesFactory.Create(entity, position, "Entities/ContactTrigger");
 
@@ -261,6 +261,6 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
             return entity;
         }
 
-        private Entity CreateEmpty() => new Entity();
+        private Entity CreateEmpty(string id = "") => new Entity(id);
     }
 }

@@ -28,11 +28,11 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.MainHero
             _entitiesLifeContext = container.Resolve<EntitiesLifeContext>();
         }
 
-        public Entity Create(Vector3 position)
+        public Entity Create(Vector3 position, string id = "")
         {
             HeroConfig config = _configsProviderService.GetConfig<HeroConfig>();
 
-            Entity entity = _entitiesFactory.CreateHero(position, config);
+            Entity entity = _entitiesFactory.CreateHero(position, config, id);
 
             entity
                 .AddIsMainHero()
