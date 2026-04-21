@@ -9,12 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d85d2992d97bbfc4b9ee8c8feab2bc13, type: 3}
-  m_Name: HeroConfig
+  m_Script: {fileID: 11500000, guid: 67c39b4e235652845b2647d26cbcc6d2, type: 3}
+  m_Name: TowerConfig
   m_EditorClassIdentifier: 
-  <PrefabPath>k__BackingField: Entities/Hero
-  <MoveSpeed>k__BackingField: 9
-  <RotationSpeed>k__BackingField: 900
+  <PrefabPath>k__BackingField: Entities/Tower
   <AttackProcessTime>k__BackingField: 1.5
   <AttackDelayTime>k__BackingField: 0.75
   <AttackCooldown>k__BackingField: 1

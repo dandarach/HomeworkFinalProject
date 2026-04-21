@@ -30,16 +30,15 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.MainHero
 
         public Entity Create(Vector3 position, string id = "")
         {
-            HeroConfig config = _configsProviderService.GetConfig<HeroConfig>();
+            TowerConfig config = _configsProviderService.GetConfig<TowerConfig>();
 
-            Entity entity = _entitiesFactory.CreateHero(position, config, id);
+            Entity entity = _entitiesFactory.CreateTower(position, config, id);
 
             entity
                 .AddIsMainHero()
-                .AddTeam(new ReactiveVariable<Teams>(Teams.MainHero))
-                .AddCurrentTarget();
+                .AddTeam(new ReactiveVariable<Teams>(Teams.MainHero));
 
-            _brainsFactory.CreateMainHeroBrain(entity, new NearestDamageableTargetSelector(entity));
+            _brainsFactory.CreateTowerBrain(entity);
 
             _entitiesLifeContext.Add(entity);
 

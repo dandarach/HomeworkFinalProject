@@ -51,7 +51,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
 
             _gameplayStatesContext = _container.Resolve<GameplayStatesContext>();
 
-            _container.Resolve<MainHeroFactory>().Create(Vector3.zero, "Hero");
+            _container.Resolve<MainHeroFactory>().Create(Vector3.zero - Vector3.left * 2, "Tower");
 
             yield break;
         }

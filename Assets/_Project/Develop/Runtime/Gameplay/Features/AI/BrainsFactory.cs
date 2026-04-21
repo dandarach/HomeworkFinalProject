@@ -8,6 +8,7 @@ using Assets._Project.Develop.Runtime.Utilities.Conditions;
 using Assets._Project.Develop.Runtime.Utilities.Reactive;
 using Assets._Project.Develop.Runtime.Utilities.Timer;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace Assets._Project.Develop.Runtime.Gameplay.Features.AI
 {
@@ -26,6 +27,45 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.AI
             _brainsContext = _container.Resolve<AIBrainsContext>();
             _inputService = _container.Resolve<IInputService>();
             _entitiesLifeContext = _container.Resolve<EntitiesLifeContext>();
+        }
+
+        public StateMachineBrain CreateTowerBrain(Entity entity)
+        {
+            //AIStateMachine combatState = CreateAutoAttackStateMachine(entity);
+            EmptyState emptyState = new EmptyState();
+            AIStateMachine stateMachine = new AIStateMachine();
+            stateMachine.AddState(emptyState);
+            //PlayerInputMovementState movementState = new PlayerInputMovementState(entity, _inputService);
+
+            //ReactiveVariable<Entity> currentTarget = entity.CurrentTarget;
+
+            //ICompositeCondition fromMovementToCombatStateCondition = new CompositeCondition()
+            //    .Add(new FuncCondition(() => currentTarget.Value != null))
+            //    .Add(new FuncCondition(() => _inputService.Direction == Vector3.zero));
+
+            //ICompositeCondition fromCombatToMovementStateCondition = new CompositeCondition(LogicOperations.Or)
+            //    .Add(new FuncCondition(() => currentTarget.Value == null))
+            //    .Add(new FuncCondition(() => _inputService.Direction != Vector3.zero));
+
+            //AIStateMachine behaviour = new AIStateMachine();
+
+            //behaviour.AddState(movementState);
+            //behaviour.AddState(combatState);
+
+            ////behaviour.AddTransition(movementState, combatState, fromMovementToCombatStateCondition);
+            //behaviour.AddTransition(combatState, movementState, fromCombatToMovementStateCondition);
+
+            //FindTargetState findTargetState = new FindTargetState(targetSelector, _entitiesLifeContext, entity);
+            //AIParallelState parallelState = new AIParallelState(findTargetState, behaviour);
+
+            //AIStateMachine rootStateMachine = new AIStateMachine();
+            //rootStateMachine.AddState(parallelState);
+
+            //StateMachineBrain brain = new StateMachineBrain(rootStateMachine);
+            StateMachineBrain brain = new StateMachineBrain(stateMachine);
+            _brainsContext.SetFor(entity, brain);
+
+            return brain;
         }
 
         public StateMachineBrain CreateMainHeroBrain(Entity entity, ITargetSelector targetSelector)
@@ -48,7 +88,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.AI
             behaviour.AddState(movementState);
             behaviour.AddState(combatState);
 
-            behaviour.AddTransition(movementState, combatState, fromMovementToCombatStateCondition);
+            //behaviour.AddTransition(movementState, combatState, fromMovementToCombatStateCondition);
             behaviour.AddTransition(combatState, movementState, fromCombatToMovementStateCondition);
 
             FindTargetState findTargetState = new FindTargetState(targetSelector, _entitiesLifeContext, entity);
@@ -65,17 +105,15 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.AI
 
         public StateMachineBrain CreateGhostBrain(Entity entity, ITargetSelector targetSelector)
         {
-            AIStateMachine stateMachine = CreateMoveToTargetStateMachine(entity);
+            AIStateMachine moveToTargetStateMachine = CreateMoveToTargetStateMachine(entity);
 
             FindTargetState findTargetState = new FindTargetState(targetSelector, _entitiesLifeContext, entity);
+            AIParallelState parallelState = new AIParallelState(findTargetState, moveToTargetStateMachine);
 
+            AIStateMachine rootStateMachine = new AIStateMachine();
+            rootStateMachine.AddState(parallelState);
 
-
-            StateMachineBrain brain = new StateMachineBrain(stateMachine);
-
-
-
-
+            StateMachineBrain brain = new StateMachineBrain(rootStateMachine);
             _brainsContext.SetFor(entity, brain);
 
             return brain;
@@ -83,20 +121,18 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.AI
 
         private AIStateMachine CreateMoveToTargetStateMachine(Entity entity)
         {
-            List<IDisposable> disposables = new();
-
             MoveToTargetState moveToTargetState = new MoveToTargetState(entity);
             EmptyState emptyState = new EmptyState();
             
             FuncCondition movementTimerEndedCondition = new FuncCondition(() => true);
             FuncCondition idleTimerEndedCondition = new FuncCondition(() => false);
 
-            AIStateMachine stateMachine = new AIStateMachine(disposables);
+            AIStateMachine stateMachine = new AIStateMachine();
             
             stateMachine.AddState(moveToTargetState);
             stateMachine.AddState(emptyState);
 
-            stateMachine.AddTransition(moveToTargetState, emptyState, movementTimerEndedCondition);
+            //stateMachine.AddTransition(moveToTargetState, emptyState, movementTimerEndedCondition);
             stateMachine.AddTransition(emptyState, moveToTargetState, idleTimerEndedCondition);
 
             return stateMachine;
